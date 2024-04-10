@@ -3,12 +3,14 @@ import { Button, Text } from "@chakra-ui/react";
 import useShowToast from "../hooks/useShowToast";
 import useLogout from "../hooks/useLogout";
 import BusinessProfileForm from "./BusinessProfileForm";
+import { useNavigate } from 'react-router-dom';
 
 const SettingsPage = ({ isBusiness }) => {
   const showToast = useShowToast();
   const logout = useLogout();
   const [showForm, setShowForm] = useState(false);
   const [isBusinessAccount, setIsBusinessAccount] = useState(isBusiness);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch isBusiness status when component mounts
