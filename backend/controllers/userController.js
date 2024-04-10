@@ -264,6 +264,22 @@ const submitBusinessProfile = async (req, res) => {
 	}
   };
 
+  const checkIsBusiness = async (req, res) => {
+	try {
+	  const userId = req.user._id;
+	  const user = await User.findById(userId);
+  
+	  if (!user) {
+		return res.status(400).json({ error: "User not found" });
+	  }
+  
+	  res.status(200).json({ isBusiness: user.isBusiness });
+	} catch (error) {
+	  res.status(500).json({ error: error.message });
+	  console.log("Error in checkIsBusiness: ", error.message);
+	}
+  };
+
 
 export {
 	signupUser,
@@ -274,5 +290,6 @@ export {
 	getUserProfile,
 	getSuggestedUsers,
 	freezeAccount,
-	submitBusinessProfile
+	submitBusinessProfile,
+	checkIsBusiness
 };

@@ -24,10 +24,33 @@ import AdminReviewPage from './pages/AdminReviewPage';
 function App() {
   const user = useRecoilValue(userAtom);
   const { pathname } = useLocation();
-
-  
-
+  const [isBusinessAccount, setIsBusinessAccount] = useState(isBusiness);
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
+
+  useEffect(() => {
+    // Fetch isBusiness status when component mounts
+    checkIsBusiness();
+  }, []);
+
+  const checkIsBusiness = async () => {
+    try {
+      const res = await fetch("/api/users/check-business", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+
+      if (data.error) {
+        return showToast("Error", data.error, "error");
+      }
+
+      // Update isBusinessAccount state based on the response
+      setIsBusinessAccount(data.isBusiness);
+    } catch (error) {
+      showToast("Error", error.message, "error");
+    }
+  };
+
 
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle)
@@ -72,8 +95,6 @@ function App() {
         </Routes>
       </Container>
       
-              
-            
     </Box>
   );
 }
