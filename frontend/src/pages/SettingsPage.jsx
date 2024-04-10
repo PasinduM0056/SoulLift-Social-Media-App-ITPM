@@ -78,7 +78,6 @@ const SettingsPage = ({ isBusiness }) => {
           <Button size={"sm"} colorScheme="red" onClick={freezeAccount}>
             Freeze
           </Button>
-          <Text my={1}>You can unfreeze your account anytime by logging in.</Text>
           {isBusinessAccount ? (
             <Button size={"sm"} colorScheme="green" onClick={handleOpenDashboard}>
               Open Dashboard
