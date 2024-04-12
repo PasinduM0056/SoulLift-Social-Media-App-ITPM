@@ -13,10 +13,12 @@ import {
 
 const AdminReviewPage = () => {
   const [users, setUsers] = useState([]);
+  const [orgUser, setOrgUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchUsersWithBusinessProfiles();
+    fetchUserWithOrganizationProfile();
   }, []);
 
   const fetchUsersWithBusinessProfiles = async () => {
@@ -30,6 +32,20 @@ const AdminReviewPage = () => {
       setLoading(false);
     } catch (error) {
       console.error('Error fetching users with business profiles:', error);
+    }
+  };
+  //organization
+  const fetchUserWithOrganizationProfile = async () => {
+    try {
+      const response = await fetch('/api/admin/users/organization-profiles');
+      if (!response.ok) {
+        throw new Error('Failed to fetch users with organization profiles');
+      }
+      const data = await response.json();
+      setOrgUsers(data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching users with organization profiles:', error);
     }
   };
 
@@ -50,6 +66,26 @@ const AdminReviewPage = () => {
       console.error('Error approving business profile:', error);
     }
   };
+
+  //organization
+  const approveOrganizationProfiles = async (userId) => {
+    try {
+      const response = await fetch(`/api/admin/users/approve-organization-profile/${userId}`, {
+        method: 'PUT',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to approve business profile');
+      }
+      // Update the local state or show a success message
+      const updatedUsersss = orgUser.map(userss =>
+        userss._id === userId ? { ...userss, isOrganization: true } : userss
+      );
+      setOrgUsers(updatedUsersss);
+    } catch (error) {
+      console.error('Error approving business profile:', error);
+    }
+  };
+
 
   if (loading) {
     return <div>Loading...</div>;
@@ -84,6 +120,38 @@ const AdminReviewPage = () => {
               mt="2"
             >
               Approve Business Profile
+            </Button>
+          )}
+          <Divider mt="4" />
+        </Box>
+      ))}
+    </Box>
+
+
+    <Box>
+      {orgUser.map(userss => (
+        <Box key={userss._id} mb="4">
+          <Text>
+            <strong>Organization Name:</strong> {userss.OrganizationName}
+          </Text>
+          <Text>
+            <strong>Organization Address:</strong> {userss.OrganizationAddress}
+          </Text>
+          <Text>
+            <strong>Organization About:</strong> {userss.OrganizationAbout}
+          </Text>
+          <Text>
+            <strong>ID Number:</strong> {userss.IDnumber}
+          </Text>
+          {userss.isOrganization ? (
+            <Text>Status: Approved</Text>
+          ) : (
+            <Button
+              onClick={() => approveOrganizationProfiles(userss._id)}
+              colorScheme="blue"
+              mt="2"
+            >
+              Approve organization Profile
             </Button>
           )}
           <Divider mt="4" />

@@ -3,18 +3,22 @@ import { Button, Text } from "@chakra-ui/react";
 import useShowToast from "../hooks/useShowToast";
 import useLogout from "../hooks/useLogout";
 import BusinessProfileForm from "./BusinessProfileForm";
+import OrganizationProfileForm from "./OrganizationProfileForm";
 import { useNavigate } from 'react-router-dom';
 
-const SettingsPage = ({ isBusiness }) => {
+const SettingsPage = ({ isBusiness, isOrganization }) => {
   const showToast = useShowToast();
   const logout = useLogout();
   const [showForm, setShowForm] = useState(false);
+  const [showFormOrg, setShowFormOrg] = useState(false);
   const [isBusinessAccount, setIsBusinessAccount] = useState(isBusiness);
+  const [isOrganizationAccount, setIsOrganizationAccount] = useState(isOrganization); // Initialize state with the prop value
   const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch isBusiness status when component mounts
     checkIsBusiness();
+    checkIsOrganization(); // Make sure to call checkIsOrganization as well
   }, []);
 
   const checkIsBusiness = async () => {
@@ -36,8 +40,31 @@ const SettingsPage = ({ isBusiness }) => {
     }
   };
 
+  const checkIsOrganization = async () => {
+    try {
+      const res = await fetch("/api/users/check-organization", { // Assuming there's an endpoint to check organization status
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+
+      if (data.error) {
+        return showToast("Error", data.error, "error");
+      }
+
+      // Update isOrganizationAccount state based on the response
+      setIsOrganizationAccount(data.isOrganization);
+    } catch (error) {
+      showToast("Error", error.message, "error");
+    }
+  };
+
   const toggleForm = () => {
     setShowForm(!showForm);
+  };
+
+  const toggleForms = () => {
+    setShowFormOrg(!showFormOrg); // Corrected the function name
   };
 
   const freezeAccount = async () => {
@@ -69,7 +96,7 @@ const SettingsPage = ({ isBusiness }) => {
 
   return (
     <>
-      {!showForm ? (
+      {!showForm && !showFormOrg ? (
         <>
           <Text my={1} fontWeight={"bold"}>
             Freeze Your Account
@@ -87,9 +114,22 @@ const SettingsPage = ({ isBusiness }) => {
               Switch to Business Profile
             </Button>
           )}
+          {isOrganizationAccount ? (
+            <Button size={"sm"} colorScheme="green" onClick={handleOpenDashboard}>
+              Open Dashboard
+            </Button>
+          ) : (
+            <Button size={"sm"} colorScheme="red" onClick={toggleForms}>
+              Switch to Organization Profile
+            </Button>
+          )}
         </>
       ) : (
-        <BusinessProfileForm toggleForm={toggleForm} />
+        // Render the appropriate form based on the state
+        <>
+          {showForm && <BusinessProfileForm toggleForm={toggleForm} />}
+          {showFormOrg && <OrganizationProfileForm toggleForm={toggleForms} />}
+        </>
       )}
     </>
   );
