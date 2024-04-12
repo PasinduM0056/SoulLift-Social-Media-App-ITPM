@@ -4,6 +4,7 @@ import connectDB from "./db/connectDB.js";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
+import productRoutes from "./routes/productRoutes.js"
 import messageRoutes from "./routes/messageRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js"
 import { v2 as cloudinary } from "cloudinary";
@@ -35,6 +36,6 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/admin", adminRoutes);
-
+app.use("/api/products", productRoutes);
 
 server.listen(PORT, () => console.log(`Server started at http://localhost:${PORT}`));
