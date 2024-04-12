@@ -78,6 +78,15 @@ const SettingsPage = ({ isBusiness }) => {
           <Button size={"sm"} colorScheme="red" onClick={freezeAccount}>
             Freeze
           </Button>
+          <Text my={1} fontWeight={"bold"}>
+            Business Account
+          </Text>
+          {isBusinessAccount ? (
+            <Text my={1}>Open your Business Dashboard</Text>
+          ) : (
+            <Text my={1}>Update your account to Business</Text>
+          )}
+          
           {isBusinessAccount ? (
             <Button size={"sm"} colorScheme="green" onClick={handleOpenDashboard}>
               Open Dashboard

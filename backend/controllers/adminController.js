@@ -4,7 +4,7 @@ import User from "../models/userModel.js";
 
 const getUsersWithBusinessProfiles = async (req, res) => {
   try {
-    const users = await User.find({ isBusiness: false }).select("businessName businessAddress businessAbout idNumber");
+    const users = await User.find({ isBusiness: false }).select("name address idNumber companyName companyAbout identityVerify");
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });

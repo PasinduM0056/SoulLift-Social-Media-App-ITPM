@@ -9,6 +9,8 @@ import adminRoutes from "./routes/adminRoutes.js"
 import { v2 as cloudinary } from "cloudinary";
 import { app, server } from "./socket/socket.js";
 
+
+
 dotenv.config();
 
 connectDB();
@@ -20,6 +22,8 @@ cloudinary.config({
 	api_key: process.env.CLOUDINARY_API_KEY,
 	api_secret: process.env.CLOUDINARY_API_SECRET,
 });
+
+
 
 // Middlewares
 app.use(express.json({ limit: "50mb" })); // To parse JSON data in the req.body
