@@ -280,6 +280,51 @@ const submitBusinessProfile = async (req, res) => {
 	}
   };
 
+  const checkIsOrganization = async (req, res) => {
+	try {
+	  const useId = req.user._id;
+	  const users = await User.findById(useId);
+  
+	  if (!users) {
+		return res.status(400).json({ error: "User not found" });
+	  }
+  
+	  res.status(200).json({ isOrganization: users.isOrganization });
+	} catch (error) {
+	  res.status(500).json({ error: error.message });
+	  console.log("Error in checkIsOrganization: ", error.message);
+	}
+  };
+
+
+
+
+  const submitOrganizationProfile = async (req, res) => {
+	const { OrganizationName, OrganizationAddress, OrganizationAbout, IDnumber } = req.body;
+	const userId = req.user._id;
+	try {
+	  let user = await User.findById(userId);
+	  if (!user) return res.status(400).json({ error: "User not found" });
+  
+	  // Update user with business profile data
+	  user.OrganizationName = OrganizationName;
+	  user.OrganizationAddress = OrganizationAddress;
+	  user.OrganizationAbout = OrganizationAbout;
+	  user.IDnumber = IDnumber;
+  
+	  // Save the updated user
+	  user = await user.save();
+  
+	  // Respond with the updated user
+	  res.status(200).json(user);
+	} catch (err) {
+	  res.status(500).json({ error: err.message });
+	  console.log("Error in submit organization profile: ", err.message);
+	}
+  };
+
+
+
 
 export {
 	signupUser,
@@ -291,5 +336,8 @@ export {
 	getSuggestedUsers,
 	freezeAccount,
 	submitBusinessProfile,
-	checkIsBusiness
+	checkIsBusiness,
+	submitOrganizationProfile,
+	checkIsOrganization
+
 };

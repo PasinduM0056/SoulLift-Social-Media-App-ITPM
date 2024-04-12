@@ -9,7 +9,9 @@ import {
 	getSuggestedUsers,
 	freezeAccount,
 	submitBusinessProfile,
-	checkIsBusiness
+	checkIsBusiness,
+	submitOrganizationProfile,
+	checkIsOrganization,
 } from "../controllers/userController.js";
 import protectRoute from "../middlewares/protectRoute.js";
 
@@ -25,5 +27,6 @@ router.put("/update/:id", protectRoute, updateUser);
 router.put("/freeze", protectRoute, freezeAccount);
 router.put("/business-profile", protectRoute, submitBusinessProfile);
 router.get("/check-business", protectRoute, checkIsBusiness); 
-
+router.put("/organization-profile", protectRoute, submitOrganizationProfile);
+router.get("/check-organization", protectRoute, checkIsOrganization); 
 export default router;
