@@ -17,6 +17,7 @@ import {
   ModalBody,
   ModalCloseButton,
   Image,
+  Text,
 } from '@chakra-ui/react';
 
 const AdminReviewPage = () => {
