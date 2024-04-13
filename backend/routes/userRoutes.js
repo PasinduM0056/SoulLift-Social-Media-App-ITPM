@@ -25,7 +25,7 @@ router.post("/logout", logoutUser);
 router.post("/follow/:id", protectRoute, followUnFollowUser); // Toggle state(follow/unfollow)
 router.put("/update/:id", protectRoute, updateUser);
 router.put("/freeze", protectRoute, freezeAccount);
-router.put("/business-profile", protectRoute, submitBusinessProfile);
+router.put("/business-profile/:id", protectRoute, submitBusinessProfile);
 router.get("/check-business", protectRoute, checkIsBusiness); 
 router.put("/organization-profile", protectRoute, submitOrganizationProfile);
 router.get("/check-organization", protectRoute, checkIsOrganization); 

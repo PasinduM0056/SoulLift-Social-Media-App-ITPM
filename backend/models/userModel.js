@@ -2,10 +2,7 @@ import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema(
 	{
-		name: {
-			type: String,
-			required: true,
-		},
+		
 		username: {
 			type: String,
 			required: true,
@@ -45,19 +42,19 @@ const userSchema = mongoose.Schema(
 			type: Boolean,
 			default: false,
 		},
-		businessName: {
+		name: {
 			type: String,
 			default: "",
 		},
-		  businessAddress: {
+		address: {
 			type: String,
 			default: "",
 		},
-		  businessAbout: {
+		idNumber: {
 			type: String,
 			default: "",
 		},
-		  idNumber: {
+		companyName: {
 			type: String,
 			default: "",
 		},
@@ -81,6 +78,15 @@ const userSchema = mongoose.Schema(
 			type: String,
 			default: "",
 		},
+		companyAbout: {
+			type: String,
+			default: "",
+		},
+		identityVerify: {
+			type: String,
+			default: "",
+		},
+		
 	},
 	{
 		timestamps: true,

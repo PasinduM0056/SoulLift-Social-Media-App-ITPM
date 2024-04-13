@@ -25,7 +25,6 @@ export default function SignupCard() {
 	const [showPassword, setShowPassword] = useState(false);
 	const setAuthScreen = useSetRecoilState(authScreenAtom);
 	const [inputs, setInputs] = useState({
-		name: "",
 		username: "",
 		email: "",
 		password: "",
@@ -65,30 +64,27 @@ export default function SignupCard() {
 						Sign up
 					</Heading>
 				</Stack>
-				<Box rounded={"lg"} bg={useColorModeValue("white", "gray.dark")} boxShadow={"lg"} p={8}>
+				<Box
+					rounded={"lg"}
+					bg={useColorModeValue("white", "gray.dark")}
+					boxShadow={"lg"}
+					p={8}
+					w={{
+						base: "full",
+						sm: "400px",
+					}}
+				>
 					<Stack spacing={4}>
-						<HStack>
-							<Box>
-								<FormControl isRequired>
-									<FormLabel>Full name</FormLabel>
-									<Input
-										type='text'
-										onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
-										value={inputs.name}
-									/>
-								</FormControl>
-							</Box>
-							<Box>
-								<FormControl isRequired>
-									<FormLabel>Username</FormLabel>
-									<Input
-										type='text'
-										onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
-										value={inputs.username}
-									/>
-								</FormControl>
-							</Box>
-						</HStack>
+						<FormControl isRequired>
+							<FormLabel>Username</FormLabel>
+								<Input
+									type='text'
+									onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
+									value={inputs.username}
+								/>
+						</FormControl>
+							
+						
 						<FormControl isRequired>
 							<FormLabel>Email address</FormLabel>
 							<Input

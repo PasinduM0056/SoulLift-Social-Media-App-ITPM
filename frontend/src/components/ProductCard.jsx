@@ -1,51 +1,86 @@
-import React from 'react';
+import React from "react";
 import {
-  Card,
-  CardBody,
+  Box,
   Image,
-  Stack,
-  Heading,
+  Badge,
+  Flex,
   Text,
-  Divider,
-  CardFooter,
-  ButtonGroup,
-  Button,
-} from '@chakra-ui/react';
+  IconButton,
+  useColorMode,
+} from "@chakra-ui/react";
+import { FaStar, FaRegStar } from "react-icons/fa";
 
-const ProductCard = () => {
-  
+const ProductCard = ({ product, ProductBy }) => {
+  const { colorMode } = useColorMode();
 
   return (
-    <Card maxW='sm'>
-  <CardBody>
-    <Image
-      src='https://www.wondermind.com/wp-content/uploads/2023/07/6.png'
-      alt='Green double couch with wooden legs'
-      borderRadius='lg'
-    />
-    <Stack mt='6' spacing='3'>
-      <Heading size='md'>Kytefox Publishing Stress Relief Coloring Book</Heading>
-      <Text>
-      “Lately I’ve started coloring whenever I’m feeling really down and can find the motivation. I take any expectations of drawing something ‘good’ out of it and just color like I’m 6 years old again, which is very freeing. Sometimes I just scribble on a notepad but when I want to get really focused and out of my head I pull out an adult coloring book like this
-      </Text>
-      <Text color='blue.600' fontSize='2xl'>
-        $450
-      </Text>
-    </Stack>
-  </CardBody>
-  <Divider />
-  <CardFooter>
-    <ButtonGroup spacing='2'>
-      <Button variant='solid' colorScheme='blue'>
-        Buy now
-      </Button>
-      <Button variant='ghost' colorScheme='blue'>
-        Add to cart
-      </Button>
-    </ButtonGroup>
-  </CardFooter>
-</Card>
+    <Box
+      maxW="sm"
+      borderWidth="1px"
+      borderRadius="lg"
+      overflow="hidden"
+      boxShadow="md"
+      bg={colorMode === "light" ? "white" : "gray.800"}
+    >
+      <Image src={product.image} alt={product.name} />
+
+      <Box p="6">
+        <Box d="flex" alignItems="baseline">
+          <Badge borderRadius="full" px="2" colorScheme="teal">
+            New
+          </Badge>
+          <Box
+            color={colorMode === "light" ? "gray.600" : "gray.400"}
+            fontWeight="semibold"
+            letterSpacing="wide"
+            fontSize="xs"
+            textTransform="uppercase"
+            ml="2"
+          >
+            {product.category}
+          </Box>
+        </Box>
+
+        <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
+          {product.name}
+        </Box>
+
+        <Box>
+          <Text mt="1" fontSize="sm">
+            {product.description}
+          </Text>
+        </Box>
+
+        <Flex mt="2" alignItems="center">
+          <Box as="span" color="gray.600" fontSize="sm">
+            {product.rating} ({product.reviews} reviews)
+          </Box>
+          <Box ml="2">
+            {Array(5)
+              .fill("")
+              .map((_, i) => (
+                <IconButton
+                  key={i}
+                  icon={i < product.rating ? <FaStar /> : <FaRegStar />}
+                  color={i < product.rating ? "yellow.400" : "gray.200"}
+                  size="xs"
+                  variant="ghost"
+                  aria-label="rating"
+                  pointerEvents="none"
+                  _hover={{ color: "yellow.400" }}
+                />
+              ))}
+          </Box>
+        </Flex>
+
+        <Box mt="2">
+          <Text fontWeight="semibold" fontSize="lg">
+            ${product.price}
+          </Text>
+        </Box>
+      </Box>
+    </Box>
   );
-}
+};
 
 export default ProductCard;

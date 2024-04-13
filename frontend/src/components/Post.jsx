@@ -10,7 +10,7 @@ import { DeleteIcon } from "@chakra-ui/icons";
 import { useRecoilState, useRecoilValue } from "recoil";
 import userAtom from "../atoms/userAtom";
 import postsAtom from "../atoms/postsAtom";
-import ProductCard from "./ProductCard";
+
 
 
 const Post = ({ post, postedBy }) => {
@@ -137,16 +137,14 @@ const Post = ({ post, postedBy }) => {
 							{currentUser?._id === user._id && <DeleteIcon size={20} onClick={handleDeletePost} />}
 						</Flex>
 					</Flex>
-					{user.isBusiness ? <ProductCard /> : (
-						<>
+					
 							<Text fontSize={"sm"}>{post.text}</Text>
 							{post.img && (
 								<Box borderRadius={6} overflow={"hidden"} border={"1px solid"} borderColor={"gray.light"}>
 									<Image src={post.img} w={"full"} />
 								</Box>
 							)}
-						</>
-					)}
+						
 					<Flex gap={3} my={1}>
 						<Actions post={post} />
 					</Flex>

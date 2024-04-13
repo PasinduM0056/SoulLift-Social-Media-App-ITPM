@@ -5,6 +5,7 @@ import generateTokenAndSetCookie from "../utils/helpers/generateTokenAndSetCooki
 import { v2 as cloudinary } from "cloudinary";
 import mongoose from "mongoose";
 
+
 const getUserProfile = async (req, res) => {
 	// We will fetch user profile either with username or userId
 	// query is either username or userId
@@ -32,7 +33,7 @@ const getUserProfile = async (req, res) => {
 
 const signupUser = async (req, res) => {
 	try {
-		const { name, email, username, password } = req.body;
+		const { email, username, password } = req.body;
 		const user = await User.findOne({ $or: [{ email }, { username }] });
 
 		if (user) {
@@ -42,7 +43,6 @@ const signupUser = async (req, res) => {
 		const hashedPassword = await bcrypt.hash(password, salt);
 
 		const newUser = new User({
-			name,
 			email,
 			username,
 			password: hashedPassword,
@@ -54,7 +54,6 @@ const signupUser = async (req, res) => {
 
 			res.status(201).json({
 				_id: newUser._id,
-				name: newUser.name,
 				email: newUser.email,
 				username: newUser.username,
 				bio: newUser.bio,
@@ -86,7 +85,6 @@ const loginUser = async (req, res) => {
 
 		res.status(200).json({
 			_id: user._id,
-			name: user.name,
 			email: user.email,
 			username: user.username,
 			bio: user.bio,
@@ -139,7 +137,8 @@ const followUnFollowUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-	const { name, email, username, password, bio } = req.body;
+	const { email, username, password, bio} = req.body;
+	const { name, address, idNumber, companyName, companyAbout} = req.body;
 	let { profilePic } = req.body;
 
 	const userId = req.user._id;
@@ -165,11 +164,16 @@ const updateUser = async (req, res) => {
 			profilePic = uploadedResponse.secure_url;
 		}
 
-		user.name = name || user.name;
 		user.email = email || user.email;
 		user.username = username || user.username;
 		user.profilePic = profilePic || user.profilePic;
 		user.bio = bio || user.bio;
+
+		user.name = name || user.name;
+        user.address = address || user.address;
+        user.idNumber = idNumber || user.idNumber;
+        user.companyName = companyName || user.companyName;
+        user.companyAbout = companyAbout || user.companyAbout;
 
 		user = await user.save();
 
@@ -239,44 +243,76 @@ const freezeAccount = async (req, res) => {
 	}
 };
 
-
+  
 const submitBusinessProfile = async (req, res) => {
-	const { businessName, businessAddress, businessAbout, idNumber } = req.body;
-	const userId = req.user._id;
-	try {
-	  let user = await User.findById(userId);
-	  if (!user) return res.status(400).json({ error: "User not found" });
-  
-	  // Update user with business profile data
-	  user.businessName = businessName;
-	  user.businessAddress = businessAddress;
-	  user.businessAbout = businessAbout;
-	  user.idNumber = idNumber;
-  
-	  // Save the updated user
-	  user = await user.save();
-  
-	  // Respond with the updated user
-	  res.status(200).json(user);
-	} catch (err) {
-	  res.status(500).json({ error: err.message });
-	  console.log("Error in submitBusinessProfile: ", err.message);
-	}
-  };
+    const { name, address, idNumber, companyName, companyAbout, password } = req.body;
+    let { identityVerify } = req.body;
+    const userId = req.user._id;
 
-  const checkIsBusiness = async (req, res) => {
+    try {
+        let user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        if (req.params.id !== userId.toString()) {
+            return res.status(403).json({ error: "You cannot update other user's profile" });
+        }
+
+        if (password) {
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(password, salt);
+            user.password = hashedPassword;
+        }
+
+        if (identityVerify) {
+            // Upload identity verification image to Cloudinary
+            const uploadedResponse = await cloudinary.uploader.upload(identityVerify);
+            identityVerify = uploadedResponse.secure_url;
+
+            // Delete previous image from Cloudinary
+            if (user.identityVerify) {
+                await cloudinary.uploader.destroy(user.identityVerify.split("/").pop().split(".")[0]);
+            }
+        }
+
+        // Update user fields
+        user.name = name || user.name;
+        user.address = address || user.address;
+        user.idNumber = idNumber || user.idNumber;
+        user.companyName = companyName || user.companyName;
+        user.companyAbout = companyAbout || user.companyAbout;
+        user.identityVerify = identityVerify || user.identityVerify;
+
+        // Save updated user to database
+        user = await user.save();
+
+        // Omit password from response
+        user.password = null;
+
+        res.status(200).json(user);
+    } catch (err) {
+        console.error("Error in submitBusinessProfile:", err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+  
+  
+
+const checkIsBusiness = async (req, res) => {
 	try {
-	  const userId = req.user._id;
-	  const user = await User.findById(userId);
-  
-	  if (!user) {
-		return res.status(400).json({ error: "User not found" });
-	  }
-  
-	  res.status(200).json({ isBusiness: user.isBusiness });
+		const userId = req.user._id;
+		const user = await User.findById(userId);
+
+		if (!user) {
+			return res.status(400).json({ error: "User not found" });
+		}
+
+		res.status(200).json({ isBusiness: user.isBusiness });
 	} catch (error) {
-	  res.status(500).json({ error: error.message });
-	  console.log("Error in checkIsBusiness: ", error.message);
+		res.status(500).json({ error: error.message });
+		console.log("Error in checkIsBusiness: ", error.message);
 	}
   };
 
@@ -322,6 +358,7 @@ const submitBusinessProfile = async (req, res) => {
 	  console.log("Error in submit organization profile: ", err.message);
 	}
   };
+
 
 
 

@@ -35,14 +35,22 @@ const UserHeader = ({ user }) => {
             <Flex justifyContent={"space-between"} w={"full"}>
                 <Box>
                     <Text fontSize={"2xl"} fontWeight={"bold"}>
-                        {user.isBusiness ? user.businessName : user.name}
+                        {user.isBusiness ? user.companyName : user.userName}
                     </Text>
                     <Flex gap={2} alignItems={"center"}>
-                        <Text fontSize={"sm"}>{user.isBusiness ? user.businessName : user.username}</Text>
-                        <Text fontSize={"xs"} bg={"gray.dark"} color={"gray.light"} p={1} borderRadius={"full"}>
+                        <Text fontSize={"sm"}>{user.isBusiness ? user.companyAbout : user.bio}</Text>
+                        {user.isBusiness ? (
+                            <Text fontSize={"xs"} bg={"gray.dark"} color={"gray.light"} p={1} borderRadius={"full"}>
+                            SoulLift Business
+                            </Text>
+                        ) : (
+                            <Text fontSize={"xs"} bg={"gray.dark"} color={"gray.light"} p={1} borderRadius={"full"}>
                             SoulLift
-                        </Text>
+                            </Text>
+                        )}
+
                     </Flex>
+                    <Text fontSize={"sm"}>{user.isBusiness ? user.address : null }</Text>
                 </Box>
                 <Box>
                     {user.profilePic && (
