@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   Flex,
   Box,
@@ -70,7 +71,7 @@ const OrganizationHompage = () => {
   }, []);
 
   return (
-    <Flex width="100vw" justifyContent="flex-start"  >
+    <Flex width="calc(100vw - 240px)" justifyContent="flex-start">
       <Drawer isOpen={isOpen} placement="left" onClose={onClose} size="sm">
         <DrawerOverlay />
         <DrawerContent>
@@ -90,6 +91,9 @@ const OrganizationHompage = () => {
           <Heading>Analytics Dashboard</Heading>
           <Text>Profile</Text>
         </Flex>
+        <Link to="/Update-Organization">
+          <Button colorScheme="blue">Update Company Info</Button>
+        </Link>
         
         <Box>
           <Flex justify="space-around">

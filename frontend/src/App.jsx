@@ -23,7 +23,7 @@ import OrganizationHompage from './pages/organizationPages/organizationHompage';
 import CreateAposts from './pages/organizationPages/createApost';
 import CandidatesShortlisting from './pages/organizationPages/candidatesShortlisting';
 import PostaJob from './pages/organizationPages/PostaJob';
-
+import UpdateOrganization from './pages/UpdateOrganizatinInfo';
 
 function App() {
   const user = useRecoilValue(userAtom);
@@ -37,7 +37,7 @@ function App() {
   
   return (
     <Box position="relative" w='full'>
-      <Container maxW={"750px"}>
+      <Container maxW={"75000px"}>
         {(pathname === '/' || pathname === '/auth' || pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname ==='/:username/post/:pid' || pathname === '/:username') && <Header />}
         <Routes>
           <Route path='/' element={user ? <HomePage /> : <Navigate to='/auth' />} />
@@ -64,6 +64,7 @@ function App() {
           <Route path='/Create-a-post' element={<CreateAposts  />} />
           <Route path='/Candidate-Shortlisting' element={<CandidatesShortlisting  />} />
           <Route path='/Post-a-job' element={<PostaJob  />} />
+          <Route path='/Update-Organization' element={<UpdateOrganization  />} />
         </Routes>
       </Container>
       
