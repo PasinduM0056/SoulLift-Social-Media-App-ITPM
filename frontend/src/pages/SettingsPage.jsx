@@ -91,8 +91,9 @@ const SettingsPage = ({ isBusiness, isOrganization }) => {
 
   const handleOpenDashboard = () => {
     // Navigate to the /udhome route
-    navigate("/udhome");
+    navigate("/udhome"); //org-dashboard
   };
+  
 
   return (
     <>

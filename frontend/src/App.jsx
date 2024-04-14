@@ -19,13 +19,15 @@ import CreatePost from "./components/CreatePost";
 import UDHomePage from "./pages/udPages/UDHomePage";
 import UDProductPage from './pages/udPages/UDProductPage';
 import AdminReviewPage from './pages/AdminReviewPage';
+import OrganizationHompage from './pages/organizationPages/organizationHompage'; // Import the OrganizationHomepage component
+import CreateAposts from './pages/organizationPages/createApost';
+import CandidatesShortlisting from './pages/organizationPages/candidatesShortlisting';
+import PostaJob from './pages/organizationPages/PostaJob';
 
 
 function App() {
   const user = useRecoilValue(userAtom);
   const { pathname } = useLocation();
-
-  
 
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
@@ -46,9 +48,9 @@ function App() {
             element={
               user ? (
                 <>
-          {(pathname !== '/udhome' && pathname !== '/udproduct' && pathname !== '/adminreview') && <UserPage />}
-          {(!user.isBusiness && pathname !== '/udhome' && pathname !== '/udproduct' && pathname !== '/adminreview') && <CreatePost />}
-        </>
+                  {(pathname !== '/udhome' && pathname !== '/udproduct' && pathname !== '/adminreview') && <UserPage />}
+                  {(!user.isBusiness && pathname !== '/udhome' && pathname !== '/udproduct' && pathname !== '/adminreview') && <CreatePost />}
+                </>
               ) : (
                 <UserPage />
               )
@@ -57,23 +59,24 @@ function App() {
           <Route path='/:username/post/:pid' element={<PostPage />} />
           <Route path='/chat' element={user ? <ChatPage /> : <Navigate to="/auth" />} />
           <Route path='/settings' element={user ? <SettingsPage SettingsPage isBusiness={user.isBusiness} /> : <Navigate to="/auth" />} />
+          {/* Add the new route for Organization Homepage */}
+          <Route path='/organization' element={<OrganizationHompage  />} />
+          <Route path='/Create-a-post' element={<CreateAposts  />} />
+          <Route path='/Candidate-Shortlisting' element={<CandidatesShortlisting  />} />
+          <Route path='/Post-a-job' element={<PostaJob  />} />
         </Routes>
       </Container>
       
-      
       <Container className='grid-container' maxW="1700px" >
-         {/* User Dashboard */}
         {(pathname === '/udhome' || pathname === '/udproduct' || pathname === '/adminreview') && <UDHeader OpenSidebar={OpenSidebar}/>}
         {(pathname === '/udhome' || pathname === '/udproduct' || pathname === '/adminreview') && <UDSideBar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>}
         <Routes>
+    
           <Route path='/udhome' element={<UDHomePage />} />
           <Route path='/udproduct' element={<UDProductPage />} />
           <Route path='/adminreview' element={<AdminReviewPage />} /> 
         </Routes>
       </Container>
-      
-              
-            
     </Box>
   );
 }

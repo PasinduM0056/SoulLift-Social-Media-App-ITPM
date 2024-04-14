@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../css/style.css'
-import {BsCart3, BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsListCheck, BsMenuButtonWideFill, BsFillGearFill} from 'react-icons/bs'
+import {BsCart3, BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsListCheck, BsMenuButtonWideFill, BsFillGearFill, BsFillBuildingFill} from 'react-icons/bs'
 import { Link} from 'react-router-dom';
 
 
@@ -51,6 +51,11 @@ const UDSideBar = ({openSidebarToggle, OpenSidebar}) => {
             <li className='sidebar-list-item'>
                 <a href="">
                     <BsFillGearFill className='icon'/> Setting
+                </a>
+            </li>
+            <li className='sidebar-list-item'>
+                <a href="/organization">
+                    <BsFillBuildingFill className='icon'/> Organization
                 </a>
             </li>
         </ul>
