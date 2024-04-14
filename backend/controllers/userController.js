@@ -139,6 +139,7 @@ const followUnFollowUser = async (req, res) => {
 const updateUser = async (req, res) => {
 	const { email, username, password, bio} = req.body;
 	const { name, address, idNumber, companyName, companyAbout} = req.body;
+	const { OrganizationName, OrganizationAddress, OrganizationAbout, IDnumber} = req.body;
 	let { profilePic } = req.body;
 
 	const userId = req.user._id;
@@ -174,6 +175,11 @@ const updateUser = async (req, res) => {
         user.idNumber = idNumber || user.idNumber;
         user.companyName = companyName || user.companyName;
         user.companyAbout = companyAbout || user.companyAbout;
+
+		user.OrganizationName = OrganizationName || user.OrganizationName;
+		user.OrganizationAddress = OrganizationAddress || user.OrganizationAddress;
+		user.OrganizationAbout = OrganizationAbout || user.OrganizationAbout;
+		user.IDnumber = IDnumber || user.IDnumber;
 
 		user = await user.save();
 
