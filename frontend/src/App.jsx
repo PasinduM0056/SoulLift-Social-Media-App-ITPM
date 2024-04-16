@@ -36,8 +36,8 @@ function App() {
   }
   
   return (
-    <Box position="relative" w='full'>
-      <Container maxW={"75000px"}>
+    <Box >
+      <Container maxW={"1000px"}>
         {(pathname === '/' || pathname === '/auth' || pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname ==='/:username/post/:pid' || pathname === '/:username') && <Header />}
         <Routes>
           <Route path='/' element={user ? <HomePage /> : <Navigate to='/auth' />} />

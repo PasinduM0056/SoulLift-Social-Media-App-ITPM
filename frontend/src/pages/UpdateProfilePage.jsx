@@ -255,6 +255,42 @@ import {
 				)}
 				{isBusinessAccount && (
 				  <>
+				  <FormControl>
+				  <FormLabel>Name</FormLabel>
+				  <Input
+					placeholder="johndoe"
+					value={inputs.name}
+					onChange={(e) =>
+					  setInputs({ ...inputs, name: e.target.value })
+					}
+					_placeholder={{ color: "gray.500" }}
+					type="text"
+				  />
+				</FormControl>
+				<FormControl>
+				  <FormLabel>Address</FormLabel>
+				  <Input
+					placeholder="your-email@example.com"
+					value={inputs.address}
+					onChange={(e) =>
+					  setInputs({ ...inputs, address: e.target.value })
+					}
+					_placeholder={{ color: "gray.500" }}
+					type="text"
+				  />
+				</FormControl>
+				<FormControl>
+				  <FormLabel>ID Number</FormLabel>
+				  <Input
+					placeholder="Your bio."
+					value={inputs.idNumber}
+					onChange={(e) =>
+					  setInputs({ ...inputs, idNumber: e.target.value })
+					}
+					_placeholder={{ color: "gray.500" }}
+					type="text"
+				  />
+				</FormControl>
 					<FormControl>
 					  <FormLabel>Business Name</FormLabel>
 					  <Input

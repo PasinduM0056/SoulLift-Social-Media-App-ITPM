@@ -94,6 +94,11 @@ const OrganizationHompage = () => {
         <Link to="/Update-Organization">
           <Button colorScheme="blue">Update Company Info</Button>
         </Link>
+
+        <Link to="/Post-a-job">
+          <Button colorScheme="blue">Post a Job</Button>
+        </Link>
+        
         
         <Box>
           <Flex justify="space-around">
