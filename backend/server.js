@@ -6,7 +6,8 @@ import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import productRoutes from "./routes/productRoutes.js"
 import messageRoutes from "./routes/messageRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js"
+import adminRoutes from "./routes/adminRoutes.js";
+import JobPost from  "./routes/JobPostRoute.js";
 import { v2 as cloudinary } from "cloudinary";
 import { app, server } from "./socket/socket.js";
 
@@ -37,5 +38,5 @@ app.use("/api/posts", postRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/products", productRoutes);
-
+app.use("/api/jobpost", JobPost);
 server.listen(PORT, () => console.log(`Server started at http://localhost:${PORT}`));
