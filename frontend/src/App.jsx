@@ -1,18 +1,21 @@
 import React from 'react';
-import './css/style.css'
+import './css/style.css';
 import { useState } from 'react';
 import { Box, Container } from "@chakra-ui/react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import userAtom from "./atoms/userAtom";
 import Header from "./components/Header";
+import HeaderB from './components/HeaderB';
 import UDHeader from "./components/udComponents/UDHeader";
 import UDSideBar from "./components/udComponents/UDSideBar";
 import HomePage from "./pages/HomePage";
+import BusinessPage from './pages/BusinessPage';
 import AuthPage from "./pages/AuthPage";
 import UpdateProfilePage from "./pages/UpdateProfilePage";
 import UserPage from "./pages/UserPage";
 import PostPage from "./pages/PostPage";
+import ProductPage from './pages/ProductPage';
 import ChatPage from "./pages/ChatPage";
 import SettingsPage from "./pages/SettingsPage";
 import CreatePost from "./components/CreatePost";
@@ -39,8 +42,16 @@ function App() {
     <Box >
       <Container maxW={"1000px"}>
         {(pathname === '/' || pathname === '/auth' || pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname ==='/:username/post/:pid' || pathname === '/:username') && <Header />}
+    <Box position="relative" w='full'>
+      
+      <Container maxW={"850px"}>
+
+        {(pathname === '/' ||pathname=== '/business'|| pathname === '/auth' || pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname ==='/:username/post/:pid' || pathname === '/:username/product/:pid' || pathname === '/:username') && <Header />}
+        {(pathname === '/' ||pathname=== '/business'|| pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname ==='/:username/post/:pid' || pathname === '/:username/product/:pid' || pathname === '/:username') && <HeaderB />}
+        
         <Routes>
           <Route path='/' element={user ? <HomePage /> : <Navigate to='/auth' />} />
+          <Route path='/business' element={user ? <BusinessPage /> : <Navigate to='/auth' />} />
           <Route path='/auth' element={!user ? <AuthPage /> : <Navigate to='/' />} />
           <Route path='/update' element={user ? <UpdateProfilePage /> : <Navigate to='/auth' />} />
           <Route
@@ -57,6 +68,7 @@ function App() {
             }
           />
           <Route path='/:username/post/:pid' element={<PostPage />} />
+          <Route path='/:username/product/:pid' element={<ProductPage />} />
           <Route path='/chat' element={user ? <ChatPage /> : <Navigate to="/auth" />} />
           <Route path='/settings' element={user ? <SettingsPage SettingsPage isBusiness={user.isBusiness} /> : <Navigate to="/auth" />} />
           {/* Add the new route for Organization Homepage */}
@@ -78,6 +90,7 @@ function App() {
           <Route path='/adminreview' element={<AdminReviewPage />} /> 
         </Routes>
       </Container>
+    </Box>
     </Box>
   );
 }

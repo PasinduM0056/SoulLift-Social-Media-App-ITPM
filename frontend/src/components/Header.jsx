@@ -19,9 +19,13 @@ const Header = () => {
 	return (
 		<Flex justifyContent={"space-between"} mt={6} mb='12'>
 			{user && (
-				<Link as={RouterLink} to='/'>
-					<AiFillHome size={24} />
-				</Link>
+				<Image
+				cursor={"pointer"}
+				alt='logo'
+				w={5}
+				src={colorMode === "dark" ? "/favicon.png" : "/favicon.png"}
+				onClick={toggleColorMode}
+			/>
 			)}
 			{!user && (
 				<Link as={RouterLink} to={"/auth"} onClick={() => setAuthScreen("login")}>
@@ -29,14 +33,7 @@ const Header = () => {
 				</Link>
 			)}
 
-			<Image
-				cursor={"pointer"}
-				alt='logo'
-				w={5}
-				src={colorMode === "dark" ? "/favicon.png" : "/favicon.png"}
-				onClick={toggleColorMode}
-			/>
-
+			
 			{user && (
 				<Flex alignItems={"center"} gap={4}>
 					<Link as={RouterLink} to={`/${user.username}`}>
