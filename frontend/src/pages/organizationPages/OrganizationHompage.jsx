@@ -98,6 +98,10 @@ const OrganizationHompage = () => {
         <Link to="/Post-a-job">
           <Button colorScheme="blue">Post a Job</Button>
         </Link>
+
+        <Link to="/Create-a-post">
+          <Button colorScheme="blue">Create dedicated pages</Button>
+        </Link>
         
         
         <Box>

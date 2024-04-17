@@ -1,9 +1,16 @@
 import React from 'react'
-
+import CreatePost from '../../components/CreatePost'
 function CreateAposts() {
   return (
-    <div>CreateApost</div>
+    <div>
+      <p>hkjh</p>
+      <CreatePost/>
+    </div>
   )
 }
 
 export default CreateAposts
+
+
+
+

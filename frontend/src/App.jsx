@@ -19,8 +19,8 @@ import CreatePost from "./components/CreatePost";
 import UDHomePage from "./pages/udPages/UDHomePage";
 import UDProductPage from './pages/udPages/UDProductPage';
 import AdminReviewPage from './pages/AdminReviewPage';
-import OrganizationHompage from './pages/organizationPages/organizationHompage'; // Import the OrganizationHomepage component
-import CreateAposts from './pages/organizationPages/createApost';
+import OrganizationHompage from './pages/organizationPages/OrganizationHompage';
+import CreateAposts from './pages/organizationPages/CreateApost';
 import CandidatesShortlisting from './pages/organizationPages/candidatesShortlisting';
 import PostaJob from './pages/organizationPages/PostaJob';
 import UpdateOrganization from './pages/UpdateOrganizatinInfo';
