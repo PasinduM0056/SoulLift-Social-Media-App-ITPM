@@ -1,4 +1,4 @@
-.Post-a-job-form-container {
+.update-company-info-form-container {
     width: 650px;
     background: linear-gradient(#212121, #212121) padding-box,
                 linear-gradient(145deg, transparent 35%,#e81cff, #40c9ff) border-box;
@@ -12,37 +12,33 @@
     gap: 40px;
     box-sizing: border-box;
     border-radius: 16px;
-    height: 90vh;
-    margin-left: -60vh;
+    height: 110vh;
+    margin: auto;
     margin-top: 10vh;
+    margin-bottom: -60vh;
+
   
   }
 
-.post-a-job-full-form{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: -70vh;
-    margin-left: 15vh;
-}
+
   
-  .Post-a-job-form-container button:active {
+  .update-company-info-container button:active {
     scale: 0.95;
   }
   
-  .Post-a-job-form-container .Post-a-job-form {
+  .update-company-info-container .update-company-info {
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
   
-  .Post-a-job-form-container .Post-a-job-form-group {
+  .update-company-info-container .update-company-info-group {
     display: flex;
     flex-direction: column;
     gap: 2px;
   }
   
-  .Post-a-job-form-container .Post-a-job-form-group label {
+  .update-company-info-container .update-company-info-group label {
     display: block;
     margin-bottom: 5px;
     color: #717171;
@@ -50,7 +46,7 @@
     font-size: 12px;
   }
   
-  .Post-a-job-form-container .Post-a-job-form-group input {
+  .update-company-info-container .update-company-info-group input {
     width: 100%;
     padding: 12px 16px;
     border-radius: 8px;
@@ -61,7 +57,7 @@
     margin-top: 3vh;
   }
   
-  .Post-a-job-form-container .Post-a-job-form-group textarea {
+  .update-company-info-container .update-company-info-group textarea {
     width: 100%;
     padding: 12px 16px;
     border-radius: 8px;
@@ -73,21 +69,21 @@
     font-family: inherit;
   }
   
-  .Post-a-job-form-container .Post-a-job-form-group input::placeholder {
+  .update-company-info-container .update-company-info-group input::placeholder {
     opacity: 0.5;
   }
   
-  .Post-a-job-form-container .Post-a-job-form-group input:focus {
+  .update-company-info-container .update-company-info-group input:focus {
     outline: none;
     border-color: #e81cff;
   }
   
-  .Post-a-job-form-container .Post-a-job-form-group textarea:focus {
+  .update-company-info-container .update-company-info-group textarea:focus {
     outline: none;
     border-color: #e81cff;
   }
   
-  .Post-a-job-form-container .Post-a-job-form-submit-btn {
+  .update-company-info-container .update-company-info-submit-btn {
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -106,12 +102,12 @@
     border-radius: 6px;
   }
   
-  .Post-a-job-form-container .Post-a-job-form-submit-btn:hover {
+  .update-company-info-container .update-company-info-submit-btn:hover {
     background-color: #fff;
     border-color: #fff;
   }
   
-  .job-post-up-container {
+  .update-company-info-up-container{
     width: 100%;
     height: 100%;
     --s: 105px; /* control the size */
@@ -145,9 +141,11 @@
       );
     background-size: var(--s) calc(var(--s) / 0.577);
     /* 0.577=tan(30deg)*/
+
   }
-  
-  .job-post-tooltip-container {
+
+
+  .update-info-tooltip-container {
     position: relative;
     background: #9b999a;
     cursor: pointer;
@@ -171,9 +169,9 @@
     margin-top: 10vh;
   }
   
-  .job-post-tooltip-1,
-  .job-post-tooltip-2,
-  .job-post-tooltip-3 {
+  .update-info-tooltip-1,
+  .update-info-tooltip-2,
+  .update-info-tooltip-3 {
     position: absolute;
     transform: translateX(-50%);
     font-weight: 800;
@@ -191,31 +189,31 @@
     color: #0b0b0b;
     font-size: 11px;
   }
-  .job-post-tooltip-1 {
+  .update-info-tooltip-1 {
     top: 0%;
     left: 50%;
     width: 200px;
   }
-  .job-post-tooltip-2 {
+  .update-info-tooltip-2 {
     left: 100%;
   }
   
-  .job-post-tooltip-3 {
+  .update-info-tooltip-3 {
     left: 0;
   }
-  .job-post-tooltip-container:hover .job-post-tooltip-1 {
+  .update-info-tooltip-container:hover .update-info-tooltip-1 {
     top: -100%;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
   }
-  .job-post-tooltip-container:hover .job-post-tooltip-2 {
+  .update-info-tooltip-container:hover .update-info-tooltip-2 {
     left: -100%;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
   }
-  .job-post-tooltip-container:hover .job-post-tooltip-3 {
+  .update-info-tooltip-container:hover .update-info-tooltip-3 {
     left: 200%;
     opacity: 1;
     visibility: visible;
