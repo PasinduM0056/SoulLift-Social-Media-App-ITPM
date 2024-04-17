@@ -7,7 +7,7 @@ const createProduct = async (req, res) => {
 		const { postedBy, productName, productDescription, productPrice, productOfferPrice} = req.body;
 		let {   productImg} = req.body;
 
-		if (!postedBy || !text) {
+		if (!postedBy || !productName) {
 			return res.status(400).json({ error: "Postedby and text fields are required" });
 		}
 
@@ -53,7 +53,7 @@ const getProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
 	try {
 		const product = await Product.findById(req.params.id);
-		if (!post) {
+		if (!product) {
 			return res.status(404).json({ error: "Product not found" });
 		}
 
@@ -66,7 +66,7 @@ const deleteProduct = async (req, res) => {
 			await cloudinary.uploader.destroy(productImgId);
 		}
 
-		await Post.findByIdAndDelete(req.params.id);
+		await Product.findByIdAndDelete(req.params.id);
 
 		res.status(200).json({ message: "Post deleted successfully" });
 	} catch (err) {
@@ -79,7 +79,7 @@ const likeUnlikeProduct = async (req, res) => {
 		const { id: productId } = req.params;
 		const userId = req.user._id;
 
-		const product = await Post.findById(productId);
+		const product = await Product.findById(productId);
 
 		if (!product) {
 			return res.status(404).json({ error: "Post not found" });
@@ -95,7 +95,7 @@ const likeUnlikeProduct = async (req, res) => {
 			// Like post
 			product.likes.push(userId);
 			await product.save();
-			res.status(200).json({ message: "Post liked successfully" });
+			res.status(200).json({ message: "Product liked successfully" });
 		}
 	} catch (err) {
 		res.status(500).json({ error: err.message });
@@ -115,7 +115,7 @@ const reviewProduct = async (req, res) => {
 			return res.status(400).json({ error: "Text field is required" });
 		}
 
-		const product = await Post.findById(productId);
+		const product = await Product.findById(productId);
 		if (!product) {
 			return res.status(404).json({ error: "Post not found" });
 		}

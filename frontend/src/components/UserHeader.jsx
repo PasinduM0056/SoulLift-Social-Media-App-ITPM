@@ -11,6 +11,7 @@ import { Link as RouterLink } from "react-router-dom";
 import useFollowUnfollow from "../hooks/useFollowUnfollow";
 
 
+
 const UserHeader = ({ user }) => {
     const toast = useToast();
     const currentUser = useRecoilValue(userAtom); // logged in user
@@ -115,9 +116,9 @@ const UserHeader = ({ user }) => {
                 </Flex>
             </Flex>
 
-            <Flex w={"full"}>
+                <Flex w={"full"}>
                 <Flex flex={1} borderBottom={"1.5px solid white"} justifyContent={"center"} pb='3' cursor={"pointer"}>
-                    <Text fontWeight={"bold"}> {user.isBusiness ? "Products" : "user.name"}</Text>
+                    <Text fontWeight={"bold"}> {user.name}</Text>
                 </Flex>
                 <Flex
                     flex={1}
@@ -130,6 +131,7 @@ const UserHeader = ({ user }) => {
                     <Text fontWeight={"bold"}> Replies</Text>
                 </Flex>
             </Flex>
+           
         </VStack>
     );
 };
