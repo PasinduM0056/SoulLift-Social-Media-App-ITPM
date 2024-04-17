@@ -30,4 +30,4 @@ const saveJobDetails = async (req, res) => {
     }
 };
 
-export { submitJobPost };
+export { saveJobDetails };
