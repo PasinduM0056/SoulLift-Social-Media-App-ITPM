@@ -54,7 +54,7 @@ const UDSideBar = ({openSidebarToggle, OpenSidebar}) => {
                 </a>
             </li>
             <li className='sidebar-list-item'>
-                <a href="/organization">
+                <a href="/organization-Home">
                     <BsFillBuildingFill className='icon'/> Organization
                 </a>
             </li>

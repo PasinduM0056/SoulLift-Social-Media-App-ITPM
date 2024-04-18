@@ -27,6 +27,7 @@ import CreateAposts from './pages/organizationPages/CreateApost';
 import CandidatesShortlisting from './pages/organizationPages/candidatesShortlisting';
 import PostaJob from './pages/organizationPages/PostaJob';
 import UpdateOrganization from './pages/UpdateOrganizatinInfo';
+import OrganizationPage from './pages/OrganizationJobPage';
 
 function App() {
   const user = useRecoilValue(userAtom);
@@ -40,18 +41,19 @@ function App() {
   
   return (
     <Box >
-      <Container maxW={"1000px"}>
-        {(pathname === '/' || pathname === '/auth' || pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname ==='/:username/post/:pid' || pathname === '/:username') && <Header />}
+      <Container maxW={"1900px"}>
+      
     <Box position="relative" w='full'>
       
-      <Container maxW={"850px"}>
+      <Container maxW={"1000px"}>
 
-        {(pathname === '/' ||pathname=== '/business'|| pathname === '/auth' || pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname ==='/:username/post/:pid' || pathname === '/:username/product/:pid' || pathname === '/:username') && <Header />}
-        {(pathname === '/' ||pathname=== '/business'|| pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname ==='/:username/post/:pid' || pathname === '/:username/product/:pid' || pathname === '/:username') && <HeaderB />}
+        {(pathname === '/organization' ||pathname === '/' ||pathname=== '/business'|| pathname === '/auth' || pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname ==='/:username/post/:pid' || pathname === '/:username/product/:pid' || pathname === '/:username') && <Header />}
+        {( pathname === '/organization' || pathname === '/' ||pathname=== '/business'|| pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname ==='/:username/post/:pid' || pathname === '/:username/product/:pid' || pathname === '/:username') && <HeaderB />}
         
         <Routes>
           <Route path='/' element={user ? <HomePage /> : <Navigate to='/auth' />} />
           <Route path='/business' element={user ? <BusinessPage /> : <Navigate to='/auth' />} />
+          <Route path='/organization' element={user ? <OrganizationPage /> : <Navigate to='/auth' />} />
           <Route path='/auth' element={!user ? <AuthPage /> : <Navigate to='/' />} />
           <Route path='/update' element={user ? <UpdateProfilePage /> : <Navigate to='/auth' />} />
           <Route
@@ -72,7 +74,7 @@ function App() {
           <Route path='/chat' element={user ? <ChatPage /> : <Navigate to="/auth" />} />
           <Route path='/settings' element={user ? <SettingsPage SettingsPage isBusiness={user.isBusiness} /> : <Navigate to="/auth" />} />
           {/* Add the new route for Organization Homepage */}
-          <Route path='/organization' element={<OrganizationHompage  />} />
+          <Route path='/organization-Home' element={<OrganizationHompage  />} />
           <Route path='/Create-a-post' element={<CreateAposts  />} />
           <Route path='/Candidate-Shortlisting' element={<CandidatesShortlisting  />} />
           <Route path='/Post-a-job' element={<PostaJob  />} />
@@ -91,8 +93,10 @@ function App() {
         </Routes>
       </Container>
     </Box>
+    </Container>
     </Box>
-  );
+    )
+
 }
 
 export default App;

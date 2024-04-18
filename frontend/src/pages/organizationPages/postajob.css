@@ -1,5 +1,5 @@
 .Post-a-job-form-container {
-    width: 650px;
+    width: 700px;
     background: linear-gradient(#212121, #212121) padding-box,
                 linear-gradient(145deg, transparent 35%,#e81cff, #40c9ff) border-box;
     border: 2px solid transparent;
@@ -12,7 +12,7 @@
     gap: 40px;
     box-sizing: border-box;
     border-radius: 16px;
-    height: 90vh;
+    height: 160vh;
     margin-left: -60vh;
     margin-top: 10vh;
   

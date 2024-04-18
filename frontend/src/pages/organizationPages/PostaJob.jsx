@@ -13,19 +13,35 @@ import {
 import userAtom from "../../atoms/userAtom";
 import { useRecoilState } from "recoil";
 import "./postajob.css";
+
+
+
 function PostaJob() {
   const [formData, setFormData] = useState({
+    submissionMethod: "",
+    applicationDeadline: "",
+    skills: "",
+    jobAbout: "",
+    responsibilites: "",
+    qualifications: "",
     jobTitle: "",
     salary: "",
     email: "",
     experience: "",
     other: "",
+   
   });
 
   const onSubmit = async () => {
     try {
       await axios.post("/api/jobpost/Post-a-job", formData);
       setFormData({
+        submissionMethod: "",
+        applicationDeadline: "",
+        skills: "",
+        jobAbout: "",
+        responsibilites: "",
+        qualifications: "",
         jobTitle: "",
         salary: "",
         email: "",
@@ -83,7 +99,8 @@ function PostaJob() {
             }}
           >
             <div className="Post-a-job-form-group">
-              <FormControl id="jobTitle">
+            <FormControl id="submissionmethod">
+            <FormControl id="jobTitle">
                 <FormLabel>Job title</FormLabel>
                 <Input
                   placeholder="Enter job title"
@@ -134,6 +151,80 @@ function PostaJob() {
                   type="text"
                 />
               </FormControl>
+
+                <FormLabel>Form submission method</FormLabel>
+                <Input
+                  placeholder="Email, Phone"
+                  value={formData.submissionMethod}
+                  onChange={(e) =>
+                    setFormData({ ...formData, submissionMethod: e.target.value })
+                  }
+                  _placeholder={{ color: "gray.500" }}
+                  type="text"
+                />
+              </FormControl>
+              <FormControl id="Application deadline">
+                <FormLabel>Application deadline</FormLabel>
+                <Input
+                  placeholder="Application deadline"
+                  value={formData.applicationDeadline}
+                  onChange={(e) =>
+                    setFormData({ ...formData, applicationDeadline: e.target.value })
+                  }
+                  _placeholder={{ color: "gray.500" }}
+                  type="text"
+                />
+              </FormControl>
+              <FormControl id="skills">
+                <FormLabel>Required skills</FormLabel>
+                <Input
+                  placeholder="Required skills"
+                  value={formData.skills}
+                  onChange={(e) =>
+                    setFormData({ ...formData, skills: e.target.value })
+                  }
+                  _placeholder={{ color: "gray.500" }}
+                  type="text"
+                />
+              </FormControl>
+              <FormControl id="jobTitle">
+                <FormLabel>Job about</FormLabel>
+                <Input
+                  placeholder="Job about"
+                  value={formData.jobAbout}
+                  onChange={(e) =>
+                    setFormData({ ...formData, jobAbout: e.target.value })
+                  }
+                  _placeholder={{ color: "gray.500" }}
+                  type="text"
+                />
+              </FormControl>
+              <FormControl id="responsibilities">
+                <FormLabel>Job responsibilities</FormLabel>
+                <Input
+                  placeholder="Job responsibilities"
+                  value={formData.responsibilites}
+                  onChange={(e) =>
+                    setFormData({ ...formData, responsibilites: e.target.value })
+                  }
+                  _placeholder={{ color: "gray.500" }}
+                  type="text"
+                />
+              </FormControl>
+              <FormControl id="Qualifications">
+                <FormLabel>Qualifications</FormLabel>
+                <Input
+                  placeholder="Qualifications"
+                  value={formData.qualifications}
+                  onChange={(e) =>
+                    setFormData({ ...formData, qualifications: e.target.value })
+                  }
+                  _placeholder={{ color: "gray.500" }}
+                  type="text"
+                />
+              </FormControl>
+
+             
 
               <FormControl id="other">
                 <FormLabel>Other requirements</FormLabel>
