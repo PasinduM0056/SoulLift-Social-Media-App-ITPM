@@ -7,10 +7,16 @@ import PostJobs from '../models/postajob.js';
 const saveJobDetails = async (req, res) => {
     try {
         // Extract job details from the request body
-        const { jobTitle, salary, email, experience, other } = req.body;
+        const { submissionMethod, applicationDeadline, skills, jobAbout , responsibilites, qualifications , jobTitle, salary, email, experience, other } = req.body;
 
         // Create a new document using the PostJobs model
         const newJob = new PostJobs({
+            submissionMethod,
+            applicationDeadline,
+            skills,
+            jobAbout,
+            responsibilites,
+            qualifications,
             jobTitle,
             salary,
             email,
@@ -30,4 +36,22 @@ const saveJobDetails = async (req, res) => {
     }
 };
 
-export { saveJobDetails };
+
+// Controller function to handle fetching all created jobs
+const getAllJobs = async (req, res) => {
+    try {
+        // Query the database to find all job documents
+        const jobs = await PostJobs.find();
+
+        // Respond with the array of job documents
+        res.status(200).json({ success: true, jobs });
+    } catch (error) {
+        // Handle any errors that occur during the process
+        console.error('Error fetching job details:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};
+
+
+
+export { saveJobDetails, getAllJobs };
