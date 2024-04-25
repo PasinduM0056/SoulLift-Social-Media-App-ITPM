@@ -24,10 +24,12 @@ import UDProductPage from './pages/udPages/UDProductPage';
 import AdminReviewPage from './pages/AdminReviewPage';
 import OrganizationHompage from './pages/organizationPages/OrganizationHompage';
 import CreateAposts from './pages/organizationPages/CreateApost';
-import CandidatesShortlisting from './pages/organizationPages/candidatesShortlisting';
 import PostaJob from './pages/organizationPages/PostaJob';
 import UpdateOrganization from './pages/UpdateOrganizatinInfo';
 import OrganizationPage from './pages/OrganizationJobPage';
+import JobApplicationForm from './pages/organizationPages/JobApplicationForm';
+import CandidatesShortlisting from './pages/organizationPages/Candidates-shortlisting';
+
 
 function App() {
   const user = useRecoilValue(userAtom);
@@ -47,13 +49,14 @@ function App() {
       
       <Container maxW={"1000px"}>
 
-        {(pathname === '/organization' ||pathname === '/' ||pathname=== '/business'|| pathname === '/auth' || pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname ==='/:username/post/:pid' || pathname === '/:username/product/:pid' || pathname === '/:username') && <Header />}
-        {( pathname === '/organization' || pathname === '/' ||pathname=== '/business'|| pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname ==='/:username/post/:pid' || pathname === '/:username/product/:pid' || pathname === '/:username') && <HeaderB />}
+        {( pathname === '/:Job-application-form/:id' ||pathname === '/organization' ||pathname === '/' ||pathname=== '/business'|| pathname === '/auth' || pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname ==='/:username/post/:pid' || pathname === '/:username/product/:pid' || pathname === '/:username') && <Header />}
+        {(  pathname === '/:Job-application-form/:id' ||pathname === '/organization' || pathname === '/' ||pathname=== '/business'|| pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname ==='/:username/post/:pid' || pathname === '/:username/product/:pid' || pathname === '/:username') && <HeaderB />}
         
         <Routes>
           <Route path='/' element={user ? <HomePage /> : <Navigate to='/auth' />} />
           <Route path='/business' element={user ? <BusinessPage /> : <Navigate to='/auth' />} />
           <Route path='/organization' element={user ? <OrganizationPage /> : <Navigate to='/auth' />} />
+          <Route path='/:Job-application-form/:id' element={user ? <JobApplicationForm /> : <Navigate to='/auth' />} />
           <Route path='/auth' element={!user ? <AuthPage /> : <Navigate to='/' />} />
           <Route path='/update' element={user ? <UpdateProfilePage /> : <Navigate to='/auth' />} />
           <Route

@@ -1,4 +1,4 @@
-import { Box, Heading, Text, VStack, Spinner } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, Spinner,Button } from "@chakra-ui/react";
 // Import Link from react-router-dom
 import { useEffect, useState } from "react";
 import useShowToast from "../hooks/useShowToast";
@@ -10,13 +10,15 @@ import { Flex } from "@chakra-ui/react";
 import axios from "axios";
 import "./Organization-job-page.css";
 import { Link as RouterLink } from "react-router-dom";
-
+import { useParams,useNavigate } from 'react-router-dom';
 const OrganizationPage = () => {
   const [posts, setPosts] = useRecoilState(postsAtom);
   const [loading, setLoading] = useState(true);
   const [jobs, setJobs] = useState([]);
   const showToast = useShowToast();
+  const { id } = useParams();
 
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchJobs = async () => {
       try {
@@ -31,6 +33,12 @@ const OrganizationPage = () => {
     fetchJobs();
   }, []);
 
+  const handlyApply = (id) => {
+    navigate(`/Job-application-form/${id}`);
+};
+
+
+
   return (
     <div style={{display:'flex',justifyContent:'center', alignItems:'center'}}>
       <Box p={4}>
@@ -41,7 +49,7 @@ const OrganizationPage = () => {
         ) : (
           <VStack align="start" spacing={4}>
             {jobs.map((job) => (
-              <div class="modal" style={{marginTop:'10vh'}}>
+              <div class="modal" style={{marginTop:'10vh'}} key={job._id}>
                 <article class="modal-container">
                   <header class="modal-container-header">
                     <span class="modal-container-title">
@@ -77,11 +85,8 @@ const OrganizationPage = () => {
                     </ol>
                   </section>
                   <footer class="modal-container-footer">
-                    
-                   <RouterLink to={`/apply/${job.id}`}>
-                   <button class="button is-primary">Apply</button>
-                   </RouterLink>
-                   
+                  <Button variant='contained'  onClick={() => handlyApply(job._id)}>Apply</Button>
+
                   </footer>
                 </article>
               </div>

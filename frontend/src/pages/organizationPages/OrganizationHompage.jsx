@@ -103,6 +103,10 @@ const OrganizationHompage = () => {
           <Button colorScheme="blue">Create dedicated pages</Button>
         </Link>
         
+        <Link to="/Candidate-Shortlisting">
+          <Button colorScheme="blue">Candidates shortlisting</Button>
+        </Link>
+        
         
         <Box>
           <Flex justify="space-around">
