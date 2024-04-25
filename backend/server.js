@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./db/connectDB.js";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/userRoutes.js";
+import canidateRoutes from './routes/candidatesRoutes.js';
 import postRoutes from "./routes/postRoutes.js";
 import productRoutes from "./routes/productRoutes.js"
 import messageRoutes from "./routes/messageRoutes.js";
@@ -39,4 +40,10 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/jobpost", JobPost);
+app.use("/api/candidates", canidateRoutes);
 server.listen(PORT, () => console.log(`Server started at http://localhost:${PORT}`));
+
+
+//paf
+//0Lyo06edbcKZYzpm
+//soulliftitpm

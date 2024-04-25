@@ -53,5 +53,28 @@ const getAllJobs = async (req, res) => {
 };
 
 
+// Controller function to handle fetching a job by its ID
+const getJobById = async (req, res) => {
+    try {
+        // Extract the job ID from the request parameters
+        const id = req.params.id;
 
-export { saveJobDetails, getAllJobs };
+        // Query the database to find the job document by its ID
+        const job = await PostJobs.findById(id);
+
+        // Check if the job exists
+        if (!job) {
+            return res.status(404).json({ success: false, message: 'Job not found' });
+        }
+
+        // Respond with the job document
+        res.status(200).json({ success: true, job });
+    } catch (error) {
+        // Handle any errors that occur during the process
+        console.error('Error fetching job by ID:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};
+
+
+export { saveJobDetails, getAllJobs, getJobById};
