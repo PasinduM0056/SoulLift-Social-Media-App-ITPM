@@ -1,4 +1,4 @@
-import { Box, Heading, Text, VStack, Spinner,Button } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, Spinner, Button } from "@chakra-ui/react";
 // Import Link from react-router-dom
 import { useEffect, useState } from "react";
 import useShowToast from "../hooks/useShowToast";
@@ -10,7 +10,7 @@ import { Flex } from "@chakra-ui/react";
 import axios from "axios";
 import "./Organization-job-page.css";
 import { Link as RouterLink } from "react-router-dom";
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from "react-router-dom";
 const OrganizationPage = () => {
   const [posts, setPosts] = useRecoilState(postsAtom);
   const [loading, setLoading] = useState(true);
@@ -35,21 +35,27 @@ const OrganizationPage = () => {
 
   const handlyApply = (id) => {
     navigate(`/Job-application-form/${id}`);
-};
-
-
+  };
 
   return (
-    <div style={{display:'flex',justifyContent:'center', alignItems:'center'}}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Box p={4}>
-        <Heading mb={1} sx={{marginLeft:'10vh'}}>Top Jobs That Suits You</Heading>
+        <Heading mb={1} sx={{ marginLeft: "10vh" }}>
+          Top Jobs That Suits You
+        </Heading>
 
         {loading ? (
           <Spinner />
         ) : (
           <VStack align="start" spacing={4}>
             {jobs.map((job) => (
-              <div class="modal" style={{marginTop:'10vh'}} key={job._id}>
+              <div class="modal" style={{ marginTop: "10vh" }} key={job._id}>
                 <article class="modal-container">
                   <header class="modal-container-header">
                     <span class="modal-container-title">
@@ -66,27 +72,163 @@ const OrganizationPage = () => {
                           fill="currentColor"
                         ></path>
                       </svg>
-                      <Heading size="md">{job.jobTitle}</Heading>
+                      <Heading size="md">
+                        {job.jobTitle}{" "}
+                        <Text fontSize="sm">
+                          <div
+                            style={{
+                              marginTop:'-3vh',
+                              marginLeft:'266px',
+                              fontWeight: "100",
+                              fontSize: "16px",
+                            }}
+                          >
+                            Application Deadline:   {job.applicationDeadline}
+                          </div>
+                        
+                        </Text>
+                      </Heading>
                     </span>
-                   
                   </header>
-                  <section class="modal-container-body rtf">
+                  <section
+                    class="modal-container-body rtf"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
                     <ol>
-                    <Text fontSize="sm">Send you cv to below: {job.submissionMethod}</Text>
-                      <Text fontSize="sm">Company Email: {job.email}</Text>
-                      <Text fontSize="sm">Salary: ${job.salary}</Text>
-                      <Text fontSize="sm">Experience: {job.experience}</Text>
-                      <Text fontSize="sm">Application Deadline: {job.applicationDeadline}</Text>
-                      <Text fontSize="sm">Skills: {job.skills}</Text>
-                      <Text fontSize="sm">About the job: {job.jobAbout}</Text>
-                      <Text fontSize="sm">Responsibilities: {job.responsibilites}</Text>
-                      <Text fontSize="sm">Qualifications: {job.qualifications}</Text>
-                      <Text fontSize="sm">Other: {job.other}</Text>
+                      <Text fontSize="sm">
+                        <div
+                          style={{
+                            
+                            fontWeight: "800",
+                            fontSize: "26px",
+                          }}
+                        >
+                          Send you cv to below
+                        </div>{" "}
+                        {job.submissionMethod}
+                      </Text>
+                      <Text fontSize="sm">
+                        <div
+                          style={{
+                            
+                            fontWeight: "800",
+                            fontSize: "26px",
+                          }}
+                        >
+                          Company Email
+                        </div>
+                        {job.email}
+                      </Text>
+                      <Text fontSize="sm">
+                        <div
+                          style={{
+                           
+                            fontWeight: "800",
+                            fontSize: "26px",
+                          }}
+                        >
+                          Salary
+                        </div>
+                        {job.salary}
+                      </Text>
+                      <Text fontSize="sm">
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            fontWeight: "800",
+                            fontSize: "26px",
+                          }}
+                        >
+                          Experience
+                        </div>
+                        {job.experience}
+                      </Text>
+
+                      <Text fontSize="sm">
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            fontWeight: "800",
+                            fontSize: "26px",
+                          }}
+                        >
+                          Skills
+                        </div>{" "}
+                        {job.skills}
+                      </Text>
+                      <Text fontSize="sm">
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            fontWeight: "800",
+                            fontSize: "26px",
+                          }}
+                        >
+                          About the job
+                        </div>{" "}
+                        {job.jobAbout}
+                      </Text>
+                      <Text fontSize="sm">
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            fontWeight: "800",
+                            fontSize: "26px",
+                          }}
+                        >
+                          Responsibilities
+                        </div>
+                        {job.responsibilites}
+                      </Text>
+                      <Text fontSize="sm">
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            fontWeight: "800",
+                            fontSize: "26px",
+                          }}
+                        >
+                          Qualifications
+                        </div>{" "}
+                        {job.qualifications}
+                      </Text>
+                      <Text fontSize="sm">
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            fontWeight: "800",
+                            fontSize: "26px",
+                          }}
+                        >
+                          Other
+                        </div>{" "}
+                        {job.other}
+                      </Text>
                     </ol>
                   </section>
                   <footer class="modal-container-footer">
-                  <Button variant='contained'  onClick={() => handlyApply(job._id)}>Apply</Button>
-
+                    <Button
+                      variant="contained"
+                      onClick={() => handlyApply(job._id)}
+                    >
+                      Apply
+                    </Button>
                   </footer>
                 </article>
               </div>

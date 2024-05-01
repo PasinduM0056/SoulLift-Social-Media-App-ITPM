@@ -24,7 +24,7 @@ const HeaderB = () => {
                 <Link as={RouterLink} to='/business'>
                     <FiShoppingCart size={24} />
                 </Link>
-                <Link as={RouterLink} to='/organization'> {/* Link to the job posts page */}
+                <Link as={RouterLink} to='/organization-job'> {/* Link to the job posts page */}
                     <RiBriefcaseFill size={24} /> {/* Icon for job posts */}
                 </Link>
                 

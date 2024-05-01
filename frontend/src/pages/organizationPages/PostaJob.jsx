@@ -127,9 +127,9 @@ function PostaJob() {
               </FormControl>
 
               <FormControl id="email">
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Company Email</FormLabel>
                 <Input
-                  placeholder="Enter email"
+                  placeholder="Email that candidate should send their cv"
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
