@@ -1,89 +1,93 @@
-import React, { useState } from 'react';
+import { AddIcon } from "@chakra-ui/icons";
 import {
   Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
+  CloseButton,
+  Flex,
   FormControl,
   FormLabel,
+  Image,
   Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
   Textarea,
   useColorModeValue,
-  FormErrorMessage,
-} from '@chakra-ui/react';
-import { AddIcon } from '@chakra-ui/icons';
+  useDisclosure,
+} from "@chakra-ui/react";
+import { useRef, useState } from "react";
+import usePreviewImg from "../hooks/usePreviewImg";
+import { BsFillImageFill } from "react-icons/bs";
+import { useRecoilState, useRecoilValue } from "recoil";
+import userAtom from "../atoms/userAtom";
+import useShowToast from "../hooks/useShowToast";
+import { useParams } from "react-router-dom";
 
 const CreateProduct = () => {
-  const [isOpen, setIsOpen] = useState(false); // State to manage modal open/close
-  const [formData, setFormData] = useState({
-    productName: '',
-    productDescription: '',
-    productPrice: '',
-    productImage: null,
-  });
-  const [formErrors, setFormErrors] = useState({});
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [productName, setProductName] = useState("");
+  const [productDescription, setProductDescription] = useState("");
+  const [productPrice, setProductPrice] = useState("");
+  const [productOfferPrice, setProductOfferPrice] = useState("");
+  const { handleImageChange, imgUrl, setImgUrl } = usePreviewImg();
+  const imageRef = useRef(null);
+  const user = useRecoilValue(userAtom);
+  const showToast = useShowToast();
+  const [loading, setLoading] = useState(false);
+  const { username } = useParams();
 
-  const onClose = () => {
-    setIsOpen(false);
-    setFormData({
-      productName: '',
-      productDescription: '',
-      productPrice: '',
-      productImage: null,
-    });
-    setFormErrors({});
-  };
+  const handleCreateProduct = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/products/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          postedBy: user._id,
+          productName,
+          productDescription,
+          productPrice,
+          productOfferPrice,
+          productImg: imgUrl,
+        }),
+      });
 
-  const onOpen = () => setIsOpen(true);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const errors = {};
-    if (!formData.productName) {
-      errors.productName = 'Product Name is required';
-    }
-    if (!formData.productDescription) {
-      errors.productDescription = 'Product Description is required';
-    }
-    if (!formData.productPrice) {
-      errors.productPrice = 'Product Price is required';
-    } else if (isNaN(formData.productPrice)) {
-      errors.productPrice = 'Product Price must be a number';
-    }
-    if (!formData.productImage) {
-      errors.productImage = 'Product Image is required';
-    }
-
-    if (Object.keys(errors).length === 0) {
-      // Form is valid, you can submit it here
-      console.log('Form submitted successfully:', formData);
+      const data = await res.json();
+      if (data.error) {
+        showToast("Error", data.error, "error");
+        return;
+      }
+      showToast("Success", "Product created successfully", "success");
       onClose();
-    } else {
-      setFormErrors(errors);
+      setProductName("");
+      setProductDescription("");
+      setProductPrice("");
+      setProductOfferPrice("");
+      setImgUrl("");
+    } catch (error) {
+      showToast("Error", error.message, "error");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
       <Button
-        top={10}
-        left={5}
-        bg={useColorModeValue('gray.300', 'gray.dark')}
+        position={"fixed"}
+        top={100}
+        left={400}
+        bg={useColorModeValue("gray.300", "gray.dark")}
         onClick={onOpen}
-        size={{ base: 'sm', sm: 'md' }}
+        size={{ base: "sm", sm: "md" }}
       >
-        Create Product
+        <AddIcon />
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -93,49 +97,70 @@ const CreateProduct = () => {
           <ModalHeader>Create Product</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <form onSubmit={handleSubmit}>
-              <FormControl id="productName" isRequired isInvalid={!!formErrors.productName}>
-                <FormLabel>Product Name</FormLabel>
-                <Input type="text" name="productName" value={formData.productName} onChange={handleInputChange} />
-                <FormErrorMessage>{formErrors.productName}</FormErrorMessage>
-              </FormControl>
+            <FormControl>
+              <FormLabel>Product Name</FormLabel>
+              <Input
+                placeholder='Enter product name'
+                value={productName}
+                onChange={(e) => setProductName(e.target.value)}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Product Description</FormLabel>
+              <Textarea
+                placeholder='Enter product description'
+                value={productDescription}
+                onChange={(e) => setProductDescription(e.target.value)}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Product Price</FormLabel>
+              <Input
+                type='number'
+                placeholder='Enter product price'
+                value={productPrice}
+                onChange={(e) => setProductPrice(e.target.value)}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Product Offer Price</FormLabel>
+              <Input
+                type='number'
+                placeholder='Enter product offer price'
+                value={productOfferPrice}
+                onChange={(e) => setProductOfferPrice(e.target.value)}
+              />
+            </FormControl>
 
-              <FormControl id="productDescription" isRequired isInvalid={!!formErrors.productDescription} mt={4}>
-                <FormLabel>Product Description</FormLabel>
-                <Textarea
-                  name="productDescription"
-                  value={formData.productDescription}
-                  onChange={handleInputChange}
+            <Input type='file' hidden ref={imageRef} onChange={handleImageChange} />
+
+            <BsFillImageFill
+              style={{ marginLeft: "5px", cursor: "pointer" }}
+              size={16}
+              onClick={() => imageRef.current.click()}
+            />
+
+            {imgUrl && (
+              <Flex mt={5} w={"full"} position={"relative"}>
+                <Image src={imgUrl} alt='Selected img' />
+                <CloseButton
+                  onClick={() => {
+                    setImgUrl("");
+                  }}
+                  bg={"gray.800"}
+                  position={"absolute"}
+                  top={2}
+                  right={2}
                 />
-                <FormErrorMessage>{formErrors.productDescription}</FormErrorMessage>
-              </FormControl>
-
-              <FormControl id="productPrice" isRequired isInvalid={!!formErrors.productPrice} mt={4}>
-                <FormLabel>Product Price</FormLabel>
-                <Input
-                  type="number"
-                  name="productPrice"
-                  value={formData.productPrice}
-                  onChange={handleInputChange}
-                />
-                <FormErrorMessage>{formErrors.productPrice}</FormErrorMessage>
-              </FormControl>
-
-              <FormControl id="productImage" isRequired isInvalid={!!formErrors.productImage} mt={4}>
-                <FormLabel>Product Image</FormLabel>
-                <Input
-                  type="file"
-                  name="productImage"
-                  onChange={(e) => setFormData({ ...formData, productImage: e.target.files[0] })}
-                />
-                <FormErrorMessage>{formErrors.productImage}</FormErrorMessage>
-              </FormControl>
-
-              <Button type="submit" mt={4} colorScheme="blue">
-                Submit
-              </Button>
-            </form>
+              </Flex>
+            )}
           </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={handleCreateProduct} isLoading={loading}>
+              Create Product
+            </Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>
