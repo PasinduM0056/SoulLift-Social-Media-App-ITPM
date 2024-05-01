@@ -3,7 +3,7 @@ import Candidates from "../models/CandidateModel.js";
 const addCandidate = async (req, res) => {
     try {
         // Extract candidate details from the request body
-        const { CandidateName, CandidateNo, CandidateEmail, job, messagetoManager } = req.body;
+        const { CandidateName, CandidateNo, CandidateEmail,messagetoManager  , job  } = req.body;
 
         // Create a new candidate document using the Candidates model
         const newCandidate = new Candidates({
@@ -33,4 +33,19 @@ const addCandidate = async (req, res) => {
 };
 
 
-export default addCandidate;
+// Function to retrieve all candidates from the database
+const getAllCandidates = async (req, res) => {
+    try {
+      // Retrieve all candidates from the database
+      const candidates = await Candidates.find();
+      return res.status(200).json(candidates);
+      // Respond with the retrieved candidates
+      return res.status(200).json({ success: true, candidates });
+    } catch (error) {
+      // Handle errors that occur during the process
+      console.error("Error retrieving candidates:", error);
+      return res.status(500).json({ success: false, message: "Internal server error" });
+    }
+  };
+
+export  {addCandidate, getAllCandidates};
