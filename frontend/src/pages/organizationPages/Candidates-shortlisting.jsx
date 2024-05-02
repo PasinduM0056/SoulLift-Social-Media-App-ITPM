@@ -24,12 +24,22 @@ function CandidatesShortlisting() {
   // Function to handle accepting a candidate
   const handleAccept = async (candidate) => {
     try {
-      const response = await axios.post("/api/candidates/accept", candidate);
+      const response = await axios.post("/api/candidates/Shortlisted-candidates", candidate);
       console.log("Candidate accepted:", response.data); // Log success message
       // You can choose to remove the candidate from the list or refresh the list after acceptance
-      // setCandidates(candidates.filter((c) => c._id !== candidate._id));
+       setCandidates(candidates.filter((c) => c._id !== candidate._id));
     } catch (error) {
       console.error("Error accepting candidate:", error);
+    }
+  };
+
+  // Function to handle rejecting a candidate
+  const handleReject = async (candidate) => {
+    try {
+      await axios.delete(`/api/candidates/Delete-candidates/${candidate._id}`); // DELETE request to backend
+      setCandidates(candidates.filter((c) => c._id !== candidate._id)); // Remove from state
+    } catch (error) {
+      console.error("Error rejecting candidate:", error);
     }
   };
 
@@ -129,13 +139,14 @@ function CandidatesShortlisting() {
         {candidates.map((candidate) => (
           <div
             className="shortlisting-card"
-            style={{ width: "80vh", marginTop: "-50vh" }}
+            style={{ width: "80vh", marginTop: "-50vh",marginBottom:'60vh' }}
             key={candidate._id}
+         
           >
             <div className="shortlisting-card-border" />
             <div className="shortlisting-card-title-container">
               <span className="shortlisting-card-title">
-                <strong style={{ marginLeft: "320px", fontWeight: "100", fontSize: "16px" }}>
+                <strong style={{ marginLeft: "260px", fontWeight: "100", fontSize: "16px" }}>
                   Application Deadline:
                 </strong>{" "}
                 {candidate.job.applicationDeadline}
@@ -172,7 +183,10 @@ function CandidatesShortlisting() {
             >
               Accept
             </button>
-            <button className="shortlisting-button">Reject</button>
+            <button
+              className="shortlisting-button"
+              onClick={() => handleReject(candidate)}
+            >Reject</button>
           </div>
         ))}
       </List>
