@@ -1,60 +1,113 @@
 import React from 'react';
-import '../../css/style.css'
-import {BsCart3, BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsListCheck, BsMenuButtonWideFill, BsFillGearFill} from 'react-icons/bs'
-import { Link} from 'react-router-dom';
+import '../../css/style.css';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faPalette,
+  faCartPlus,
+  faBullhorn,
+  faCreditCard,
+  faChartLine,
+  faUser,
+  faComments,
+  faCog
+} from '@fortawesome/free-solid-svg-icons';
+import userAtom from "./../../atoms/userAtom";
+import { useRecoilValue } from "recoil";
 
-
-
-const UDSideBar = ({openSidebarToggle, OpenSidebar}) => {
+const UDSideBar = () => {
+  const user = useRecoilValue(userAtom);
   return (
-    <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive": ""}>
-        <div className='sidebar-title'>
-            <div className='sidebar-brand'>
-                <BsCart3  className='icon_header'/> SHOP
-            </div>
-            <span className='icon close_icon' onClick={OpenSidebar}>X</span>
+    <div id="nav-bar">
+      <input id="nav-toggle" type="checkbox"/>
+      <div id="nav-header">
+        <a id="nav-title" href="https://codepen.io" target="_blank">
+          CODEPEN
+        </a>
+        <label htmlFor="nav-toggle"><span id="nav-toggle-burger"></span></label>
+        <hr/>
+      </div>
+      <div id="nav-content">
+        {/* Dashboard */}
+        <div className="nav-button">
+          <Link to={`/userDashboard/${user.username}/udhome`}>
+            <FontAwesomeIcon icon={faPalette} />
+            <span> Dashboard</span>
+          </Link>
         </div>
 
-        <ul className='sidebar-list'>
-            <li className='sidebar-list-item'>
         
-                <Link to={`/udhome`}>
-					<BsGrid1X2Fill size={20} /> Dashboard
-				</Link>
-                
-            </li>
-            <li className='sidebar-list-item'>
-                <Link to={`/udproduct`}>
-					<BsGrid1X2Fill size={20} /> Product
-				</Link>
-            </li>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <BsFillGrid3X3GapFill className='icon'/> Categories
-                </a>
-            </li>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <BsPeopleFill className='icon'/> Customers
-                </a>
-            </li>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <BsListCheck className='icon'/> Inventory
-                </a>
-            </li>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <BsMenuButtonWideFill className='icon'/> Reports
-                </a>
-            </li>
-            <li className='sidebar-list-item'>
-                <a href="">
-                    <BsFillGearFill className='icon'/> Setting
-                </a>
-            </li>
-        </ul>
-    </aside>
+
+        {/* Product */}
+        <div className="nav-button">
+          <Link to={`/userDashboard/${user.username}/udproduct`}>
+            <FontAwesomeIcon icon={faCartPlus} />
+            <span> Product</span>
+          </Link>
+        </div>
+
+        {/* Advertisement */}
+        <div className="nav-button">
+          <Link to={`/userDashboard/${user.username}/udadvertisement`}>
+            <FontAwesomeIcon icon={faBullhorn} />
+            <span> Advertisement</span>
+          </Link>
+        </div>
+        
+        <hr/>
+
+        {/* Sales Analysis */}
+        <div className="nav-button">
+          <Link to={`/userDashboard/${user.username}/udsalesanalysis`}>
+            <FontAwesomeIcon icon={faChartLine} />
+            <span> Sales Analysis</span>
+          </Link>
+        </div>
+
+        {/* Advertisement Analysis */}
+        <div className="nav-button">
+          <Link to={`/userDashboard/${user.username}/udadvertanalysis`}>
+            <FontAwesomeIcon icon={faChartLine} />
+            <span> Advertisement Analysis</span>
+          </Link>
+        </div>
+        
+        <hr/>
+
+        {/* Profile */}
+        <div className="nav-button">
+          <Link to={`/userDashboard/${user.username}/udprofile`}>
+            <FontAwesomeIcon icon={faUser} />
+            <span> Profile</span>
+          </Link>
+        </div>
+
+        {/* Chats */}
+        <div className="nav-button">
+          <Link to={`/userDashboard/${user.username}/udchats`}>
+            <FontAwesomeIcon icon={faComments} />
+            <span> Chats</span>
+          </Link>
+        </div>
+
+        {/* Settings */}
+        <div className="nav-button">
+          <Link to={`/userDashboard/${user.username}/udsettings`}>
+            <FontAwesomeIcon icon={faCog} />
+            <span> Settings</span>
+          </Link>
+        </div>
+        <div id="nav-content-highlight"></div>
+      </div>
+      <input id="nav-footer-toggle" type="checkbox"/>
+      <div id="nav-footer">
+        <div id="nav-footer-avatar">
+          <img src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547" alt="User Avatar" />
+        </div>
+        <div id="nav-footer-titlebox">
+        </div>
+      </div>
+    </div>
   );
 }
 

@@ -4,8 +4,13 @@ import useShowToast from "../hooks/useShowToast";
 import useLogout from "../hooks/useLogout";
 import BusinessProfileForm from "./BusinessProfileForm";
 import { useNavigate } from 'react-router-dom';
+import userAtom from "./../atoms/userAtom";
+import { useRecoilValue } from "recoil";
+import { Link } from 'react-router-dom';
+
 
 const SettingsPage = ({ isBusiness }) => {
+  const user = useRecoilValue(userAtom);
   const showToast = useShowToast();
   const logout = useLogout();
   const [showForm, setShowForm] = useState(false);
@@ -64,7 +69,7 @@ const SettingsPage = ({ isBusiness }) => {
 
   const handleOpenDashboard = () => {
     // Navigate to the /udhome route
-    navigate("/udhome");
+    navigate("/:username/udhome");
   };
 
   return (
@@ -88,9 +93,11 @@ const SettingsPage = ({ isBusiness }) => {
           )}
           
           {isBusinessAccount ? (
-            <Button size={"sm"} colorScheme="green" onClick={handleOpenDashboard}>
+            <Link to={`/userDashboard/${user.username}/udhome`}>
+            <Button size="sm" colorScheme="green">
               Open Dashboard
             </Button>
+          </Link>
           ) : (
             <Button size={"sm"} colorScheme="red" onClick={toggleForm}>
               Switch to Business Profile

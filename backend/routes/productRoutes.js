@@ -7,6 +7,7 @@ import {
 	reviewProduct,
 	getFeedProducts,
 	getUserProducts,
+	buyProduct
 } from "../controllers/productController.js";
 import protectRoute from "../middlewares/protectRoute.js";
 
@@ -19,5 +20,6 @@ router.post("/create", protectRoute, createProduct);
 router.delete("/:id", protectRoute, deleteProduct);
 router.put("/like/:id", protectRoute, likeUnlikeProduct);
 router.put("/review/:id", protectRoute, reviewProduct);
+router.put("/buy/:id", protectRoute, buyProduct)
 
 export default router;

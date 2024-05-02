@@ -46,7 +46,7 @@ const productSchema = mongoose.Schema(
 					type: String,
 				},
                 rating: {
-                    type: String,
+                    type: Number,
                 }
 			},
 		],
@@ -58,12 +58,28 @@ const productSchema = mongoose.Schema(
 					ref: "User",
 					required: true,
 				},
+				buyerName: {
+					type: String,
+				},
                 buyerAddress: {
                     type: String,
                 },
-                buyerphoneNumber: {
+                buyerPhoneNumber: {
                     type: String,
                 }
+            }
+        ],
+
+		advertisement: [
+            {
+            
+				addText: {
+					type: String,
+				},
+                addImage: {
+                    type: String,
+                },
+                
             }
         ]
 	},

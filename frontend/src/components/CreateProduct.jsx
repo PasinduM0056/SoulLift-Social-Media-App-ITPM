@@ -81,13 +81,13 @@ const CreateProduct = () => {
     <>
       <Button
         position={"fixed"}
-        top={100}
-        left={400}
+        bottom={10}
+				right={5}
         bg={useColorModeValue("gray.300", "gray.dark")}
         onClick={onOpen}
         size={{ base: "sm", sm: "md" }}
       >
-        <AddIcon />
+        Product
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
