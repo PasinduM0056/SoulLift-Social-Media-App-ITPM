@@ -1,4 +1,5 @@
 import Candidates from "../models/CandidateModel.js";
+import AcceptedCandidate from "../models/AcceptedCandidate.js";
 
 const addCandidate = async (req, res) => {
     try {
@@ -48,4 +49,49 @@ const getAllCandidates = async (req, res) => {
     }
   };
 
-export  {addCandidate, getAllCandidates};
+
+
+
+  const acceptCandidate = async (req, res) => {
+    try {
+      const candidateData = req.body; // Get the candidate data from the request body
+  
+      // Create a new accepted candidate in the database
+      const acceptedCandidate = new AcceptedCandidate(candidateData);
+  
+      await acceptedCandidate.save(); // Save to the database
+  
+      res.status(201).json({
+        message: "Candidate accepted successfully",
+        data: acceptedCandidate,
+      });
+    } catch (error) {
+      console.error("Error accepting candidate:", error);
+      res.status(500).json({
+        message: "Internal server error",
+        error: error.message,
+      });
+    }
+  };
+
+
+
+  // Function to delete a candidate by ID
+const deleteCandidate = async (req, res) => {
+  try {
+    const candidateId = req.params.id; // Get the candidate ID from the request parameter
+
+    const candidate = await Candidates.findByIdAndDelete(candidateId);
+
+    if (!candidate) {
+      return res.status(404).json({ success: false, message: "Candidate not found" });
+    }
+
+    return res.status(200).json({ success: true, message: "Candidate deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting candidate:", error);
+    return res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+export  {addCandidate, getAllCandidates, acceptCandidate, deleteCandidate};
