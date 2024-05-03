@@ -297,6 +297,60 @@ const submitBusinessProfile = async (req, res) => {
     }
 };
 
+
+const submitConsultantProfile = async (req, res) => {
+    const { name, address, idNumber, companyName, companyAbout, password } = req.body;
+    let { identityVerify } = req.body;
+    const userId = req.user._id;
+
+    try {
+        let user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        if (req.params.id !== userId.toString()) {
+            return res.status(403).json({ error: "You cannot update other user's profile" });
+        }
+
+        if (password) {
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(password, salt);
+            user.password = hashedPassword;
+        }
+
+        if (identityVerify) {
+            // Upload identity verification image to Cloudinary
+            const uploadedResponse = await cloudinary.uploader.upload(identityVerify);
+            identityVerify = uploadedResponse.secure_url;
+
+            // Delete previous image from Cloudinary
+            if (user.identityVerify) {
+                await cloudinary.uploader.destroy(user.identityVerify.split("/").pop().split(".")[0]);
+            }
+        }
+
+        // Update user fields
+        user.name = name || user.name;
+        user.address = address || user.address;
+        user.idNumber = idNumber || user.idNumber;
+        user.companyName = companyName || user.companyName;
+        user.companyAbout = companyAbout || user.companyAbout;
+        user.identityVerify = identityVerify || user.identityVerify;
+
+        // Save updated user to database
+        user = await user.save();
+
+        // Omit password from response
+        user.password = null;
+
+        res.status(200).json(user);
+    } catch (err) {
+        console.error("Error in submitConsultantProfile:", err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
   
   
 
@@ -316,6 +370,22 @@ const checkIsBusiness = async (req, res) => {
 	}
 };
 
+const checkIsConsultant = async (req, res) => {
+	try {
+		const userId = req.user._id;
+		const user = await User.findById(userId);
+
+		if (!user) {
+			return res.status(400).json({ error: "User not found" });
+		}
+
+		res.status(200).json({ isConsultant: user.isConsultant });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+		console.log("Error in checkIsConsultant: ", error.message);
+	}
+};
+
 export {
 	signupUser,
 	loginUser,
@@ -326,5 +396,7 @@ export {
 	getSuggestedUsers,
 	freezeAccount,
 	submitBusinessProfile,
-	checkIsBusiness
+	submitConsultantProfile,
+	checkIsBusiness,
+	checkIsConsultant
 };
