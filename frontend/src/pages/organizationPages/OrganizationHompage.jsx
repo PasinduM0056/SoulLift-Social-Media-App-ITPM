@@ -106,6 +106,9 @@ const OrganizationHompage = () => {
         <Link to="/Candidate-Shortlisting">
           <Button colorScheme="blue">Candidates shortlisting</Button>
         </Link>
+        <Link to="/Shortlisted-Candidates">
+          <Button colorScheme="blue">Shortlisted candidates</Button>
+        </Link>
         
         
         <Box>

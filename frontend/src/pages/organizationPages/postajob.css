@@ -222,3 +222,450 @@
     pointer-events: auto;
   }
   
+
+
+
+
+  .post-a-job-light-button button.post-a-job-bt {
+    position: relative;
+    height: 200px;
+    display: flex;
+    align-items: flex-end;
+    outline: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .post-a-job-light-button button.post-a-job-bt .post-a-job-button-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100px;
+    background-color: #0a0a0a;
+    border-radius: 5px;
+    color: #0f0f0f;
+    font-weight: 700;
+    transition: 300ms;
+    outline: #0f0f0f 2px solid;
+    outline-offset: 20;
+  }
+  
+  .post-a-job-light-button button.post-a-job-bt .post-a-job-button-holder svg {
+    height: 50px;
+    fill: #0f0f0f;
+    transition: 300ms;
+  }
+  
+  .post-a-job-light-button button.post-a-job-bt .post-a-job-light-holder {
+    position: absolute;
+    height: 200px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .post-a-job-light-button button.post-a-job-bt .post-a-job-light-holder .post-a-job-dot {
+    position: absolute;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    background-color: #0a0a0a;
+    border-radius: 10px;
+    z-index: 2;
+  }
+  
+  .post-a-job-light-button button.post-a-job-bt .post-a-job-light-holder .post-a-job-light {
+    position: absolute;
+    top: 0;
+    width: 200px;
+    height: 200px;
+    clip-path: polygon(50% 0%, 25% 100%, 75% 100%);
+    background: transparent;
+  }
+  
+  .post-a-job-light-button button.post-a-job-bt:hover .post-a-job-button-holder svg {
+    fill: rgba(88, 101, 242, 1);
+  }
+  
+  .post-a-job-light-button button.post-a-job-bt:hover .post-a-job-button-holder {
+    color: rgba(88, 101, 242, 1);
+    outline: rgba(88, 101, 242, 1) 2px solid;
+    outline-offset: 2px;
+  }
+  
+  .post-a-job-light-button button.post-a-job-bt:hover .post-a-job-light-holder .post-a-job-light {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(
+      180deg,
+      rgba(88, 101, 242, 1) 0%,
+      rgba(255, 255, 255, 0) 75%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+  
+
+
+
+
+
+
+  /*works janky on mobile :<*/
+.post-a-job-container {
+  position: relative;
+  width: 750px;
+  height: 300px;
+  transition: 200ms;
+  margin: 120px;
+  margin-top: 10vh;
+}
+
+.post-a-job-container:active {
+  width: 180px;
+  height: 245px;
+}
+
+#post-a-job-card {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  transition: 700ms;
+  background: linear-gradient(43deg, rgb(12, 12, 12) 0%, rgb(126, 123, 126) 46%, rgb(12, 12, 12) 100%);
+}
+
+.post-a-job-subtitle {
+  transform: translateY(160px);
+  color: rgb(134, 110, 221);
+  text-align: center;
+  width: 100%;
+}
+
+.post-a-job-title {
+  opacity: 0;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out-out;
+  transition-delay: 100ms;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(16, 16, 16);
+  width: 700px;
+}
+
+.post-a-job-tracker:hover ~ #post-a-job-card .post-a-job-title {
+  opacity: 1;
+}
+
+#post-a-job-prompt {
+  bottom: 8px;
+  left: 12px;
+  z-index: 20;
+  font-size: 20px;
+  font-weight: bold;
+  transition: 300ms ease-in-out-out;
+  position: absolute;
+  max-width: 150px;
+  color: rgb(185, 175, 242);
+}
+
+.post-a-job-tracker {
+  position: absolute;
+  z-index: 200;
+  width: 100%;
+  height: 100%;
+}
+
+.post-a-job-tracker:hover {
+  cursor: pointer;
+}
+
+.post-a-job-tracker:hover ~ #post-a-job-card #post-a-job-prompt {
+  opacity: 0;
+}
+
+.post-a-job-tracker:hover ~ #post-a-job-card {
+  transition: 300ms;
+  filter: brightness(1.1);
+}
+
+.post-a-job-container:hover #post-a-job-card::before {
+  transition: 200ms;
+  content: '';
+  opacity: 80%;
+}
+
+.post-a-job-canvas {
+  perspective: 800px;
+  inset: 0;
+  z-index: 200;
+  position: absolute;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "tr-1 tr-2 tr-3 tr-4 tr-5"
+    "tr-6 tr-7 tr-8 tr-9 tr-10"
+    "tr-11 tr-12 tr-13 tr-14 tr-15"
+    "tr-16 tr-17 tr-18 tr-19 tr-20"
+    "tr-21 tr-22 tr-23 tr-24 tr-25";
+}
+
+#post-a-job-card::before {
+  content: '';
+  background: linear-gradient(43deg, rgb(241, 242, 244) 0%, rgb(16, 8, 15) 46%, rgb(52, 33, 220) 100%);
+  filter: blur(2rem);
+  opacity: 30%;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  transition: 200ms;
+}
+
+.post-a-job-tr-1 {
+  grid-area: tr-1;
+}
+
+.post-a-job-tr-2 {
+  grid-area: tr-2;
+}
+
+.post-a-job-tr-3 {
+  grid-area: tr-3;
+}
+
+.post-a-job-tr-4 {
+  grid-area: tr-4;
+}
+
+.post-a-job-tr-5 {
+  grid-area: tr-5;
+}
+
+.post-a-job-tr-6 {
+  grid-area: tr-6;
+}
+
+.post-a-job-tr-7 {
+  grid-area: tr-7;
+}
+
+.post-a-job-tr-8 {
+  grid-area: tr-8;
+}
+
+.post-a-job-tr-9 {
+  grid-area: tr-9;
+}
+
+.post-a-job-tr-10 {
+  grid-area: tr-10;
+}
+
+.post-a-job-tr-11 {
+  grid-area: tr-11;
+}
+
+.post-a-job-tr-12 {
+  grid-area: tr-12;
+}
+
+.post-a-job-tr-13 {
+  grid-area: tr-13;
+}
+
+.post-a-job-tr-14 {
+  grid-area: tr-14;
+}
+
+.post-a-job-tr-15 {
+  grid-area: tr-15;
+}
+
+.post-a-job-tr-16 {
+  grid-area: tr-16;
+}
+
+.post-a-job-tr-17 {
+  grid-area: tr-17;
+}
+
+.post-a-job-tr-18 {
+  grid-area: tr-18;
+}
+
+.post-a-job-tr-19 {
+  grid-area: tr-19;
+}
+
+.post-a-job-tr-20 {
+  grid-area: tr-20;
+}
+
+.post-a-job-tr-21 {
+  grid-area: tr-21;
+}
+
+.post-a-job-tr-22 {
+  grid-area: tr-22;
+}
+
+.post-a-job-tr-23 {
+  grid-area: tr-23;
+}
+
+.post-a-job-tr-24 {
+  grid-area: tr-24;
+}
+
+.post-a-job-tr-25 {
+  grid-area: tr-25;
+}
+
+.post-a-job-tr-1:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(20deg) rotateY(-10deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-2:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(20deg) rotateY(-5deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-3:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(20deg) rotateY(0deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-4:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(20deg) rotateY(5deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-5:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(20deg) rotateY(10deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-6:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(10deg) rotateY(-10deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-7:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(10deg) rotateY(-5deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-8:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(10deg) rotateY(0deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-9:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(10deg) rotateY(5deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-10:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(10deg) rotateY(10deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-11:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(0deg) rotateY(-10deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-12:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(0deg) rotateY(-5deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-13:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-14:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(0deg) rotateY(5deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-15:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(0deg) rotateY(10deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-16:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-10deg) rotateY(-10deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-17:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-10deg) rotateY(-5deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-18:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-10deg) rotateY(0deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-19:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-10deg) rotateY(5deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-20:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-10deg) rotateY(10deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-21:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-20deg) rotateY(-10deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-22:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-20deg) rotateY(-5deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-23:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-20deg) rotateY(0deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-24:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-20deg) rotateY(5deg) rotateZ(0deg);
+}
+
+.post-a-job-tr-25:hover ~ #post-a-job-card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-20deg) rotateY(10deg) rotateZ(0deg);
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+   /* iOS Safari */
+  -webkit-user-select: none;
+   /* Safari */
+   /* Konqueror HTML */
+  -moz-user-select: none;
+   /* Old versions of Firefox */
+  -ms-user-select: none;
+   /* Internet Explorer/Edge */
+  user-select: none;
+   /* Non-prefixed version, currently
+									supported by Chrome, Edge, Opera and Firefox */
+}
