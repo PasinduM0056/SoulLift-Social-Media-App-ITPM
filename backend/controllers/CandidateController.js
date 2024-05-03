@@ -50,6 +50,22 @@ const getAllCandidates = async (req, res) => {
   };
 
 
+  // Function to retrieve all candidates from the database
+const getAllSelected = async (req, res) => {
+  try {
+    // Retrieve all candidates from the database
+    const candidates = await AcceptedCandidate.find();
+    return res.status(200).json(candidates);
+    // Respond with the retrieved candidates
+    return res.status(200).json({ success: true, candidates });
+  } catch (error) {
+    // Handle errors that occur during the process
+    console.error("Error retrieving candidates:", error);
+    return res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+
 
 
   const acceptCandidate = async (req, res) => {
@@ -94,4 +110,22 @@ const deleteCandidate = async (req, res) => {
   }
 };
 
-export  {addCandidate, getAllCandidates, acceptCandidate, deleteCandidate};
+
+  // Function to delete a candidate by ID
+  const DoneSelectedCandidates = async (req, res) => {
+    try {
+      const candidateId = req.params.id; // Get the candidate ID from the request parameter
+  
+      const candidate = await AcceptedCandidate.findByIdAndDelete(candidateId);
+  
+      if (!candidate) {
+        return res.status(404).json({ success: false, message: "Candidate not found" });
+      }
+  
+      return res.status(200).json({ success: true, message: "Selected candidate removed successfully" });
+    } catch (error) {
+      console.error("Error deleting candidate:", error);
+      return res.status(500).json({ success: false, message: "Internal server error" });
+    }
+  };
+export  {addCandidate, getAllCandidates, acceptCandidate, deleteCandidate, getAllSelected, DoneSelectedCandidates};
