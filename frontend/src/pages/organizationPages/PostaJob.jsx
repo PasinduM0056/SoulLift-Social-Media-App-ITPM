@@ -311,10 +311,15 @@ function PostaJob() {
           </form>
         </div>
       </div>
+     
       <div class="post-a-job-light-button">
+        
         <button class="post-a-job-bt">
+        
           <div class="post-a-job-light-holder">
-            <div class="post-a-job-dot"></div>
+            <div class="post-a-job-dot">
+           
+            </div>
             <div class="post-a-job-light"></div>
           </div>
           <div class="post-a-job-button-holder">

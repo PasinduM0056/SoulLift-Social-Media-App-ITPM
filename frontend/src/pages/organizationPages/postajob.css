@@ -235,6 +235,8 @@
     background: none;
     border: none;
     cursor: pointer;
+    margin-top: -130vh;
+    margin-left: -20vh;
   }
   
   .post-a-job-light-button button.post-a-job-bt .post-a-job-button-holder {
@@ -337,7 +339,7 @@
   align-items: center;
   border-radius: 20px;
   transition: 700ms;
-  background: linear-gradient(43deg, rgb(12, 12, 12) 0%, rgb(126, 123, 126) 46%, rgb(12, 12, 12) 100%);
+  background: linear-gradient(43deg, rgb(184, 184, 189) 0%, rgb(126, 123, 126) 46%, rgb(65, 64, 64) 100%);
 }
 
 .post-a-job-subtitle {
@@ -373,7 +375,7 @@
   transition: 300ms ease-in-out-out;
   position: absolute;
   max-width: 150px;
-  color: rgb(185, 175, 242);
+  color: rgb(76, 64, 64);
 }
 
 .post-a-job-tracker {
@@ -420,12 +422,12 @@
 
 #post-a-job-card::before {
   content: '';
-  background: linear-gradient(43deg, rgb(241, 242, 244) 0%, rgb(16, 8, 15) 46%, rgb(52, 33, 220) 100%);
+  background: linear-gradient(43deg, rgb(209, 210, 213) 0%, rgb(84, 76, 192) 46%, rgb(84, 73, 231) 100%);
   filter: blur(2rem);
   opacity: 30%;
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   z-index: -1;
   transition: 200ms;
 }
