@@ -21,7 +21,7 @@ function TermsAndConditions() {
         platform.        
       </Text>
       <Text>
-      Welcome to our depression support social media platform, dedicated to providing a safe and supportive space for individuals struggling with depression. Our platform offers various features, including user-generated content sharing, consultant services, a marketplace, and job opportunities for consultants.
+      
       </Text>
       <Accordion allowToggle>
         <AccordionItem>
@@ -53,14 +53,117 @@ function TermsAndConditions() {
         <AccordionItem>
           <AccordionButton>
             <Box flex="1" textAlign="left">
-              Section 3
+              Privacy Policy
             </Box>
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam.
+          We are committed to protecting user privacy and confidentiality. 
+          Our privacy policy outlines how we collect, use, and protect personal information provided by users. 
+          This includes details on data encryption, storage practices, and user control over their information. 
+          Users have the right to review, update, or delete their data as per applicable laws.
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+            Security Measures
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel pb={4}>
+          Our platform employs robust security measures to safeguard user data and ensure a safe online environment. 
+          This includes encryption of sensitive information, secure communication protocols (HTTPS), and regular security audits. 
+          Users are encouraged to enable two-factor authentication for added security.
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+            Consultant Services
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel pb={4}>
+          Users can access consultant services provided by licensed mental health professionals on our platform. 
+          By scheduling appointments, users agree to maintain confidentiality and respect the professional boundaries of the consulting relationship. 
+          Consultants adhere to ethical standards and maintain client confidentiality as per professional guidelines.
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+            Marketplace
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel pb={4}>
+          Our marketplace allows users to buy and sell goods or services related to mental health and well-being. 
+          Products or services promoting unproven treatments, illegal substances, or harmful practices are not permitted. 
+          Users must comply with applicable laws and regulations when conducting transactions on the platform.
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+            Job Opportunities
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel pb={4}>
+          Consultants registered on our platform may have access to job opportunities, including freelance projects, part-time positions, or full-time employment. 
+          Job listings are subject to review and approval by platform administrators. 
+          Consultants are responsible for maintaining professional conduct and fulfilling contractual obligations.
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+            Community Guidelines
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel pb={4}>
+          Our community guidelines promote positive interactions and mutual support among users. 
+          We encourage empathy, understanding, and constructive communication. 
+          Violations of community guidelines may result in content removal, account suspension, or other disciplinary actions.
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+            Dispute Resolution
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel pb={4}>
+          In the event of disputes between users or with consultants, we offer mediation services to facilitate resolution. 
+          If mediation is unsuccessful, disputes may be escalated to binding arbitration or legal proceedings, as outlined in our dispute resolution policy.
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+            Updates and Amendments
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel pb={4}>
+          These terms and conditions may be updated or amended periodically to reflect changes in our platform or legal requirements. 
+          Users will be notified of any updates via email or platform notifications.
+           Continued use of the platform constitutes acceptance of the revised terms.
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+            Contact Information
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel pb={4}>
+          For questions, concerns, or feedback regarding our platform or the terms and conditions, users can contact our support team at support@example.com. 
+          We are committed to providing assistance and addressing user inquiries promptly.
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
