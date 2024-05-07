@@ -19,7 +19,7 @@ import CreatePost from "./components/CreatePost";
 import UDHomePage from "./pages/udPages/UDHomePage";
 import UDProductPage from './pages/udPages/UDProductPage';
 import AdminReviewPage from './pages/AdminReviewPage';
-
+import TermsAndConditions from './pages/TermsAndConditions';
 
 function App() {
   const user = useRecoilValue(userAtom);
@@ -57,6 +57,7 @@ function App() {
           <Route path='/:username/post/:pid' element={<PostPage />} />
           <Route path='/chat' element={user ? <ChatPage /> : <Navigate to="/auth" />} />
           <Route path='/settings' element={user ? <SettingsPage SettingsPage isBusiness={user.isBusiness} /> : <Navigate to="/auth" />} />
+          <Route path='/terms' element={<TermsAndConditions />} />
         </Routes>
       </Container>
       
