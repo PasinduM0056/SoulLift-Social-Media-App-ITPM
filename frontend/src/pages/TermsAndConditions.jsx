@@ -45,9 +45,9 @@ function TermsAndConditions() {
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam.
+          We encourage users to share their depression journeys, experiences, and resources in a supportive and respectful manner. 
+          However, content that promotes self-harm, violence, hate speech, discrimination, or illegal activities is strictly prohibited. 
+          Users are expected to adhere to community guidelines and report any inappropriate content.
           </AccordionPanel>
         </AccordionItem>
         <AccordionItem>
