@@ -32,15 +32,15 @@ function TermsAndConditions() {
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam.
+          To create an account on our platform, users must be at least 18 years old or have parental consent. 
+          During registration, users are required to provide a valid email address, username, and password.
+          It is the user's responsibility to safeguard their account credentials and refrain from sharing them with others.
           </AccordionPanel>
         </AccordionItem>
         <AccordionItem>
           <AccordionButton>
             <Box flex="1" textAlign="left">
-              Section 2
+            Content Guidelines
             </Box>
             <AccordionIcon />
           </AccordionButton>
