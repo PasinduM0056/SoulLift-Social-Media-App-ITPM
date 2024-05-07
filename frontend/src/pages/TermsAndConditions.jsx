@@ -18,13 +18,16 @@ function TermsAndConditions() {
       </Heading>
       <Text fontSize="lg" mb="4">
         Please read these terms and conditions carefully before using our
-        platform.
+        platform.        
+      </Text>
+      <Text>
+      Welcome to our depression support social media platform, dedicated to providing a safe and supportive space for individuals struggling with depression. Our platform offers various features, including user-generated content sharing, consultant services, a marketplace, and job opportunities for consultants.
       </Text>
       <Accordion allowToggle>
         <AccordionItem>
           <AccordionButton>
             <Box flex="1" textAlign="left">
-              Section 1
+            User Accounts
             </Box>
             <AccordionIcon />
           </AccordionButton>
