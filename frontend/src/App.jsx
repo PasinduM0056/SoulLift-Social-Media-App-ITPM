@@ -27,7 +27,7 @@ import UDProfilePage from './pages/udPages/UDProfilePage';
 import UDChatPage from './pages/udPages/UDChatPage';
 import UDSettingsPage from './pages/udPages/UDSettingsPage';
 import AdminReviewPage from './pages/AdminReviewPage';
-
+import TermsAndConditions from './pages/TermsAndConditions';
 
 import CDSideBar from "./components/udComponents/CDSideBar";
 import ConsultantPage from './pages/ConsultantPage';
@@ -75,6 +75,7 @@ function App() {
           <Route path='/:username/product/:pid' element={<ProductPage />} />
           <Route path='/chat' element={user ? <ChatPage /> : <Navigate to="/auth" />} />
           <Route path='/settings' element={user ? <SettingsPage isBusiness={user.isBusiness} /> : <Navigate to="/auth" />} />
+          <Route path='/terms' element={<TermsAndConditions />} />
         </Routes>
       </Container>
 
