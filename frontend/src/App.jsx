@@ -41,6 +41,7 @@ import CDBuyersAnalysePage from './pages/cdPages/CDBuyersAnalysePage';
 import CDProfilePage from './pages/cdPages/CDProfilePage';
 import CDChatPage from './pages/cdPages/CDChatPage';
 import CDSettingsPage from './pages/cdPages/CDSettingPage';
+import GenerateActivityReport from './pages/GenerateActivityReport';
 
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
           <Route path='/chat' element={user ? <ChatPage /> : <Navigate to="/auth" />} />
           <Route path='/settings' element={user ? <SettingsPage isBusiness={user.isBusiness} /> : <Navigate to="/auth" />} />
           <Route path='/terms' element={<TermsAndConditions />} />
+          <Route path='/activityreport' element={<GenerateActivityReport />} />
         </Routes>
       </Container>
 

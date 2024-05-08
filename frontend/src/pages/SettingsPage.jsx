@@ -113,10 +113,19 @@ const SettingsPage = ({ isBusiness }) => {
         Terms and Conditions
       </Text>
       <Text my={1}>You can view all Terms and Conditions of SoulLift!</Text>
-      {/* Use Link to navigate to the Terms and Conditions page */}
       <Link to="/terms">
         <Button size={"sm"} colorScheme="red">
           T&C
+        </Button>
+      </Link>
+
+      <Text my={1} fontWeight={"bold"}>
+        User Activity Report
+      </Text>
+      <Text my={1}>You can view all your activity of your require time period!</Text>
+      <Link to="/activityreport">
+        <Button size={"sm"} colorScheme="red">
+          Activity Report
         </Button>
       </Link>
     </>
