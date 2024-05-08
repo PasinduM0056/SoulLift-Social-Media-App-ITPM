@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import userAtom from "./../atoms/userAtom";
 import { useRecoilValue } from "recoil";
 import { Link } from 'react-router-dom';
+import TermsAndConditions from "./TermsAndConditions";
 
 
 const SettingsPage = ({ isBusiness }) => {
@@ -107,6 +108,17 @@ const SettingsPage = ({ isBusiness }) => {
       ) : (
         <BusinessProfileForm toggleForm={toggleForm} />
       )}
+
+        <Text my={1} fontWeight={"bold"}>
+        Terms and Conditions
+      </Text>
+      <Text my={1}>You can view all Terms and Conditions of SoulLift!</Text>
+      {/* Use Link to navigate to the Terms and Conditions page */}
+      <Link to="/terms">
+        <Button size={"sm"} colorScheme="red">
+          T&C
+        </Button>
+      </Link>
     </>
   );
 };
