@@ -30,6 +30,7 @@ import OrganizationPage from './pages/OrganizationJobPage';
 import JobApplicationForm from './pages/organizationPages/JobApplicationForm';
 import CandidatesShortlisting from './pages/organizationPages/Candidates-shortlisting';
 import Shortlistedcandidates from './pages/organizationPages/Shortlisted-candidates';
+import PostedJobs from './pages/organizationPages/postedJobs';
 
 function App() {
   const user = useRecoilValue(userAtom);
@@ -83,6 +84,7 @@ function App() {
           <Route path='/Post-a-job' element={<PostaJob  />} />
           <Route path='/Update-Organization' element={<UpdateOrganization  />} />
           <Route path='/Shortlisted-Candidates' element={<Shortlistedcandidates  />} />
+          <Route path='/Posted-Jobs' element={<PostedJobs  />} />
         </Routes>
       </Container>
       

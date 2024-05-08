@@ -109,7 +109,9 @@ const OrganizationHompage = () => {
         <Link to="/Shortlisted-Candidates">
           <Button colorScheme="blue">Shortlisted candidates</Button>
         </Link>
-        
+        <Link to="/Posted-Jobs">
+          <Button colorScheme="blue">Posted Jobs</Button>
+        </Link>
         
         <Box>
           <Flex justify="space-around">
