@@ -69,7 +69,7 @@ function App() {
         {(  pathname === '/:Job-application-form/:id' ||pathname === '/organization-job' || pathname === '/' ||pathname=== '/business'|| pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname ==='/:username/post/:pid' || pathname === '/:username/product/:pid' || pathname === '/:username') && <HeaderB />}
          */}
 
-        <Container maxW={"850px"}>
+        <Container maxW={"1000px"}>
           {(pathname === "/:Job-application-form/:id" ||
             pathname === "/organization-job" ||
             pathname === "/" ||
@@ -145,7 +145,7 @@ function App() {
               path="/chat"
               element={user ? <ChatPage /> : <Navigate to="/auth" />}
             />
-           <Route
+            <Route
               path="/settings"
               element={
                 user ? (

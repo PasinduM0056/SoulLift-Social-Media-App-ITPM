@@ -4,21 +4,20 @@ import useShowToast from "../hooks/useShowToast";
 import useLogout from "../hooks/useLogout";
 import BusinessProfileForm from "./BusinessProfileForm";
 import OrganizationProfileForm from "./OrganizationProfileForm";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import userAtom from "./../atoms/userAtom";
 import { useRecoilValue } from "recoil";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-
-
-const SettingsPage = ({ isBusiness , isOrganization }) => {
+const SettingsPage = ({ isBusiness, isOrganization }) => {
   const user = useRecoilValue(userAtom);
   const showToast = useShowToast();
   const logout = useLogout();
   const [showForm, setShowForm] = useState(false);
   const [showFormOrg, setShowFormOrg] = useState(false);
   const [isBusinessAccount, setIsBusinessAccount] = useState(isBusiness);
-  const [isOrganizationAccount, setIsOrganizationAccount] = useState(isOrganization); // Initialize state with the prop value
+  const [isOrganizationAccount, setIsOrganizationAccount] =
+    useState(isOrganization); // Initialize state with the prop value
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,7 +47,8 @@ const SettingsPage = ({ isBusiness , isOrganization }) => {
 
   const checkIsOrganization = async () => {
     try {
-      const res = await fetch("/api/users/check-organization", { // Assuming there's an endpoint to check organization status
+      const res = await fetch("/api/users/check-organization", {
+        // Assuming there's an endpoint to check organization status
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -74,7 +74,8 @@ const SettingsPage = ({ isBusiness , isOrganization }) => {
   };
 
   const freezeAccount = async () => {
-    if (!window.confirm("Are you sure you want to freeze your account?")) return;
+    if (!window.confirm("Are you sure you want to freeze your account?"))
+      return;
 
     try {
       const res = await fetch("/api/users/freeze", {
@@ -95,12 +96,6 @@ const SettingsPage = ({ isBusiness , isOrganization }) => {
     }
   };
 
-  const handleOpenDashboard = () => {
-    // Navigate to the /udhome route
-    navigate("/:username/udhome");
-  };
-  
-
   return (
     <>
       {!showForm && !showFormOrg ? (
@@ -108,7 +103,9 @@ const SettingsPage = ({ isBusiness , isOrganization }) => {
           <Text my={1} fontWeight={"bold"}>
             Freeze Your Account
           </Text>
-          <Text my={1}>You can unfreeze your account anytime by logging in.</Text>
+          <Text my={1}>
+            You can unfreeze your account anytime by logging in.
+          </Text>
           <Button size={"sm"} colorScheme="red" onClick={freezeAccount}>
             Freeze
           </Button>
@@ -120,22 +117,24 @@ const SettingsPage = ({ isBusiness , isOrganization }) => {
           ) : (
             <Text my={1}>Update your account to Business</Text>
           )}
-          
+
           {isBusinessAccount ? (
             <Link to={`/userDashboard/${user.username}/udhome`}>
-            <Button size="sm" colorScheme="green">
-              Open Dashboard
-            </Button>
-          </Link>
+              <Button size="sm" colorScheme="green">
+                Open Dashboard
+              </Button>
+            </Link>
           ) : (
             <Button size={"sm"} colorScheme="red" onClick={toggleForm}>
               Switch to Business Profile
             </Button>
           )}
           {isOrganizationAccount ? (
-            <Button size={"sm"} colorScheme="green" onClick={handleOpenDashboard}>
-              Open Dashboard
-            </Button>
+            <Link to={`/organization-Home`}>
+              <Button size={"sm"} colorScheme="green">
+                Open Dashboard
+              </Button>
+            </Link>
           ) : (
             <Button size={"sm"} colorScheme="red" onClick={toggleForms}>
               Switch to Organization Profile
