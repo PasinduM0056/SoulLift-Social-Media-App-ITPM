@@ -27,12 +27,12 @@ import userAtom from "../atoms/userAtom";
 import useShowToast from "../hooks/useShowToast";
 import { useParams } from "react-router-dom";
 
-const CreateProduct = () => {
+const CreatePackage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [productName, setProductName] = useState("");
-  const [productDescription, setProductDescription] = useState("");
-  const [productPrice, setProductPrice] = useState("");
-  const [productOfferPrice, setProductOfferPrice] = useState("");
+  const [packageName, setPackageName] = useState("");
+  const [packageDescription, setPackageDescription] = useState("");
+  const [packagePrice, setPackagePrice] = useState("");
+  const [packageOfferPrice, setPackageOfferPrice] = useState("");
   const { handleImageChange, imgUrl, setImgUrl } = usePreviewImg();
   const imageRef = useRef(null);
   const user = useRecoilValue(userAtom);
@@ -40,21 +40,21 @@ const CreateProduct = () => {
   const [loading, setLoading] = useState(false);
   const { username } = useParams();
 
-  const handleCreateProduct = async () => {
+  const handleCreatePackage = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/products/create", {
+      const res = await fetch("/api/package/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           postedBy: user._id,
-          productName,
-          productDescription,
-          productPrice,
-          productOfferPrice,
-          productImg: imgUrl,
+          packageName,
+          packageDescription,
+          packagePrice,
+          packageOfferPrice,
+          packageImg: imgUrl,
         }),
       });
 
@@ -63,12 +63,12 @@ const CreateProduct = () => {
         showToast("Error", data.error, "error");
         return;
       }
-      showToast("Success", "Product created successfully", "success");
+      showToast("Success", "Package created successfully", "success");
       onClose();
-      setProductName("");
-      setProductDescription("");
-      setProductPrice("");
-      setProductOfferPrice("");
+      setPackageName("");
+      setPackageDescription("");
+      setPackagePrice("");
+      setPackageOfferPrice("");
       setImgUrl("");
     } catch (error) {
       showToast("Error", error.message, "error");
@@ -87,48 +87,48 @@ const CreateProduct = () => {
         onClick={onOpen}
         size={{ base: "sm", sm: "md" }}
       >
-        Product
+        Package
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
 
         <ModalContent>
-          <ModalHeader>Create Product</ModalHeader>
+          <ModalHeader>Create Package</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
-              <FormLabel>Product Name</FormLabel>
+              <FormLabel>Package Name</FormLabel>
               <Input
-                placeholder='Enter product name'
-                value={productName}
-                onChange={(e) => setProductName(e.target.value)}
+                placeholder='Enter package name'
+                value={packageName}
+                onChange={(e) => setPackageName(e.target.value)}
               />
             </FormControl>
             <FormControl>
-              <FormLabel>Product Description</FormLabel>
+              <FormLabel>Package Description</FormLabel>
               <Textarea
-                placeholder='Enter product description'
-                value={productDescription}
-                onChange={(e) => setProductDescription(e.target.value)}
+                placeholder='Enter package description'
+                value={packageDescription}
+                onChange={(e) => setPackageDescription(e.target.value)}
               />
             </FormControl>
             <FormControl>
-              <FormLabel>Product Price</FormLabel>
+              <FormLabel>Package Price</FormLabel>
               <Input
                 type='number'
-                placeholder='Enter product price'
-                value={productPrice}
-                onChange={(e) => setProductPrice(e.target.value)}
+                placeholder='Enter package price'
+                value={packagePrice}
+                onChange={(e) => setPackagePrice(e.target.value)}
               />
             </FormControl>
             <FormControl>
-              <FormLabel>Product Offer Price</FormLabel>
+              <FormLabel>Package Offer Price</FormLabel>
               <Input
                 type='number'
-                placeholder='Enter product offer price'
-                value={productOfferPrice}
-                onChange={(e) => setProductOfferPrice(e.target.value)}
+                placeholder='Enter package offer price'
+                value={packageOfferPrice}
+                onChange={(e) => setPackageOfferPrice(e.target.value)}
               />
             </FormControl>
 
@@ -157,8 +157,8 @@ const CreateProduct = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={handleCreateProduct} isLoading={loading}>
-              Create Product
+            <Button colorScheme='blue' mr={3} onClick={handleCreatePackage} isLoading={loading}>
+              Create Package
             </Button>
           </ModalFooter>
         </ModalContent>
@@ -167,4 +167,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default CreatePackage;

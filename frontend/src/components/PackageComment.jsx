@@ -1,7 +1,7 @@
 import { Avatar, Divider, Flex, Text, Icon } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 
-const ProductComment = ({ review, lastReview }) => {
+const PackageComment = ({ review, lastReview }) => {
   // Function to render star icons based on the rating
   const renderStarRating = () => {
     const rating = parseInt(review.rating); // Parse rating to integer
@@ -39,4 +39,4 @@ const ProductComment = ({ review, lastReview }) => {
   );
 };
 
-export default ProductComment;
+export default PackageComment;

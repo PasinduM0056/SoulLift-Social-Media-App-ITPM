@@ -19,12 +19,12 @@ import { StarIcon } from "@chakra-ui/icons"; // Assuming you have the Chakra UI 
 import { useRecoilState, useRecoilValue } from "recoil";
 import userAtom from "../atoms/userAtom";
 import useShowToast from "../hooks/useShowToast";
-import productsAtom from "../atoms/productAtom";
+import packagesAtom from "../atoms/packagesAtom";
 
-const ProductActions = ({ product }) => {
+const PackageActions = ({ selectedPackage }) => {
   const user = useRecoilValue(userAtom);
-  const [liked, setLiked] = useState(product.likes.includes(user?._id));
-  const [products, setProducts] = useRecoilState(productsAtom);
+  const [liked, setLiked] = useState(selectedPackage.likes.includes(user?._id));
+  const [packages, setPackages] = useRecoilState(packagesAtom);
   const [isLiking, setIsLiking] = useState(false);
   const [isReviewing, setIsReviewing] = useState(false);
   const [review, setReview] = useState("");
@@ -34,11 +34,11 @@ const ProductActions = ({ product }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleLikeAndUnlike = async () => {
-    if (!user) return showToast("Error", "You must be logged in to like a product", "error");
+    if (!user) return showToast("Error", "You must be logged in to like a package", "error");
     if (isLiking) return;
     setIsLiking(true);
     try {
-      const res = await fetch("/api/products/like/" + product._id, {
+      const res = await fetch("/api/packages/like/" + selectedPackage._id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -48,21 +48,21 @@ const ProductActions = ({ product }) => {
       if (data.error) return showToast("Error", data.error, "error");
 
       if (!liked) {
-        const updatedProducts = products.map((p) => {
-          if (p._id === product._id) {
+        const updatedPackages = packages.map((p) => {
+          if (p._id === selectedPackage._id) {
             return { ...p, likes: [...p.likes, user._id] };
           }
           return p;
         });
-        setProducts(updatedProducts);
+        setPackages(updatedPackages);
       } else {
-        const updatedProducts = products.map((p) => {
-          if (p._id === product._id) {
+        const updatedPackages = packages.map((p) => {
+          if (p._id === selectedPackage._id) {
             return { ...p, likes: p.likes.filter((id) => id !== user._id) };
           }
           return p;
         });
-        setProducts(updatedProducts);
+        setPackages(updatedPackages);
       }
 
       setLiked(!liked);
@@ -78,7 +78,7 @@ const ProductActions = ({ product }) => {
 	if (isReviewing) return;
 	setIsReviewing(true);
 	try {
-	  const res = await fetch("/api/products/review/" + product._id, {
+	  const res = await fetch("/api/packages/review/" + selectedPackage._id, {
 		method: "PUT",
 		headers: {
 		  "Content-Type": "application/json",
@@ -88,13 +88,13 @@ const ProductActions = ({ product }) => {
 	  const data = await res.json();
 	  if (data.error) return showToast("Error", data.error, "error");
   
-	  const updatedProducts = products.map((p) => {
-		if (p._id === product._id) {
+	  const updatedPackages = packages.map((p) => {
+		if (p._id === selectedPackage._id) {
 		  return { ...p, reviews: [...p.reviews, data] };
 		}
 		return p;
 	  });
-	  setProducts(updatedProducts);
+	  setPackages(updatedPackages);
 	  showToast("Success", "Review posted successfully", "success");
 	  onClose();
 	  setReview("");
@@ -216,7 +216,7 @@ const ProductActions = ({ product }) => {
   );
 };
 
-export default ProductActions;
+export default PackageActions;
 
 const RepostSVG = () => {
   return (

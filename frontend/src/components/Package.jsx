@@ -2,20 +2,20 @@ import { Avatar } from "@chakra-ui/avatar";
 import { Image } from "@chakra-ui/image";
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import { Link, useNavigate } from "react-router-dom";
-import ProductActions from "./ProductActions";
+import PackageActions from "./PackageActions";
 import { useEffect, useState } from "react";
 import useShowToast from "../hooks/useShowToast";
 import { formatDistanceToNow } from "date-fns";
 import { DeleteIcon, StarIcon } from "@chakra-ui/icons";
 import { useRecoilState, useRecoilValue } from "recoil";
 import userAtom from "../atoms/userAtom";
-import productsAtom from "../atoms/productAtom";
+import packageAtom from "../atoms/packagesAtom";
 
-const Product = ({ product, postedBy }) => {
+const Package = ({ selectedPackage, postedBy }) => {
     const [user, setUser] = useState(null);
     const showToast = useShowToast();
     const currentUser = useRecoilValue(userAtom);
-    const [products, setProducts] = useRecoilState(productsAtom);
+    const [packages, setPackages] = useRecoilState(packagesAtom);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -37,12 +37,12 @@ const Product = ({ product, postedBy }) => {
         getUser();
     }, [postedBy, showToast]);
 
-    const handleDeleteProduct = async (e) => {
+    const handleDeletePackage = async (e) => {
         try {
             e.preventDefault();
             if (!window.confirm("Are you sure you want to delete this post?")) return;
 
-            const res = await fetch(`/api/products/${product._id}`, {
+            const res = await fetch(`/api/packages/${selectedPackage._id}`, {
                 method: "DELETE",
             });
             const data = await res.json();
@@ -50,8 +50,8 @@ const Product = ({ product, postedBy }) => {
                 showToast("Error", data.error, "error");
                 return;
             }
-            showToast("Success", "Product deleted", "success");
-            setProducts(products.filter((p) => p._id !== product._id));
+            showToast("Success", "Package deleted", "success");
+            setPackages(packages.filter((p) => p._id !== selectedPackage._id));
         } catch (error) {
             showToast("Error", error.message, "error");
         }
@@ -61,10 +61,10 @@ const Product = ({ product, postedBy }) => {
 
     // Calculate total rating and average rating
     let totalRating = 0;
-    product.reviews.forEach((review) => {
+    selectedPackage.reviews.forEach((review) => {
         totalRating += Number(review.rating);
     });
-    const averageRating = totalRating / product.reviews.length;
+    const averageRating = totalRating / selectedPackage.reviews.length;
 
     // Function to render star icons based on the average rating
     const renderStarRating = () => {
@@ -84,7 +84,7 @@ const Product = ({ product, postedBy }) => {
     };
 
     return (
-        <Link to={`/${user.username}/product/${product._id}`}>
+        <Link to={`/${user.username}/package/${product._id}`}>
             <Flex gap={3} mb={4} py={5}>
                 <Flex flexDirection={"column"} alignItems={"center"}>
                     <Avatar
@@ -98,12 +98,12 @@ const Product = ({ product, postedBy }) => {
                     />
                     <Box w='1px' h={"full"} bg='gray.light' my={2}></Box>
                     <Box position={"relative"} w={"full"}>
-                        {product.reviews.length === 0 && <Text textAlign={"center"}>🥱</Text>}
-                        {product.reviews[0] && (
+                        {selectedPackage.reviews.length === 0 && <Text textAlign={"center"}>🥱</Text>}
+                        {selectedPackage.reviews[0] && (
                             <Avatar
                                 size='xs'
                                 name='John doe'
-                                src={product.reviews[0].userProfilePic}
+                                src={selectedPackage.reviews[0].userProfilePic}
                                 position={"absolute"}
                                 top={"0px"}
                                 left='15px'
@@ -111,11 +111,11 @@ const Product = ({ product, postedBy }) => {
                             />
                         )}
 
-                        {product.reviews[1] && (
+                        {selectedPackage.reviews[1] && (
                             <Avatar
                                 size='xs'
                                 name='John doe'
-                                src={product.reviews[1].userProfilePic}
+                                src={selectedPackage.reviews[1].userProfilePic}
                                 position={"absolute"}
                                 bottom={"0px"}
                                 right='-5px'
@@ -123,11 +123,11 @@ const Product = ({ product, postedBy }) => {
                             />
                         )}
 
-                        {product.reviews[2] && (
+                        {selectedPackage.reviews[2] && (
                             <Avatar
                                 size='xs'
                                 name='John doe'
-                                src={product.reviews[2].userProfilePic}
+                                src={selectedPackage.reviews[2].userProfilePic}
                                 position={"absolute"}
                                 bottom={"0px"}
                                 left='4px'
@@ -149,14 +149,14 @@ const Product = ({ product, postedBy }) => {
                             >
                                 {user?.username}
                             </Text>
-                            {user.isBusiness && <Image src='/verified.png' w={4} h={4} ml={1} />}
+                            {user.isConsultant && <Image src='/verified.png' w={4} h={4} ml={1} />}
                         </Flex>
                         <Flex gap={4} alignItems={"center"}>
                             <Text fontSize={"xs"} width={36} textAlign={"right"} color={"gray.light"}>
-                                {formatDistanceToNow(new Date(product.createdAt))} ago
+                                {formatDistanceToNow(new Date(selectedPackage.createdAt))} ago
                             </Text>
 
-                            {currentUser?._id === user._id && <DeleteIcon size={20} onClick={handleDeleteProduct} />}
+                            {currentUser?._id === user._id && <DeleteIcon size={20} onClick={handleDeletePackage} />}
                         </Flex>
                     </Flex>
 
@@ -169,24 +169,24 @@ const Product = ({ product, postedBy }) => {
                         maxW={"450px"}
                     >
                         <Text fontSize={"lg"} fontWeight={"bold"} mb={2}>
-                            {product.productName}
+                            {selectedPackage.packageName}
                         </Text>
-                        {product.productImg && (
+                        {selectedPackage.packageImg && (
                             <Box mb={4}>
-                                <Image src={product.productImg} alt={product.productName} />
+                                <Image src={selectedPackage.packageImg} alt={packageName} />
                             </Box>
                         )}
                         <Text fontSize={"sm"} mb={2}>
-                            {product.productDescription}
+                            {selectedPackage.packageDescription}
                         </Text>
                         <Text fontSize={"sm"}>
                             <span style={{ textDecoration: "line-through", color: "red", fontWeight: "bold" }}>
-                                USD {product.productPrice}
+                                USD {selectedPackage.packagePrice}
                             </span>
-                            {product.productOfferPrice && (
+                            {selectedPackage.packageOfferPrice && (
                                 <span style={{ color: "green", fontWeight: "bold" }}>
                                     {" "}
-                                    Offer USD {product.productOfferPrice}
+                                    Offer USD {selectedPackage.packageOfferPrice}
                                 </span>
                             )}
                         </Text>
@@ -194,7 +194,7 @@ const Product = ({ product, postedBy }) => {
                     </Box>
 
                     <Flex gap={3} my={1}>
-                        <ProductActions product={product} />
+                        <PackageActions package={selectedPackage} />
                     </Flex>
                 </Flex>
             </Flex>
@@ -202,4 +202,4 @@ const Product = ({ product, postedBy }) => {
     );
 };
 
-export default Product;
+export default Package;

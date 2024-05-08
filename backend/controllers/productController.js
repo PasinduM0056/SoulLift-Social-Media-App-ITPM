@@ -5,7 +5,7 @@ import { v2 as cloudinary } from "cloudinary";
 const createProduct = async (req, res) => {
 	try {
 		const { postedBy, productName, productDescription, productPrice, productOfferPrice} = req.body;
-		let {   productImg} = req.body;
+		let { productImg } = req.body;
 
 		if (!postedBy || !productName) {
 			return res.status(400).json({ error: "Postedby and text fields are required" });
@@ -104,12 +104,12 @@ const likeUnlikeProduct = async (req, res) => {
 
 const reviewProduct = async (req, res) => {
 	try {
-		const { text } = req.body;
+		const { text,rating } = req.body;
 		const productId = req.params.id;
 		const userId = req.user._id;
 		const userProfilePic = req.user.profilePic;
 		const username = req.user.username;
-        const rating = req.user.rating;
+        
 
 		if (!text) {
 			return res.status(400).json({ error: "Text field is required" });
@@ -165,4 +165,64 @@ const getUserProducts = async (req, res) => {
 	}
 };
 
-export { createProduct, getProduct, deleteProduct, likeUnlikeProduct, reviewProduct, getFeedProducts, getUserProducts };
+const buyProduct = async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const { buyerName, buyerAddress, buyerPhoneNumber } = req.body;
+        const userId = req.user._id;
+
+        // Check if required fields are provided
+        if (!buyerName || !buyerAddress || !buyerPhoneNumber) {
+            return res.status(400).json({ error: "Buyer information is incomplete" });
+        }
+
+        // Find the product
+        const product = await Product.findById(productId);
+        if (!product) {
+            return res.status(404).json({ error: "Product not found" });
+        }
+
+        // Create buyer object
+        const buyer = {
+            userId,
+            buyerName,
+            buyerAddress,
+            buyerPhoneNumber
+        };
+
+        // Add buyer to the product's buyers array
+        product.buyers.push(buyer);
+
+        // Save the updated product
+        await product.save();
+
+        res.status(200).json({ message: "Product bought successfully", product });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+const getSalesProducts = async (req, res) => {
+	try {
+		const userId = req.user._id;
+		const user = await User.findById(userId);
+
+		if (!user) {
+
+			return res.status(404).json({ error: "User not found" });
+
+		}
+
+		const following = user.following;
+
+		const salesProducts = await Product.find({ postedBy: { $in: following } }).sort({ createdAt: -1 });
+
+		res.status(200).json(salesProducts);
+	} catch (err) {
+
+		res.status(500).json({ error: err.message });
+
+	}
+};
+
+export { createProduct, getProduct, deleteProduct, likeUnlikeProduct, reviewProduct, getFeedProducts, getUserProducts,buyProduct, getSalesProducts };

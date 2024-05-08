@@ -6,8 +6,8 @@ import
  import 
  { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } 
  from 'recharts';
- import UDSideBar from "../../components/udComponents/UDSideBar";
-const UDHomePage = () => {
+ import CDSideBar from "../../components/udComponents/CDSideBar";
+const CDHomePage = () => {
   
 
   // Dummy data for charts
@@ -59,7 +59,7 @@ const UDHomePage = () => {
   return (
    
     <main className='main-container'>
-       <UDSideBar/>
+       <CDSideBar/>
         <div className='main-title'>
             <h3>DASHBOARD</h3>
         </div>
@@ -145,4 +145,4 @@ const UDHomePage = () => {
   );
 }
 
-export default UDHomePage;
+export default CDHomePage;

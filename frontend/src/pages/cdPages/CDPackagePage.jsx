@@ -2,43 +2,43 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useShowToast from "../../hooks/useShowToast";
 import { Flex, Spinner, Box, Table, Thead, Tbody, Tr, Th, Td,TableCaption } from "@chakra-ui/react"; // Assuming Button is imported from Chakra UI
-import UDProduct from "../../components/UDProduct";
+import CDPackage from "../../components/UDPackage";
 import useGetUserProfile from "../../hooks/useGetUserProfile";
 import { useRecoilState } from "recoil";
-import productsAtom from "../../atoms/productAtom";
-import CreateProduct from "../../components/CreateProduct";
-import UDSideBar from "../../components/udComponents/UDSideBar";
+import packageAtom from "../../atoms/packagesAtom";
+import CreatePackage from "../../components/CreatePackage";
+import CDSideBar from "../../components/udComponents/CDSideBar";
 
-const UDProductPage = () => {
+const CDPackagePage = () => {
     const { user, loading } = useGetUserProfile();
     const { username } = useParams();
     const showToast = useShowToast();
     
-    const [products, setProducts] = useRecoilState(productsAtom);
+    const [packages, setPackages] = useRecoilState(packageAtom);
     
-    const [fetchingProducts, setFetchingProducts] = useState(true);
+    const [fetchingPackages, setFetchingPackages] = useState(true);
 
    
 
     useEffect(() => {
-        const getProducts = async () => {
+        const getPackages = async () => {
             if (!user) return;
-            setFetchingProducts(true);
+            setFetchingPackages(true);
             try {
-                const res = await fetch(`/api/products/user/${username}`);
+                const res = await fetch(`/api/packages/user/${username}`);
                 const data = await res.json();
                 console.log(data);
-                setProducts(data);
+                setPackages(data);
             } catch (error) {
                 showToast("Error", error.message, "error");
-                setProducts([]);
+                setPackages([]);
             } finally {
-                setFetchingProducts(false);
+                setFetchingPackages(false);
             }
         };
 
-        getProducts();
-    }, [username, showToast, setProducts, user]);
+        getPackages();
+    }, [username, showToast, setPackages, user]);
 
    
 
@@ -55,27 +55,27 @@ const UDProductPage = () => {
     return (
         <Box paddingLeft="405px" paddingTop="100px">
         <CreateProduct paddingLeft="350px" paddingTop="150px" />
-        <UDSideBar />
+        <CDSideBar />
   
         <Table variant="striped" colorScheme="brand" size="sm">
-        <TableCaption>All products</TableCaption>
+        <TableCaption>All packages</TableCaption>
           <Thead>
             <Tr>
               <Th isNumeric
   bg="blue.500"
-  color="white">Product Name</Th>
+  color="white">Package Name</Th>
               <Th isNumeric
   bg="blue.500"
-  color="white">Product Description</Th>
+  color="white">Package Description</Th>
               <Th isNumeric
   bg="blue.500"
-  color="white">Product Price</Th>
+  color="white">Package Price</Th>
               <Th isNumeric
   bg="blue.500"
-  color="white">Product Offer</Th>
+  color="white">Package Offer</Th>
               <Th isNumeric
   bg="blue.500"
-  color="white">Product Image</Th>
+  color="white">Package Image</Th>
               <Th isNumeric
   bg="blue.500"
   color="white">Likes</Th>
@@ -94,12 +94,12 @@ const UDProductPage = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {!fetchingProducts && products.length === 0 && (
+            {!fetchingPackages && packages.length === 0 && (
               <Tr>
-                <Td colSpan="6">User has no products.</Td>
+                <Td colSpan="6">User has no packages.</Td>
               </Tr>
             )}
-            {fetchingProducts && (
+            {fetchingPackages && (
               <Tr>
                 <Td colSpan="6">
                   <Flex justifyContent={"center"} my={12}>
@@ -108,9 +108,9 @@ const UDProductPage = () => {
                 </Td>
               </Tr>
             )}
-            {!fetchingProducts &&
-              products.map((product) => (
-                <UDProduct key={product._id} product={product} postedBy={product.postedBy} />
+            {!fetchingPackages &&
+              packages.map((selectedPackage) => (
+                <CDPackage key={selectedPackage._id} package={selectedPackage} postedBy={selectedPackage.postedBy} />
               ))}
           </Tbody>
         </Table>
@@ -118,4 +118,4 @@ const UDProductPage = () => {
     );
 };
 
-export default UDProductPage;
+export default CDPackagePage;

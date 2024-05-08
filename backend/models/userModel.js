@@ -82,6 +82,30 @@ const userSchema = mongoose.Schema(
 			type: String,
 			default: "",
 		},
+		isConsultant: {
+			type: Boolean,
+			default: false,
+		},
+		name: {
+			type: String,
+			default: "",
+		},
+		address: {
+			type: String,
+			default: "",
+		},
+		idNumber: {
+			type: String,
+			default: "",
+		},
+		qualification: {
+			type: String,
+			default: "",
+		},
+		experienses:{
+			type: String,
+			default: "",
+		},
 		identityVerify: {
 			type: String,
 			default: "",

@@ -15,7 +15,7 @@ import {
 import userAtom from "./../../atoms/userAtom";
 import { useRecoilValue } from "recoil";
 
-const UDSideBar = () => {
+const CDSideBar = () => {
   const user = useRecoilValue(userAtom);
   return (
     <div id="nav-bar">
@@ -30,7 +30,7 @@ const UDSideBar = () => {
       <div id="nav-content">
         {/* Dashboard */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udhome`}>
+          <Link to={`/userDashboard/${user.username}/cdhome`}>
             <FontAwesomeIcon icon={faPalette} />
             <span> Dashboard</span>
           </Link>
@@ -40,15 +40,15 @@ const UDSideBar = () => {
 
         {/* Product */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udproduct`}>
+          <Link to={`/userDashboard/${user.username}/cdpackage`}>
             <FontAwesomeIcon icon={faCartPlus} />
-            <span> Product</span>
+            <span> Package</span>
           </Link>
         </div>
 
         {/* Advertisement */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udadvertisement`}>
+          <Link to={`/userDashboard/${user.username}/cdadvertisement`}>
             <FontAwesomeIcon icon={faBullhorn} />
             <span> Advertisement</span>
           </Link>
@@ -58,15 +58,15 @@ const UDSideBar = () => {
 
         {/* Sales Analysis */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udsalesanalysis`}>
+          <Link to={`/userDashboard/${user.username}/cdbuyersanalysis`}>
             <FontAwesomeIcon icon={faChartLine} />
-            <span> Sales Analysis</span>
+            <span> Buyers Analysis</span>
           </Link>
         </div>
 
         {/* Advertisement Analysis */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udadvertanalysis`}>
+          <Link to={`/userDashboard/${user.username}/cdadvertanalysis`}>
             <FontAwesomeIcon icon={faChartLine} />
             <span> Advertisement Analysis</span>
           </Link>
@@ -76,7 +76,7 @@ const UDSideBar = () => {
 
         {/* Profile */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udprofile`}>
+          <Link to={`/userDashboard/${user.username}/cdprofile`}>
             <FontAwesomeIcon icon={faUser} />
             <span> Profile</span>
           </Link>
@@ -84,20 +84,15 @@ const UDSideBar = () => {
 
         {/* Chats */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udchats`}>
+          <Link to={`/userDashboard/${user.username}/cdchats`}>
             <FontAwesomeIcon icon={faComments} />
             <span> Chats</span>
           </Link>
         </div>
-        <li className='sidebar-list-item'>
-                <a href="/organization-Home">
-                    <BsFillBuildingFill className='icon'/> Organization
-                </a>
-            </li>
 
         {/* Settings */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udsettings`}>
+          <Link to={`/userDashboard/${user.username}/cdsettings`}>
             <FontAwesomeIcon icon={faCog} />
             <span> Settings</span>
           </Link>
@@ -116,4 +111,4 @@ const UDSideBar = () => {
   );
 }
 
-export default UDSideBar;
+export default CDSideBar;

@@ -1,8 +1,8 @@
 import { Avatar, Box, Button, Divider, Flex, Image, Spinner, Text } from "@chakra-ui/react";
-import ProductActions from "../components/ProductActions";
+import PackageActions from "../components/PackageActions";
 import BuyAction from "../components/BuyAction";
 import { useEffect } from "react";
-import ProductComment from "../components/ProductComment";
+import PackageComment from "../components/PackageComment";
 import useGetUserProfile from "../hooks/useGetUserProfile";
 import useShowToast from "../hooks/useShowToast";
 import { useNavigate, useParams } from "react-router-dom";
@@ -10,41 +10,41 @@ import { formatDistanceToNow } from "date-fns";
 import { useRecoilState, useRecoilValue } from "recoil";
 import userAtom from "../atoms/userAtom";
 import { DeleteIcon, StarIcon } from "@chakra-ui/icons";
-import productsAtom from "../atoms/productAtom";
+import packagesAtom from "../atoms/packagesAtom";
 
-const ProductPage = () => {
+const PackagePage = () => {
     const { user, loading } = useGetUserProfile();
-    const [products, setProducts] = useRecoilState(productsAtom);
+    const [packages, setPackages] = useRecoilState(packagesAtom);
     const showToast = useShowToast();
     const { pid } = useParams();
     const currentUser = useRecoilValue(userAtom);
     const navigate = useNavigate();
 
-    const currentProduct = products[0];
+    const currentPackage= packages[0];
 
     useEffect(() => {
-        const getProduct = async () => {
-            setProducts([]);
+        const getPackage = async () => {
+            setPackages([]);
             try {
-                const res = await fetch(`/api/products/${pid}`);
+                const res = await fetch(`/api/packages/${pid}`);
                 const data = await res.json();
                 if (data.error) {
                     showToast("Error", data.error, "error");
                     return;
                 }
-                setProducts([data]);
+                setPackages([data]);
             } catch (error) {
                 showToast("Error", error.message, "error");
             }
         };
-        getProduct();
-    }, [showToast, pid, setProducts]);
+        getPackage();
+    }, [showToast, pid, setPackages]);
 
-    const handleDeleteProduct = async () => {
+    const handleDeletePackage = async () => {
         try {
-            if (!window.confirm("Are you sure you want to delete this product?")) return;
+            if (!window.confirm("Are you sure you want to delete this package?")) return;
 
-            const res = await fetch(`/api/products/${currentProduct._id}`, {
+            const res = await fetch(`/api/packages/${currentPackage._id}`, {
                 method: "DELETE",
             });
             const data = await res.json();
@@ -52,7 +52,7 @@ const ProductPage = () => {
                 showToast("Error", data.error, "error");
                 return;
             }
-            showToast("Success", "Product deleted", "success");
+            showToast("Success", "Package deleted", "success");
             navigate(`/${user.username}`);
         } catch (error) {
             showToast("Error", error.message, "error");
@@ -67,14 +67,14 @@ const ProductPage = () => {
         );
     }
 
-    if (!currentProduct) return null;
+    if (!currentPackage) return null;
 
     // Calculate total rating and average rating
     let totalRating = 0;
-    currentProduct.reviews.forEach((review) => {
+    currentPackage.reviews.forEach((review) => {
         totalRating += Number(review.rating);
     });
-    const averageRating = totalRating / currentProduct.reviews.length;
+    const averageRating = totalRating / currentPackage.reviews.length;
 
     // Function to render star icons based on the average rating
     const renderStarRating = () => {
@@ -107,11 +107,11 @@ const ProductPage = () => {
                 </Flex>
                 <Flex gap={4} alignItems={"center"}>
                     <Text fontSize={"xs"} width={36} textAlign={"right"} color={"gray.light"}>
-                        {formatDistanceToNow(new Date(currentProduct.createdAt))} ago
+                        {formatDistanceToNow(new Date(currentPackage.createdAt))} ago
                     </Text>
 
                     {currentUser?._id === user._id && (
-                        <DeleteIcon size={20} cursor={"pointer"} onClick={handleDeleteProduct} />
+                        <DeleteIcon size={20} cursor={"pointer"} onClick={handleDeletePackage} />
                     )}
                 </Flex>
             </Flex>
@@ -126,36 +126,36 @@ const ProductPage = () => {
                     maxW={"450px"}
                 >
                     <Text fontSize={"lg"} fontWeight={"bold"} mb={2}>
-                        {currentProduct.productName}
+                        {currentPackage.packageName}
                     </Text>
-                    {currentProduct.productImg && (
+                    {currentPackage.packageImg && (
                         <Box mb={4}>
-                            <Image src={currentProduct.productImg} alt={currentProduct.productName} />
+                            <Image src={currentPackage.packageImg} alt={currentPackage.packageName} />
                         </Box>
                     )}
                     <Text fontSize={"sm"} mb={2}>
-                        {currentProduct.productDescription}
+                        {currentPackage.packageDescription}
                     </Text>
                     <Text fontSize={"sm"}>
                         <span style={{ textDecoration: "line-through", color: "red", fontWeight: "bold" }}>
-                            USD {currentProduct.productPrice}
+                            USD {currentPackage.packagePrice}
                         </span>
-                        {currentProduct.productOfferPrice && (
+                        {currentPackage.packageOfferPrice && (
                             <span style={{ color: "green", fontWeight: "bold" }}>
                                 {" "}
-                                Offer USD {currentProduct.productOfferPrice}
+                                Offer USD {currentPackage.packageOfferPrice}
                             </span>
                         )}
                     </Text>
                     {renderStarRating()}
-                    <BuyAction product={currentProduct} />
+                    <BuyAction package={currentPackage} />
                     
                     
                 </Box>
             </Flex>
 
             <Flex gap={3} my={3}>
-                <ProductActions product={currentProduct} />
+                <ProductActions package={currentPacakge} />
             </Flex>
 
             <Divider my={4} />
@@ -169,15 +169,15 @@ const ProductPage = () => {
             </Flex>
 
             <Divider my={4} />
-            {currentProduct.reviews.map((review) => (
-                <ProductComment
+            {currentPackage.reviews.map((review) => (
+                <PackageComment
                     key={review._id}
                     review={review}
-                    lastReview={review._id === currentProduct.reviews[currentProduct.reviews.length - 1]._id}
+                    lastReview={review._id === currentPackage.reviews[currentPackage.reviews.length - 1]._id}
                 />
             ))}
         </>
     );
 };
 
-export default ProductPage;
+export default PackagePage;
