@@ -452,5 +452,6 @@ export {
 	checkIsBusiness,
 	submitOrganizationProfile,
 	checkIsOrganization,
-	checkIsConsultant
+	checkIsConsultant,
+	submitConsultantProfile
 };
