@@ -9,8 +9,11 @@ import SuggestedUsers from "../../components/SuggestedUsers";
 import { Flex } from "@chakra-ui/react";
 import axios from "axios";
 import "../Organization-job-page.css";
-import { Link as RouterLink } from "react-router-dom";
+import { Link, Link as RouterLink } from "react-router-dom";
 import { useParams, useNavigate } from "react-router-dom";
+
+
+
 const PostedJobs = () => {
   const [posts, setPosts] = useRecoilState(postsAtom);
   const [loading, setLoading] = useState(true);
@@ -30,11 +33,35 @@ const PostedJobs = () => {
       }
     };
 
+
+
     fetchJobs();
   }, []);
 
-  const handlyApply = (id) => {
-    navigate(`/Job-application-form/${id}`);
+  const handleDeleteJob = async (jobId) => {
+    try {
+      // Send DELETE request to delete the job
+      await axios.delete(`/api/jobpost/delete-posted-jobs/${jobId}`); // Adjust endpoint if needed
+
+      // Update the jobs list after successful deletion
+      const updatedJobs = jobs.filter((job) => job._id !== jobId);
+      setJobs(updatedJobs);
+
+      // Show success toast
+      showToast("Job deleted successfully", "success");
+    } catch (error) {
+      console.error("Error deleting job:", error);
+      showToast("Error deleting job", "error");
+    }
+  };
+
+  const handleUpdateJob = (jobId) => {
+    navigate(`/Update-postedJobs/${jobId}`);
+  };
+
+
+  const handleupdateJob = (id) => {
+    navigate(`/Update-postedJobs/${id}`);
   };
 
   return (
@@ -46,8 +73,8 @@ const PostedJobs = () => {
       }}
     >
       <Box p={4}>
-        <Heading mb={1} sx={{ marginLeft: "10vh" }}>
-          Top Jobs That Suits You
+        <Heading mb={1} sx={{ display:'flex', justifyContent:'center', margin:'auto' }}>
+          Your posted jobs
         </Heading>
 
         {loading ? (
@@ -223,12 +250,10 @@ const PostedJobs = () => {
                     </ol>
                   </section>
                   <footer class="modal-container-footer">
-                    <Button
-                      variant="contained"
-                      onClick={() => handlyApply(job._id)}
-                    >
-                      Apply
-                    </Button>
+                  <Button variant="contained" colorScheme="red" onClick={() => handleDeleteJob(job._id)}>
+                Delete
+              </Button>
+                    <Button variant='contained'  onClick={() => handleupdateJob(job._id)}>Edite </Button>
                   </footer>
                 </article>
               </div>

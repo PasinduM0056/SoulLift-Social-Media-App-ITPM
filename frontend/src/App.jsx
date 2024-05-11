@@ -38,7 +38,7 @@ import CandidatesShortlisting from "./pages/organizationPages/Candidates-shortli
 import Shortlistedcandidates from "./pages/organizationPages/Shortlisted-candidates";
 import PostedJobs from "./pages/organizationPages/postedJobs";
 import TermsAndConditions from "./pages/TermsAndConditions";
-
+import UpdatePostedJobs from "./pages/organizationPages/UpdatePostedJobs";
 import CDSideBar from "./components/udComponents/CDSideBar";
 import ConsultantPage from "./pages/ConsultantPage";
 import PackagePage from "./pages/PackagePage";
@@ -177,6 +177,10 @@ function App() {
             <Route
               path="/Update-Organization"
               element={<UpdateOrganization />}
+            />
+            <Route
+              path="/Update-postedJobs/:id"
+              element={<UpdatePostedJobs />}
             />
             <Route
               path="/Shortlisted-Candidates"

@@ -13,7 +13,7 @@ import {
 import userAtom from "../../atoms/userAtom";
 import { useRecoilState } from "recoil";
 import "./postajob.css";
-
+import { useNavigate } from 'react-router-dom';
 function PostaJob() {
   const [formData, setFormData] = useState({
     submissionMethod: "",
@@ -28,6 +28,10 @@ function PostaJob() {
     experience: "",
     other: "",
   });
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/Posted-Jobs'); // Navigate to the "Posted Jobs" page
+  };
 
   const onSubmit = async () => {
     try {
@@ -314,7 +318,7 @@ function PostaJob() {
      
       <div class="post-a-job-light-button">
         
-        <button class="post-a-job-bt">
+        <button class="post-a-job-bt" onClick={handleClick}>
         
           <div class="post-a-job-light-holder">
             <div class="post-a-job-dot">
@@ -332,6 +336,7 @@ function PostaJob() {
             </svg>
             <p>View Posted jobs</p>
           </div>
+   
         </button>
       </div>
     </Grid>

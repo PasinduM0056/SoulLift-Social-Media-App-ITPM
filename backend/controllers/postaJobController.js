@@ -76,5 +76,79 @@ const getJobById = async (req, res) => {
     }
 };
 
+// Controller function to update job details in the database
+const updateJobDetails = async (req, res) => {
+    try {
+        // Extract job ID from the request parameters
+        const { id } = req.params;
 
-export { saveJobDetails, getAllJobs, getJobById};
+        // Extract updated job details from the request body
+        const {
+            submissionMethod,
+            applicationDeadline,
+            skills,
+            jobAbout,
+            responsibilites,
+            qualifications,
+            jobTitle,
+            salary,
+            email,
+            experience,
+            other,
+        } = req.body;
+
+        // Find and update the existing job document
+        const updatedJob = await PostJobs.findByIdAndUpdate(
+            id,
+            {
+                submissionMethod,
+                applicationDeadline,
+                skills,
+                jobAbout,
+                responsibilites,
+                qualifications,
+                jobTitle,
+                salary,
+                email,
+                experience,
+                other,
+            },
+            { new: true, runValidators: true } // Return the updated document and apply schema validation
+        );
+
+        // If no job document is found, return a 404 error
+        if (!updatedJob) {
+            return res.status(404).json({ success: false, message: 'Job not found' });
+        }
+
+        // Respond with the updated job details
+        res.status(200).json({ success: true, message: 'Job details updated successfully', job: updatedJob });
+    } catch (error) {
+        // Handle any errors that occur during the update process
+        console.error('Error updating job details:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};
+
+
+  // Function to delete a job by ID
+  const deleteJob = async (req, res) => {
+    try {
+      const id = req.params.id; // Get the job ID from the request parameter
+  
+      const job = await PostJobs.findByIdAndDelete(id);
+  
+      if (!job) {
+        return res.status(404).json({ success: false, message: "job not found" });
+      }
+  
+      return res.status(200).json({ success: true, message: "job deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting job:", error);
+      return res.status(500).json({ success: false, message: "Internal server error" });
+    }
+  };
+  
+
+
+export { saveJobDetails, getAllJobs, getJobById, updateJobDetails, deleteJob};
