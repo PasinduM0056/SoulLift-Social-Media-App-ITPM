@@ -284,6 +284,9 @@ const submitBusinessProfile = async (req, res) => {
         user.companyAbout = companyAbout || user.companyAbout;
         user.identityVerify = identityVerify || user.identityVerify;
 
+        // Set isBusiness to true
+        user.isBusiness = true;
+
         // Save updated user to database
         user = await user.save();
 
@@ -299,7 +302,7 @@ const submitBusinessProfile = async (req, res) => {
 
 
 const submitConsultantProfile = async (req, res) => {
-    const { name, address, idNumber, companyName, companyAbout, password } = req.body;
+    const { name, address, idNumber, qulification, experienses, password } = req.body;
     let { identityVerify } = req.body;
     const userId = req.user._id;
 
@@ -334,10 +337,13 @@ const submitConsultantProfile = async (req, res) => {
         user.name = name || user.name;
         user.address = address || user.address;
         user.idNumber = idNumber || user.idNumber;
-        user.companyName = companyName || user.companyName;
-        user.companyAbout = companyAbout || user.companyAbout;
+        user.qulification = qulification || user.qulification;
+        user.experienses = experienses || user.experienses;
         user.identityVerify = identityVerify || user.identityVerify;
 
+
+		 // Set isBusiness to true
+		 user.isConsultant = true;
         // Save updated user to database
         user = await user.save();
 
@@ -386,6 +392,50 @@ const checkIsConsultant = async (req, res) => {
 	}
 };
 
+const checkIsOrganization = async (req, res) => {
+	try {
+	  const useId = req.user._id;
+	  const users = await User.findById(useId);
+  
+	  if (!users) {
+		return res.status(400).json({ error: "User not found" });
+	  }
+  
+	  res.status(200).json({ isOrganization: users.isOrganization });
+	} catch (error) {
+	  res.status(500).json({ error: error.message });
+	  console.log("Error in checkIsOrganization: ", error.message);
+	}
+  };
+
+
+
+
+  const submitOrganizationProfile = async (req, res) => {
+	const { OrganizationName, OrganizationAddress, OrganizationAbout, IDnumber } = req.body;
+	const userId = req.user._id;
+	try {
+	  let user = await User.findById(userId);
+	  if (!user) return res.status(400).json({ error: "User not found" });
+  
+	  // Update user with business profile data
+	  user.OrganizationName = OrganizationName;
+	  user.OrganizationAddress = OrganizationAddress;
+	  user.OrganizationAbout = OrganizationAbout;
+	  user.IDnumber = IDnumber;
+  
+	  user.isOrganization = true;
+	  // Save the updated user
+	  user = await user.save();
+  
+	  // Respond with the updated user
+	  res.status(200).json(user);
+	} catch (err) {
+	  res.status(500).json({ error: err.message });
+	  console.log("Error in submit organization profile: ", err.message);
+	}
+  };
+
 export {
 	signupUser,
 	loginUser,
@@ -398,5 +448,7 @@ export {
 	submitBusinessProfile,
 	submitConsultantProfile,
 	checkIsBusiness,
-	checkIsConsultant
+	checkIsConsultant,
+	checkIsOrganization,
+	submitOrganizationProfile
 };

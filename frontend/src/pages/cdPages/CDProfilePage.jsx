@@ -118,7 +118,7 @@ import {
 			boxShadow={"lg"}
 			p={4}
 		  >
-			{isBusinessAccount ? (
+			{isConsultantAccount ? (
             <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
 			Update Consultant Profile
 		  </Heading>

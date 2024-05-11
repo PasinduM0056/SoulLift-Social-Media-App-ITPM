@@ -3,6 +3,8 @@ import { Button, Text } from "@chakra-ui/react";
 import useShowToast from "../hooks/useShowToast";
 import useLogout from "../hooks/useLogout";
 import BusinessProfileForm from "./BusinessProfileForm";
+import ConsultantProfileForm from "./ConsultantProfileForm"
+import OrganizationProfileForm from "./OrganizationProfileForm";
 import { useNavigate } from 'react-router-dom';
 import userAtom from "./../atoms/userAtom";
 import { useRecoilValue } from "recoil";
@@ -10,17 +12,29 @@ import { Link } from 'react-router-dom';
 import TermsAndConditions from "./TermsAndConditions";
 
 
-const SettingsPage = ({ isBusiness }) => {
+const SettingsPage = ({ isBusiness, isConsultant, isOrganization }) => {
   const user = useRecoilValue(userAtom);
   const showToast = useShowToast();
   const logout = useLogout();
   const [showForm, setShowForm] = useState(false);
   const [isBusinessAccount, setIsBusinessAccount] = useState(isBusiness);
+  const [isConsultantAccount, setIsConsultantAccount] = useState(isConsultant);
+  const [isOrganizationAccount, setIsOrganizationAccount] = useState(isOrganization); 
   const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch isBusiness status when component mounts
     checkIsBusiness();
+  }, []);
+
+  useEffect(() => {
+    // Fetch isConsultant status when component mounts
+    checkIsConsultant();
+  }, []);
+
+  useEffect(() => {
+    // Fetch isConsultant status when component mounts
+    checkIsOrganization();
   }, []);
 
   const checkIsBusiness = async () => {
@@ -42,8 +56,48 @@ const SettingsPage = ({ isBusiness }) => {
     }
   };
 
-  const toggleForm = () => {
-    setShowForm(!showForm);
+  const checkIsConsultant = async () => {
+    try {
+      const res = await fetch("/api/users/check-consultant", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+
+      if (data.error) {
+        return showToast("Error", data.error, "error");
+      }
+
+      // Update isConsultantAccount state based on the response
+      setIsConsultantAccount(data.isConsultant);
+    } catch (error) {
+      showToast("Error", error.message, "error");
+    }
+  };
+
+  const checkIsOrganization = async () => {
+    try {
+      const res = await fetch("/api/users/check-organization", {
+        // Assuming there's an endpoint to check organization status
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+
+      if (data.error) {
+        return showToast("Error", data.error, "error");
+      }
+
+      // Update isOrganizationAccount state based on the response
+      setIsOrganizationAccount(data.isOrganization);
+    } catch (error) {
+      showToast("Error", error.message, "error");
+    }
+  };
+
+  const toggleForm = (isBusinessForm) => {
+    setShowForm(true);
+    setIsBusinessAccount(isBusinessForm);
   };
 
   const freezeAccount = async () => {
@@ -68,11 +122,7 @@ const SettingsPage = ({ isBusiness }) => {
     }
   };
 
-  const handleOpenDashboard = () => {
-    // Navigate to the /udhome route
-    navigate("/:username/udhome");
-  };
-
+  
   return (
     <>
       {!showForm ? (
@@ -100,13 +150,63 @@ const SettingsPage = ({ isBusiness }) => {
             </Button>
           </Link>
           ) : (
-            <Button size={"sm"} colorScheme="red" onClick={toggleForm}>
+            <Button size={"sm"} colorScheme="red" onClick={() => toggleForm(true)}>
               Switch to Business Profile
+            </Button>
+          )}
+
+        <Text my={1} fontWeight={"bold"}>
+            Consultant Account
+          </Text>
+          {isConsultantAccount ? (
+            <Text my={1}>Open your Consultant Dashboard</Text>
+          ) : (
+            <Text my={1}>Update your account to Consultant</Text>
+          )}
+          
+          {isConsultantAccount ? (
+            <Link to={`/consultantDashboard/${user.username}/cdhome`}>
+            <Button size="sm" colorScheme="green">
+              Open Dashboard
+            </Button>
+          </Link>
+          ) : (
+            <Button size={"sm"} colorScheme="red" onClick={() => toggleForm(false)}>
+              Switch to Consultant Profile
+            </Button>
+          )}
+
+          <Text my={1} fontWeight={"bold"}>
+            Organization Account
+          </Text>
+          {isOrganizationAccount ? (
+            <Text my={1}>Open your Consultant Dashboard</Text>
+          ) : (
+            <Text my={1}>Update your account to Consultant</Text>
+          )}
+          
+          {isOrganizationAccount ? (
+            <Link to={`/organization-Home`}>
+            <Button size="sm" colorScheme="green">
+              Open Dashboard
+            </Button>
+          </Link>
+          ) : (
+            <Button size={"sm"} colorScheme="red" onClick={() => toggleForm(false)}>
+              Switch to Organization Profile
             </Button>
           )}
         </>
       ) : (
-        <BusinessProfileForm toggleForm={toggleForm} />
+        <>
+          {isBusinessAccount ? (
+            <BusinessProfileForm toggleForm={() => setShowForm(false)} />
+          ) : isConsultantAccount ? (
+            <ConsultantProfileForm toggleForm={() => setShowForm(false)} />
+          ):(
+            <OrganizationProfileForm toggleForm={() => setShowForm(false)} />
+          )}
+        </>
       )}
 
         <Text my={1} fontWeight={"bold"}>

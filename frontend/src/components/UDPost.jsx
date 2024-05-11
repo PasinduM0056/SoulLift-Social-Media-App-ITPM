@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Text, Image, IconButton, Spinner, Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
+import { Box, Flex, Text, Image, IconButton, Tr, Th, Td } from "@chakra-ui/react";
 import { formatDistanceToNow } from "date-fns";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useRecoilState, useRecoilValue } from "recoil";

@@ -9,7 +9,7 @@ import useLogout from "../hooks/useLogout";
 import authScreenAtom from "../atoms/authAtom";
 import { BsFillChatQuoteFill } from "react-icons/bs";
 import { MdOutlineSettings } from "react-icons/md";
-import { FiShoppingCart } from 'react-icons/fi';
+import { FiShoppingCart, FiBriefcase } from 'react-icons/fi';
 
 const HeaderB = () => {
 	
@@ -27,10 +27,10 @@ const HeaderB = () => {
 					<Link as={RouterLink} to='/business'>
                         <FiShoppingCart size={24} />  {/* Replace RxAvatar with FiShoppingCart */}
                     </Link>
-					<Link as={RouterLink} to={`/chat`}>
-						<BsFillChatQuoteFill size={20} />
+					<Link as={RouterLink} to={`/organization-job`}>
+						<FiBriefcase size={20} />
 					</Link>
-					<Link as={RouterLink} to={`/settings`}>
+					<Link as={RouterLink} to={`/consultant`}>
 						<MdOutlineSettings size={20} />
 					</Link>
 					

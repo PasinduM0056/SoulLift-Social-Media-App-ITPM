@@ -19,6 +19,7 @@ import {
   export default function UpdateProfilePage(isBusiness) {
 	const [user, setUser] = useRecoilState(userAtom);
 	const [isBusinessAccount, setIsBusinessAccount] = useState(isBusiness);
+	const [isConsultantAccount, setIsConsultantAccount] = useState(isConsultant);
 	const [inputs, setInputs] = useState({
 	  username: user.username,
 	  email: user.email,
@@ -87,6 +88,30 @@ import {
 		  showToast("Error", error.message, "error");
 		}
 	  };
+
+	  useEffect(() => {
+		// Fetch isBusiness status when component mounts
+		checkIsConsultant();
+	  }, []);
+
+	  const checkIsConsultant = async () => {
+		try {
+		  const res = await fetch("/api/users/check-consultant", {
+			method: "GET",
+			headers: { "Content-Type": "application/json" },
+		  });
+		  const data = await res.json();
+	
+		  if (data.error) {
+			return showToast("Error", data.error, "error");
+		  }
+	
+		  // Update isBusinessAccount state based on the response
+		  setIsConsultantAccount(data.isConsultant);
+		} catch (error) {
+		  showToast("Error", error.message, "error");
+		}
+	  };
 	
 	  const toggleForm = () => {
 		setShowForm(!showForm);
@@ -108,7 +133,11 @@ import {
             <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
 			Update Business Profile
 		  </Heading>
-          ) : (
+          ) : isConsultantAccount ? (
+			<Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
+			Update Consultant Profile
+		  </Heading>
+		  ) : (
             <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
 			  Update User Profile
 			</Heading>
@@ -136,48 +165,9 @@ import {
 				</Center>
 			  </Stack>
 			</FormControl>
-			{!isBusinessAccount ? (
-			  <>
-				<FormControl>
-				  <FormLabel>User name</FormLabel>
-				  <Input
-					placeholder="johndoe"
-					value={inputs.username}
-					onChange={(e) =>
-					  setInputs({ ...inputs, username: e.target.value })
-					}
-					_placeholder={{ color: "gray.500" }}
-					type="text"
-				  />
-				</FormControl>
-				<FormControl>
-				  <FormLabel>Email address</FormLabel>
-				  <Input
-					placeholder="your-email@example.com"
-					value={inputs.email}
-					onChange={(e) =>
-					  setInputs({ ...inputs, email: e.target.value })
-					}
-					_placeholder={{ color: "gray.500" }}
-					type="email"
-				  />
-				</FormControl>
-				<FormControl>
-				  <FormLabel>Bio</FormLabel>
-				  <Input
-					placeholder="Your bio."
-					value={inputs.bio}
-					onChange={(e) =>
-					  setInputs({ ...inputs, bio: e.target.value })
-					}
-					_placeholder={{ color: "gray.500" }}
-					type="text"
-				  />
-				</FormControl>
-				
-			  </>
-			) : (
-			  <>
+			{isBusinessAccount ? (
+
+			<>
 				<FormControl>
 				  <FormLabel>Name</FormLabel>
 				  <Input
@@ -233,6 +223,110 @@ import {
 					value={inputs.companyAbout}
 					onChange={(e) =>
 					  setInputs({ ...inputs, companyAbout: e.target.value })
+					}
+					_placeholder={{ color: "gray.500" }}
+					type="text"
+				  />
+				</FormControl>
+				
+			  </>
+			) : isConsultantAccount ? (
+				<>
+				<FormControl>
+				  <FormLabel>Name</FormLabel>
+				  <Input
+					placeholder="johndoe"
+					value={inputs.name}
+					onChange={(e) =>
+					  setInputs({ ...inputs, name: e.target.value })
+					}
+					_placeholder={{ color: "gray.500" }}
+					type="text"
+				  />
+				</FormControl>
+				<FormControl>
+				  <FormLabel>Address</FormLabel>
+				  <Input
+					placeholder="your-email@example.com"
+					value={inputs.address}
+					onChange={(e) =>
+					  setInputs({ ...inputs, address: e.target.value })
+					}
+					_placeholder={{ color: "gray.500" }}
+					type="text"
+				  />
+				</FormControl>
+				<FormControl>
+				  <FormLabel>ID Number</FormLabel>
+				  <Input
+					placeholder="Your bio."
+					value={inputs.idNumber}
+					onChange={(e) =>
+					  setInputs({ ...inputs, idNumber: e.target.value })
+					}
+					_placeholder={{ color: "gray.500" }}
+					type="text"
+				  />
+				</FormControl>
+				<FormControl>
+				  <FormLabel>Business Name</FormLabel>
+				  <Input
+					placeholder="Your bio."
+					value={inputs.companyName}
+					onChange={(e) =>
+					  setInputs({ ...inputs, companyName: e.target.value })
+					}
+					_placeholder={{ color: "gray.500" }}
+					type="text"
+				  />
+				</FormControl>
+				<FormControl>
+				  <FormLabel>Business About</FormLabel>
+				  <Input
+					placeholder="Your bio."
+					value={inputs.companyAbout}
+					onChange={(e) =>
+					  setInputs({ ...inputs, companyAbout: e.target.value })
+					}
+					_placeholder={{ color: "gray.500" }}
+					type="text"
+				  />
+				</FormControl>
+				
+			  </>
+			) : (
+				<>
+				<FormControl>
+				  <FormLabel>User name</FormLabel>
+				  <Input
+					placeholder="johndoe"
+					value={inputs.username}
+					onChange={(e) =>
+					  setInputs({ ...inputs, username: e.target.value })
+					}
+					_placeholder={{ color: "gray.500" }}
+					type="text"
+				  />
+				</FormControl>
+				<FormControl>
+				  <FormLabel>Email address</FormLabel>
+				  <Input
+					placeholder="your-email@example.com"
+					value={inputs.email}
+					onChange={(e) =>
+					  setInputs({ ...inputs, email: e.target.value })
+					}
+					_placeholder={{ color: "gray.500" }}
+					type="email"
+				  />
+				</FormControl>
+				<FormControl>
+				  <FormLabel>Bio</FormLabel>
+				  <Input
+					placeholder="Your bio."
+					value={inputs.bio}
+					onChange={(e) =>
+					  setInputs({ ...inputs, bio: e.target.value })
 					}
 					_placeholder={{ color: "gray.500" }}
 					type="text"

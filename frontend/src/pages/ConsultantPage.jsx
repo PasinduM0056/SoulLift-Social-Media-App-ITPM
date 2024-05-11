@@ -44,7 +44,7 @@ const ConsultantPage = () => {
 				)}
 
 		{Array.isArray(packages) && packages.map((selectedPackage) => (
-			<Product key={selectedPackage._id} package={selectedPackage} postedBy={selectedPackage.postedBy} />
+			<Package key={selectedPackage._id} selectedPackage={selectedPackage} postedBy={selectedPackage.postedBy} />
 		))}
 			</Box>
 			<Box

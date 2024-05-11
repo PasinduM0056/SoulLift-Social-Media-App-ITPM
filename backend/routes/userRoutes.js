@@ -11,7 +11,9 @@ import {
 	submitBusinessProfile,
 	submitConsultantProfile,
 	checkIsBusiness,
-	checkIsConsultant
+	checkIsConsultant,
+	submitOrganizationProfile,
+	checkIsOrganization
 
 } from "../controllers/userController.js";
 import protectRoute from "../middlewares/protectRoute.js";
@@ -30,5 +32,7 @@ router.put("/business-profile/:id", protectRoute, submitBusinessProfile);
 router.put("/consultant-profile/:id", protectRoute, submitConsultantProfile);
 router.get("/check-business", protectRoute, checkIsBusiness); 
 router.get("/check-consultant", protectRoute, checkIsConsultant); 
+router.put("/organization-profile", protectRoute, submitOrganizationProfile);
+router.get("/check-organization", protectRoute, checkIsOrganization); 
 
 export default router;

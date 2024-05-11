@@ -31,15 +31,20 @@ const UserHeader = ({ user }) => {
         });
     };
 
+    const userName = user.isBusiness? user.companyName : user.isConsultant ? user.name : user.username;
+    const about = user.isBusiness? user.companyAbout : user.isConsultant ? user.experienses : user.bio;
+    const address = user.isBusiness? user.address : user.isConsultant ? user.qualification : null;
+
+
     return (
         <VStack gap={4} alignItems={"start"}>
             <Flex justifyContent={"space-between"} w={"full"}>
                 <Box>
                     <Text fontSize={"2xl"} fontWeight={"bold"}>
-                        {user.isBusiness ? user.companyName : user.userName}
+                    {userName}
                     </Text>
                     <Flex gap={2} alignItems={"center"}>
-                        <Text fontSize={"sm"}>{user.isBusiness ? user.companyAbout : user.bio}</Text>
+                        <Text fontSize={"sm"}>{about}</Text>
                         {user.isBusiness ? (
                             <Text fontSize={"xs"} bg={"gray.dark"} color={"gray.light"} p={1} borderRadius={"full"}>
                             SoulLift Business
@@ -51,7 +56,7 @@ const UserHeader = ({ user }) => {
                         )}
 
                     </Flex>
-                    <Text fontSize={"sm"}>{user.isBusiness ? user.address : null }</Text>
+                    <Text fontSize={"sm"}>{address}</Text>
                 </Box>
                 <Box>
                     {user.profilePic && (
@@ -77,7 +82,6 @@ const UserHeader = ({ user }) => {
                 </Box>
             </Flex>
 
-            <Text>{user.isBusiness ? user.businessAbout : user.bio}</Text>
 
             {currentUser?._id === user._id && (
                 <Link as={RouterLink} to='/update'>

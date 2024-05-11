@@ -79,7 +79,7 @@ const likeUnlikePackage = async (req, res) => {
 		const { id: packageId } = req.params;
 		const userId = req.user._id;
 
-		const selectedPackage = await Product.findById(packageId);
+		const selectedPackage = await Package.findById(packageId);
 
 		if (!selectedPackage) {
 			return res.status(404).json({ error: "Post not found" });
@@ -225,4 +225,4 @@ const getSalesPackages = async (req, res) => {
 	}
 };
 
-export { createPackage, getProduct, deletePackage, likeUnlikePackage, reviewPackage, getFeedPackages, getUserPackages,buyPackage, getSalesPackages };
+export { createPackage, getPackage, deletePackage, likeUnlikePackage, reviewPackage, getFeedPackages, getUserPackages,buyPackage, getSalesPackages };

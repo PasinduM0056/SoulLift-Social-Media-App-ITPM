@@ -9,11 +9,11 @@ import {
 	getUserPackages,
 	buyPackage
 } from "../controllers/packageController.js";
-import protectRoute from "../middlewares/packageRoute.js";
+import protectRoute from "../middlewares/protectRoute.js";
 
 const router = express.Router();
 
-router.get("/feed", packageRoute, getFeedPackages);
+router.get("/feed", protectRoute, getFeedPackages);
 router.get("/:id", getPackage);
 router.get("/user/:username", getUserPackages);
 router.post("/create", protectRoute, createPackage);

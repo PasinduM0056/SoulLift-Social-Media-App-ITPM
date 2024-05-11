@@ -14,7 +14,7 @@ const CDSettingsPage = ({ isConsulatant }) => {
   const showToast = useShowToast();
   const logout = useLogout();
   const [showForm, setShowForm] = useState(false);
-  const [isConsultantAccount, setIsConsultantAccount] = useState(isConsultant);
+  const [isConsultantAccount, setIsConsultantAccount] = useState(isConsulatant);
   const navigate = useNavigate();
 
   useEffect(() => {

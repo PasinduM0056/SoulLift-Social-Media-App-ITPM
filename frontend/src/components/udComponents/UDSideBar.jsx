@@ -58,7 +58,7 @@ const UDSideBar = () => {
 
         {/* Sales Analysis */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udsalesanalysis`}>
+          <Link to={`/userDashboard/${user.username}/udslaesanalysis`}>
             <FontAwesomeIcon icon={faChartLine} />
             <span> Sales Analysis</span>
           </Link>

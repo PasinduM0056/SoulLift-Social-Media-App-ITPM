@@ -43,7 +43,7 @@ const CreatePackage = () => {
   const handleCreatePackage = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/package/create", {
+      const res = await fetch("/api/packages/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
