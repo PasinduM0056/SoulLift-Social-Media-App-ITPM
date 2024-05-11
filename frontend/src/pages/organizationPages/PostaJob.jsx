@@ -67,7 +67,7 @@ function PostaJob() {
         >
           <div class="job-post-tooltip-container">
             <span class="job-post-tooltip-1">
-              Provide accurate information.
+              Provide accurate information
             </span>
             <span class="job-post-tooltip-2">Find the right candidates.</span>
             <span class="job-post-tooltip-3">Participate in challenges.</span>
