@@ -10,33 +10,30 @@ import authScreenAtom from "../atoms/authAtom";
 import { BsFillChatQuoteFill } from "react-icons/bs";
 import { MdOutlineSettings } from "react-icons/md";
 import { FiShoppingCart } from 'react-icons/fi';
+import { RiBriefcaseFill } from 'react-icons/ri'; // Add this import for job posts icon
 
 const HeaderB = () => {
-	
-	const user = useRecoilValue(userAtom);
-	
-	;
+    const user = useRecoilValue(userAtom);
 
-	return (
-		<Flex justifyContent={"space-between"} mt={10} mb='10'>
-			
-				<Flex alignItems={"center"} gap={60}>
-                    <Link as={RouterLink} to='/'>
-                        <AiFillHome size={24} />
-                    </Link>
-					<Link as={RouterLink} to='/business'>
-                        <FiShoppingCart size={24} />  {/* Replace RxAvatar with FiShoppingCart */}
-                    </Link>
-					<Link as={RouterLink} to={`/chat`}>
-						<BsFillChatQuoteFill size={20} />
-					</Link>
-					<Link as={RouterLink} to={`/settings`}>
-						<MdOutlineSettings size={20} />
-					</Link>
-					
-				</Flex>
-		</Flex>
-	);
+    return (
+        <Flex justifyContent={"space-between"} mt={10} mb='10'>
+            <Flex alignItems={"center"} gap={60}>
+                <Link as={RouterLink} to='/'>
+                    <AiFillHome size={24} />
+                </Link>
+                <Link as={RouterLink} to='/business'>
+                    <FiShoppingCart size={24} />
+                </Link>
+                <Link as={RouterLink} to='/organization-job'> {/* Link to the job posts page */}
+                    <RiBriefcaseFill size={24} /> {/* Icon for job posts */}
+                </Link>
+                
+                <Link as={RouterLink} to={`/settings`}>
+                    <MdOutlineSettings size={20} />
+                </Link>
+            </Flex>
+        </Flex>
+    );
 };
 
 export default HeaderB;

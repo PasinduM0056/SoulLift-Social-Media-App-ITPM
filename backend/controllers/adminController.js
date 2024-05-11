@@ -11,6 +11,18 @@ const getUsersWithBusinessProfiles = async (req, res) => {
   }
 };
 
+//organization
+const getUserWithOrganizationProfile = async (req, res) => {
+  try {
+    const userss = await User.find({ isOrganization: false }).select("OrganizationName OrganizationAddress OrganizationAbout IDnumber");
+    res.status(200).json(userss);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
 const approveBusinessProfile = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -21,4 +33,14 @@ const approveBusinessProfile = async (req, res) => {
   }
 };
 
-export { getUsersWithBusinessProfiles, approveBusinessProfile };
+//Organization
+const approveOrganizationProfile = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    await User.findByIdAndUpdate(userId, { isOrganization: true });
+    res.status(200).json({ message: "Organization profile approved successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+export { getUsersWithBusinessProfiles, approveBusinessProfile, getUserWithOrganizationProfile, approveOrganizationProfile };

@@ -58,6 +58,26 @@ const userSchema = mongoose.Schema(
 			type: String,
 			default: "",
 		},
+		isOrganization: {
+			type: Boolean,
+			default: false,
+		},
+		OrganizationName: {
+			type: String,
+			default: "",
+		},
+		OrganizationAddress: {
+			type: String,
+			default: "",
+		},
+		OrganizationAbout: {
+			type: String,
+			default: "",
+		},
+		IDnumber: {
+			type: String,
+			default: "",
+		},
 		companyAbout: {
 			type: String,
 			default: "",

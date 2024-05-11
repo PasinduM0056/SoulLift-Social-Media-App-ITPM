@@ -89,6 +89,11 @@ const UDSideBar = () => {
             <span> Chats</span>
           </Link>
         </div>
+        <li className='sidebar-list-item'>
+                <a href="/organization-Home">
+                    <BsFillBuildingFill className='icon'/> Organization
+                </a>
+            </li>
 
         {/* Settings */}
         <div className="nav-button">

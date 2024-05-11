@@ -10,24 +10,29 @@ import {
 	Avatar,
 	Center,
   } from "@chakra-ui/react";
-  import { useRef, useState,useEffect } from "react";
+  import { useRef, useState, useEffect } from "react";
   import { useRecoilState } from "recoil";
   import userAtom from "../atoms/userAtom";
   import usePreviewImg from "../hooks/usePreviewImg";
   import useShowToast from "../hooks/useShowToast";
   
-  export default function UpdateProfilePage(isBusiness) {
+  export default function UpdateProfilePage(isBusiness, isOrganization) {
 	const [user, setUser] = useRecoilState(userAtom);
 	const [isBusinessAccount, setIsBusinessAccount] = useState(isBusiness);
+	const [isOrganizationAccount, setIsOrganizationAccount] = useState(isOrganization);
 	const [inputs, setInputs] = useState({
-	  username: user.username,
-	  email: user.email,
-	  bio: user.bio,
-	  name: user.name,
-	  address: user.address,
-	  idNumber: user.idNumber,
-	  companyName: user.companyName,
-	  companyAbout: user.companyAbout,
+	  username: user.username || "",
+	  email: user.email || "",
+	  bio: user.bio || "",
+	  name: user.name || "",
+	  address: user.address || "",
+	  idNumber: user.idNumber || "",
+	  companyName: user.companyName || "",
+	  companyAbout: user.companyAbout || "",
+	  OrganizationName: user.OrganizationName || "",
+	  OrganizationAddress: user.OrganizationAddress || "",
+	  OrganizationAbout: user.OrganizationAbout || "",
+	  IDnumber: user.IDnumber || "",
 	  password: "",
 	});
 	const fileRef = useRef(null);
@@ -63,34 +68,50 @@ import {
 		setUpdating(false);
 	  }
 	};
-
+  
 	useEffect(() => {
-		// Fetch isBusiness status when component mounts
-		checkIsBusiness();
-	  }, []);
-	
-	  const checkIsBusiness = async () => {
-		try {
-		  const res = await fetch("/api/users/check-business", {
-			method: "GET",
-			headers: { "Content-Type": "application/json" },
-		  });
-		  const data = await res.json();
-	
-		  if (data.error) {
-			return showToast("Error", data.error, "error");
-		  }
-	
-		  // Update isBusinessAccount state based on the response
-		  setIsBusinessAccount(data.isBusiness);
-		} catch (error) {
-		  showToast("Error", error.message, "error");
+	  // Fetch isBusiness status when component mounts
+	  checkIsBusiness();
+	  checkIsOrganization();
+	}, []);
+  
+	const checkIsBusiness = async () => {
+	  try {
+		const res = await fetch("/api/users/check-business", {
+		  method: "GET",
+		  headers: { "Content-Type": "application/json" },
+		});
+		const data = await res.json();
+  
+		if (data.error) {
+		  return showToast("Error", data.error, "error");
 		}
-	  };
-	
-	  const toggleForm = () => {
-		setShowForm(!showForm);
-	  };
+  
+		// Update isBusinessAccount state based on the response
+		setIsBusinessAccount(data.isBusiness);
+	  } catch (error) {
+		showToast("Error", error.message, "error");
+	  }
+	};
+  
+	const checkIsOrganization = async () => {
+	  try {
+		const res = await fetch("/api/users/check-organization", {
+		  method: "GET",
+		  headers: { "Content-Type": "application/json" },
+		});
+		const data = await res.json();
+  
+		if (data.error) {
+		  return showToast("Error", data.error, "error");
+		}
+  
+		// Update isOrganizationAccount state based on the response
+		setIsOrganizationAccount(data.isOrganization);
+	  } catch (error) {
+		showToast("Error", error.message, "error");
+	  }
+	};
   
 	return (
 	  <form onSubmit={handleSubmit}>
@@ -104,16 +125,16 @@ import {
 			boxShadow={"lg"}
 			p={6}
 		  >
-			{isBusinessAccount ? (
-            <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
-			Update Business Profile
-		  </Heading>
-          ) : (
-            <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
-			  Update User Profile
-			</Heading>
-          )}
-			
+			{(isBusinessAccount || isOrganizationAccount) ? (
+			  <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
+				{isOrganizationAccount ? "Update Organization Profile" : "Update Business Profile"}
+			  </Heading>
+			) : (
+			  <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
+				Update User Profile
+			  </Heading>
+			)}
+  
 			<FormControl id="userName">
 			  <Stack direction={["column", "row"]} spacing={6}>
 				<Center>
@@ -136,7 +157,8 @@ import {
 				</Center>
 			  </Stack>
 			</FormControl>
-			{!isBusinessAccount ? (
+  
+			{!(isBusinessAccount || isOrganizationAccount) && (
 			  <>
 				<FormControl>
 				  <FormLabel>User name</FormLabel>
@@ -174,11 +196,66 @@ import {
 					type="text"
 				  />
 				</FormControl>
-				
 			  </>
-			) : (
+			)}
+  
+			{(isOrganizationAccount || isBusinessAccount) && (
 			  <>
-				<FormControl>
+				{isOrganizationAccount && (
+				  <>
+					<FormControl>
+					  <FormLabel>Organization Name</FormLabel>
+					  <Input
+						placeholder="Name"
+						value={inputs.OrganizationName}
+						onChange={(e) =>
+						  setInputs({ ...inputs, OrganizationName: e.target.value })
+						}
+						_placeholder={{ color: "gray.500" }}
+						type="text"
+					  />
+					</FormControl>
+					<FormControl>
+					  <FormLabel>Organization Address</FormLabel>
+					  <Input
+						placeholder="Address"
+						value={inputs.OrganizationAddress}
+						onChange={(e) =>
+						  setInputs({ ...inputs, OrganizationAddress: e.target.value })
+						}
+						_placeholder={{ color: "gray.500" }}
+						type="text"
+					  />
+					</FormControl>
+					<FormControl>
+					  <FormLabel>Organization About</FormLabel>
+					  <Input
+						placeholder="Your bio."
+						value={inputs.OrganizationAbout}
+						onChange={(e) =>
+						  setInputs({ ...inputs, OrganizationAbout: e.target.value })
+						}
+						_placeholder={{ color: "gray.500" }}
+						type="text"
+					  />
+					</FormControl>
+					<FormControl>
+					  <FormLabel>ID Number</FormLabel>
+					  <Input
+						placeholder="ID Number"
+						value={inputs.IDnumber}
+						onChange={(e) =>
+						  setInputs({ ...inputs, IDnumber: e.target.value })
+						}
+						_placeholder={{ color: "gray.500" }}
+						type="text"
+					  />
+					</FormControl>
+				  </>
+				)}
+				{isBusinessAccount && (
+				  <>
+				  <FormControl>
 				  <FormLabel>Name</FormLabel>
 				  <Input
 					placeholder="johndoe"
@@ -214,45 +291,48 @@ import {
 					type="text"
 				  />
 				</FormControl>
-				<FormControl>
-				  <FormLabel>Business Name</FormLabel>
-				  <Input
-					placeholder="Your bio."
-					value={inputs.companyName}
-					onChange={(e) =>
-					  setInputs({ ...inputs, companyName: e.target.value })
-					}
-					_placeholder={{ color: "gray.500" }}
-					type="text"
-				  />
-				</FormControl>
-				<FormControl>
-				  <FormLabel>Business About</FormLabel>
-				  <Input
-					placeholder="Your bio."
-					value={inputs.companyAbout}
-					onChange={(e) =>
-					  setInputs({ ...inputs, companyAbout: e.target.value })
-					}
-					_placeholder={{ color: "gray.500" }}
-					type="text"
-				  />
-				</FormControl>
-				
+					<FormControl>
+					  <FormLabel>Business Name</FormLabel>
+					  <Input
+						placeholder="Business Name"
+						value={inputs.companyName}
+						onChange={(e) =>
+						  setInputs({ ...inputs, companyName: e.target.value })
+						}
+						_placeholder={{ color: "gray.500" }}
+						type="text"
+					  />
+					</FormControl>
+					<FormControl>
+					  <FormLabel>Business About</FormLabel>
+					  <Input
+						placeholder="Business About"
+						value={inputs.companyAbout}
+						onChange={(e) =>
+						  setInputs({ ...inputs, companyAbout: e.target.value })
+						}
+						_placeholder={{ color: "gray.500" }}
+						type="text"
+					  />
+					</FormControl>
+				  </>
+				)}
 			  </>
 			)}
+  
 			<FormControl>
-				  <FormLabel>Password</FormLabel>
-				  <Input
-					placeholder="password"
-					value={inputs.password}
-					onChange={(e) =>
-					  setInputs({ ...inputs, password: e.target.value })
-					}
-					_placeholder={{ color: "gray.500" }}
-					type="password"
-				  />
-				</FormControl>
+			  <FormLabel>Password</FormLabel>
+			  <Input
+				placeholder="Password"
+				value={inputs.password}
+				onChange={(e) =>
+				  setInputs({ ...inputs, password: e.target.value })
+				}
+				_placeholder={{ color: "gray.500" }}
+				type="password"
+			  />
+			</FormControl>
+  
 			<Stack spacing={6} direction={["column", "row"]}>
 			  <Button
 				bg={"red.400"}
