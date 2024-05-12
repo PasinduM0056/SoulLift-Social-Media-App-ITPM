@@ -3,14 +3,16 @@ import axios from "axios";
 import { List, ListItem, ListIcon } from "@chakra-ui/react";
 import { MdCheckCircle } from "react-icons/md";
 import "./candidatesShortlisting.css";
-
+import ODSideBar from "../../components/udComponents/ODSideBar";
 function Shortlistedcandidates() {
   const [candidates, setCandidates] = useState([]); // State to store candidate data
 
   useEffect(() => {
     const fetchCandidates = async () => {
       try {
-        const response = await axios.get("/api/candidates/all-selected-candidates");
+        const response = await axios.get(
+          "/api/candidates/all-selected-candidates"
+        );
         console.log("Response data:", response.data); // Log the data to examine its structure
         setCandidates(response.data); // Ensure it's an array
       } catch (error) {
@@ -24,10 +26,13 @@ function Shortlistedcandidates() {
   // Function to handle accepting a candidate
   const handleAccept = async (candidate) => {
     try {
-      const response = await axios.post("/api/candidates/Shortlisted-candidates", candidate);
+      const response = await axios.post(
+        "/api/candidates/Shortlisted-candidates",
+        candidate
+      );
       console.log("Candidate accepted:", response.data); // Log success message
       // You can choose to remove the candidate from the list or refresh the list after acceptance
-       setCandidates(candidates.filter((c) => c._id !== candidate._id));
+      setCandidates(candidates.filter((c) => c._id !== candidate._id));
     } catch (error) {
       console.error("Error accepting candidate:", error);
     }
@@ -36,7 +41,9 @@ function Shortlistedcandidates() {
   // Function to handle rejecting a candidate
   const handleReject = async (candidate) => {
     try {
-      await axios.delete(`/api/candidates/Done-selected-candidates/${candidate._id}`); // DELETE request to backend
+      await axios.delete(
+        `/api/candidates/Done-selected-candidates/${candidate._id}`
+      ); // DELETE request to backend
       setCandidates(candidates.filter((c) => c._id !== candidate._id)); // Remove from state
     } catch (error) {
       console.error("Error rejecting candidate:", error);
@@ -46,6 +53,7 @@ function Shortlistedcandidates() {
   return (
     <div>
       {/* Top container */}
+      <ODSideBar />
       <div
         className="Create-a-post-up-container"
         style={{
@@ -56,7 +64,10 @@ function Shortlistedcandidates() {
           alignItems: "center",
         }}
       >
-        <div className="Create-a-post-tooltip-container">
+        <div
+          className="Create-a-post-tooltip-container"
+          style={{ marginLeft: "110vh" }}
+        >
           <span className="Create-a-post-tooltip-1">
             Provide accurate information.
           </span>
@@ -76,6 +87,7 @@ function Shortlistedcandidates() {
             alignItems: "center",
             marginTop: "5vh",
             fontWeight: "700",
+            marginLeft: "20vh",
           }}
         >
           When shortlisting candidates, employers need to be thorough and
@@ -86,6 +98,7 @@ function Shortlistedcandidates() {
         </h1>
       </div>
 
+      <div style={{marginLeft:'20vh'}}>
       <div class="candidates-card">
         <div class="candidates-main-content">
           <div class="candidates-header">
@@ -185,9 +198,9 @@ function Shortlistedcandidates() {
           </div>
         ))}
       </List>
+      </div>
     </div>
   );
 }
 
 export default Shortlistedcandidates;
-

@@ -3,7 +3,7 @@ import axios from "axios";
 import { List, ListItem, ListIcon } from "@chakra-ui/react";
 import { MdCheckCircle } from "react-icons/md";
 import "./candidatesShortlisting.css";
-
+import ODSideBar from "../../components/udComponents/ODSideBar";
 function CandidatesShortlisting() {
   const [candidates, setCandidates] = useState([]); // State to store candidate data
 
@@ -24,10 +24,13 @@ function CandidatesShortlisting() {
   // Function to handle accepting a candidate
   const handleAccept = async (candidate) => {
     try {
-      const response = await axios.post("/api/candidates/Shortlisted-candidates", candidate);
+      const response = await axios.post(
+        "/api/candidates/Shortlisted-candidates",
+        candidate
+      );
       console.log("Candidate accepted:", response.data); // Log success message
       // You can choose to remove the candidate from the list or refresh the list after acceptance
-       setCandidates(candidates.filter((c) => c._id !== candidate._id));
+      setCandidates(candidates.filter((c) => c._id !== candidate._id));
     } catch (error) {
       console.error("Error accepting candidate:", error);
     }
@@ -46,6 +49,7 @@ function CandidatesShortlisting() {
   return (
     <div>
       {/* Top container */}
+      <ODSideBar />
       <div
         className="Create-a-post-up-container"
         style={{
@@ -56,7 +60,10 @@ function CandidatesShortlisting() {
           alignItems: "center",
         }}
       >
-        <div className="Create-a-post-tooltip-container">
+        <div
+          className="Create-a-post-tooltip-container"
+          style={{ marginLeft: "110vh" }}
+        >
           <span className="Create-a-post-tooltip-1">
             Provide accurate information.
           </span>
@@ -76,6 +83,7 @@ function CandidatesShortlisting() {
             alignItems: "center",
             marginTop: "5vh",
             fontWeight: "700",
+            marginLeft: "20vh",
           }}
         >
           When shortlisting candidates, employers need to be thorough and
@@ -86,6 +94,7 @@ function CandidatesShortlisting() {
         </h1>
       </div>
 
+      <div style={{marginLeft:'20vh'}}>
       <div class="candidates-card">
         <div class="candidates-main-content">
           <div class="candidates-header">
@@ -139,14 +148,19 @@ function CandidatesShortlisting() {
         {candidates.map((candidate) => (
           <div
             className="shortlisting-card"
-            style={{ width: "80vh", marginTop: "-50vh",marginBottom:'60vh' }}
+            style={{ width: "80vh", marginTop: "-50vh", marginBottom: "60vh" }}
             key={candidate._id}
-         
           >
             <div className="shortlisting-card-border" />
             <div className="shortlisting-card-title-container">
               <span className="shortlisting-card-title">
-                <strong style={{ marginLeft: "260px", fontWeight: "100", fontSize: "16px" }}>
+                <strong
+                  style={{
+                    marginLeft: "260px",
+                    fontWeight: "100",
+                    fontSize: "16px",
+                  }}
+                >
                   Application Deadline:
                 </strong>{" "}
                 {candidate.job.applicationDeadline}
@@ -169,9 +183,11 @@ function CandidatesShortlisting() {
                 <br />
                 <strong>Job About:</strong> {candidate.job.jobAbout}
                 <br />
-                <strong>Message to Manager:</strong> {candidate.messagetoManager}
+                <strong>Message to Manager:</strong>{" "}
+                {candidate.messagetoManager}
                 <br />
-                <strong>Job Responsibilities:</strong> {candidate.job.responsibilities}
+                <strong>Job Responsibilities:</strong>{" "}
+                {candidate.job.responsibilities}
                 <br />
                 <strong>Job Email:</strong> {candidate.job.email}
               </div>
@@ -186,10 +202,15 @@ function CandidatesShortlisting() {
             <button
               className="shortlisting-button"
               onClick={() => handleReject(candidate)}
-            >Reject</button>
+            >
+              Reject
+            </button>
           </div>
         ))}
       </List>
+
+      </div>
+     
     </div>
   );
 }

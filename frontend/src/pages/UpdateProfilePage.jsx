@@ -15,7 +15,7 @@ import {
   import userAtom from "../atoms/userAtom";
   import usePreviewImg from "../hooks/usePreviewImg";
   import useShowToast from "../hooks/useShowToast";
-  
+  import ODSideBar from "../components/udComponents/ODSideBar";
   export default function UpdateProfilePage(isBusiness, isConsultant , isOrganization) {
 	const [user, setUser] = useRecoilState(userAtom);
 	const [isBusinessAccount, setIsBusinessAccount] = useState(isBusiness);
@@ -149,7 +149,10 @@ import {
 	  };
   
 	return (
-	  <form onSubmit={handleSubmit}>
+		<div>
+			   <ODSideBar />
+			   <div>
+			   <form onSubmit={handleSubmit}>
 		<Flex align={"center"} justify={"center"} my={6}>
 		  <Stack
 			spacing={4}
@@ -462,6 +465,12 @@ import {
 		  </Stack>
 		</Flex>
 	  </form>
+
+			   </div>
+			
+
+		</div>
+	 
 	);
   }
   

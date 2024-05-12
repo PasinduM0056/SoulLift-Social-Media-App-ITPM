@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import ODSideBar from "../../components/udComponents/ODSideBar";
 import {
   Box,
   VStack,
   FormControl,
   FormLabel,
+  Grid,
   Input,
   Textarea,
   Button,
@@ -78,7 +80,107 @@ const UpdatePostedJobs = () => {
   }
 
   return (
-    <div class="updatejob-form-container">
+    <div>
+      
+   <ODSideBar />
+   <Grid item xs={0}>
+        <div
+          className="job-post-up-container"
+          style={{
+            minWidth: "230vh",
+            height: "40vh",
+            marginLeft: "-10vh",
+          }}
+        >
+          <div class="job-post-tooltip-container">
+            <span class="job-post-tooltip-1">Provide accurate information</span>
+            <span class="job-post-tooltip-2">Find the right candidates.</span>
+            <span class="job-post-tooltip-3">Participate in challenges.</span>
+            <span>Post a Job</span>
+          </div>
+
+          <h1
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+
+              marginTop: "5vh",
+              fontWeight: "700",
+              marginLeft:'-20vh'
+            }}
+          >
+            When crafting a job post, employees should aim for clarity and
+      
+            appeal, capturing both skills needed and       <br/>company culture's feel.<br/>
+            Accuracy and inclusivity pave the path,
+            <br /> ensuring the right candidates find their way to our staff.
+          </h1>
+        </div>
+      </Grid>
+      
+
+      <div class="post-a-job-container noselect" style={{marginLeft:'40vh'}}>
+        <div class="post-a-job-canvas">
+          <div class="post-a-job-tracker post-a-job-tr-1"></div>
+          <div class="post-a-job-tracker post-a-job-tr-2"></div>
+          <div class="post-a-job-tracker post-a-job-tr-3"></div>
+          <div class="post-a-job-tracker post-a-job-tr-4"></div>
+          <div class="post-a-job-tracker post-a-job-tr-5"></div>
+          <div class="post-a-job-tracker post-a-job-tr-6"></div>
+          <div class="post-a-job-tracker post-a-job-tr-7"></div>
+          <div class="post-a-job-tracker post-a-job-tr-8"></div>
+          <div class="post-a-job-tracker post-a-job-tr-9"></div>
+          <div class="post-a-job-tracker post-a-job-tr-10"></div>
+          <div class="post-a-job-tracker post-a-job-tr-11"></div>
+          <div class="post-a-job-tracker post-a-job-tr-12"></div>
+          <div class="post-a-job-tracker post-a-job-tr-13"></div>
+          <div class="post-a-job-tracker post-a-job-tr-14"></div>
+          <div class="post-a-job-tracker post-a-job-tr-15"></div>
+          <div class="post-a-job-tracker post-a-job-tr-16"></div>
+          <div class="post-a-job-tracker post-a-job-tr-17"></div>
+          <div class="post-a-job-tracker post-a-job-tr-18"></div>
+          <div class="post-a-job-tracker post-a-job-tr-19"></div>
+          <div class="post-a-job-tracker post-a-job-tr-20"></div>
+          <div class="post-a-job-tracker post-a-job-tr-21"></div>
+          <div class="post-a-job-tracker post-a-job-tr-22"></div>
+          <div class="post-a-job-tracker post-a-job-tr-23"></div>
+          <div class="post-a-job-tracker post-a-job-tr-24"></div>
+          <div class="post-a-job-tracker post-a-job-tr-25"></div>
+          <div id="post-a-job-card">
+            <p id="post-a-job-prompt">
+              Hover this card for check the details before post a job
+            </p>
+            <div className="post-a-job-instructions">
+              <div className="post-a-job-title">
+                <ul>
+                  <li>
+                    <strong>Define the Job Role:</strong> Clearly outline the
+                    job responsibilities, required skills, and qualifications.
+                  </li>
+                  <li>
+                    <strong>Include Essential Details:</strong> Specify job
+                    title, location, work hours, and salary range (if
+                    applicable).
+                  </li>
+                  <li>
+                    <strong>Legal Compliance:</strong> Ensure your job posting
+                    adheres to employment laws and regulations, including
+                    anti-discrimination rules.
+                  </li>
+                  <li>
+                    <strong>Consider Diversity and Inclusion:</strong> Use
+                    inclusive language and encourage applicants from diverse
+                    backgrounds.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+   
+    <div class="updatejob-form-container" style={{marginLeft:'45vh'}}>
       <form class="updatejob-form">
         <div class="updatejob-form-group">
           <Box p={4}>
@@ -186,6 +288,7 @@ const UpdatePostedJobs = () => {
           </Box>
         </div>
       </form>
+    </div>
     </div>
   );
 };

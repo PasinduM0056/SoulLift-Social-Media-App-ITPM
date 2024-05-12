@@ -10,6 +10,7 @@ import {
   Avatar,
   Center,
 } from "@chakra-ui/react";
+import ODSideBar from "../components/udComponents/ODSideBar";
 import { useRef, useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import userAtom from "../atoms/userAtom";
@@ -116,6 +117,7 @@ export default function UpdateProfilePage(isBusiness, isOrganization) {
 
   return (
     <div>
+         <ODSideBar />
       <div
         className="update-company-info-up-container"
         style={{
@@ -128,7 +130,7 @@ export default function UpdateProfilePage(isBusiness, isOrganization) {
 		  alignItems:'center'
         }}
       >
-        <div class="update-info-tooltip-container">
+        <div class="update-info-tooltip-container" style={{marginLeft:'120vh'}}>
             <span class="update-info-tooltip-1">Consistency</span>
             <span class="update-info-tooltip-2">Accuracy</span>
             <span class="update-info-tooltip-3">Relevance</span>
@@ -136,7 +138,7 @@ export default function UpdateProfilePage(isBusiness, isOrganization) {
           </div>
 
       </div>
-      <div className="update-company-info-full-form">
+      <div className="update-company-info-full-form" style={{marginLeft:'40vh'}}>
         <div className="update-company-info-form-container">
           <form className="update-company-info-form" onSubmit={handleSubmit}>
             <Flex align={"center"} justify={"center"} my={6}>

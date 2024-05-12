@@ -3,9 +3,14 @@ import CreatePost from "../../components/CreatePost";
 import "./createaPost.css";
 import { Box, Heading, List, ListItem, ListIcon } from "@chakra-ui/react";
 import { MdCheckCircle } from "react-icons/md";
+
+import ODSideBar from "../../components/udComponents/ODSideBar";
+
+
 function CreateAposts() {
   return (
     <div>
+         <ODSideBar />
       <div
         className="Create-a-post-up-container"
         style={{
@@ -13,7 +18,8 @@ function CreateAposts() {
           height: "40vh",
           marginLeft: "-40vh",
           justifyContent:'center',
-          alignItems:'center'
+          alignItems:'center',
+          marginLeft:'-20vh'
         }}
       >
         <div class="Create-a-post-tooltip-container">
@@ -37,14 +43,17 @@ function CreateAposts() {
             fontWeight: "700",
           }}
         >
-          When crafting a job post, employees should aim for clarity and appeal,
+          When crafting a job post, employees should aim for clarity and appeal,<br/>
           capturing both skills needed and company culture's feel. Accuracy and
           inclusivity pave the path,
           <br /> ensuring the right candidates find their way to our staff.
         </h1>
       </div>
 
-      <Heading as="h1" size="lg" style={{marginTop:'10vh'}}>
+
+
+      <div style={{marginLeft:'40vh'}}>
+      <Heading as="h1" size="lg" style={{marginTop:'10vh' }}>
         When you are posting some post regarding your company, you should pay
         attention on below points
       </Heading>
@@ -76,6 +85,10 @@ function CreateAposts() {
           regulations.
         </ListItem>
       </List>
+
+      </div>
+
+    
       <CreatePost />
     </div>
   );

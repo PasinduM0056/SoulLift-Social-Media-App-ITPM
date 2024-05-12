@@ -14,7 +14,7 @@ import {
 import userAtom from "../../atoms/userAtom";
 import { useRecoilState } from "recoil";
 import "./postajob.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 function PostaJob() {
   const [formData, setFormData] = useState({
     submissionMethod: "",
@@ -31,7 +31,7 @@ function PostaJob() {
   });
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate('/Posted-Jobs'); // Navigate to the "Posted Jobs" page
+    navigate("/Posted-Jobs"); // Navigate to the "Posted Jobs" page
   };
 
   const onSubmit = async () => {
@@ -57,20 +57,18 @@ function PostaJob() {
 
   return (
     <Grid container xs={12}>
-            <ODSideBar />
+      <ODSideBar />
       <Grid item xs={0}>
         <div
           className="job-post-up-container"
           style={{
             minWidth: "230vh",
             height: "40vh",
-            marginLeft: "-40vh",
+            marginLeft: "-10vh",
           }}
         >
           <div class="job-post-tooltip-container">
-            <span class="job-post-tooltip-1">
-              Provide accurate information
-            </span>
+            <span class="job-post-tooltip-1">Provide accurate information</span>
             <span class="job-post-tooltip-2">Find the right candidates.</span>
             <span class="job-post-tooltip-3">Participate in challenges.</span>
             <span>Post a Job</span>
@@ -84,17 +82,20 @@ function PostaJob() {
 
               marginTop: "5vh",
               fontWeight: "700",
+              marginLeft:'-20vh'
             }}
           >
             When crafting a job post, employees should aim for clarity and
-            appeal, capturing both skills needed and company culture's feel.
+      
+            appeal, capturing both skills needed and       <br/>company culture's feel.<br/>
             Accuracy and inclusivity pave the path,
             <br /> ensuring the right candidates find their way to our staff.
           </h1>
         </div>
       </Grid>
+      
 
-      <div class="post-a-job-container noselect">
+      <div class="post-a-job-container noselect" style={{marginLeft:'40vh'}}>
         <div class="post-a-job-canvas">
           <div class="post-a-job-tracker post-a-job-tr-1"></div>
           <div class="post-a-job-tracker post-a-job-tr-2"></div>
@@ -153,9 +154,8 @@ function PostaJob() {
           </div>
         </div>
       </div>
-      
 
-      <div className="post-a-job-full-form">
+      <div className="post-a-job-full-form" style={{marginTop:'-10vh',marginLeft:'20vh'}}>
         <div className="Post-a-job-form-container">
           <form
             className="Post-a-job-form"
@@ -316,16 +316,12 @@ function PostaJob() {
             </Button>
           </form>
         </div>
+        
       </div>
-     
-      <div class="post-a-job-light-button">
-        
+      <div class="post-a-job-light-button" style={{marginLeft:'30vh',marginTop:'-75vh'}}>
         <button class="post-a-job-bt" onClick={handleClick}>
-        
           <div class="post-a-job-light-holder">
-            <div class="post-a-job-dot">
-           
-            </div>
+            <div class="post-a-job-dot"></div>
             <div class="post-a-job-light"></div>
           </div>
           <div class="post-a-job-button-holder">
@@ -338,9 +334,9 @@ function PostaJob() {
             </svg>
             <p>View Posted jobs</p>
           </div>
-   
         </button>
       </div>
+    
     </Grid>
   );
 }
