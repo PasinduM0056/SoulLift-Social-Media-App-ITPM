@@ -231,12 +231,12 @@ const SettingsPage = ({ isBusiness, isConsultant, isOrganization }) => {
       </Link>
 
       <Text my={1} fontWeight={"bold"}>
-        User Activity Report
+        Post Details
       </Text>
-      <Text my={1}>You can view all your activity of your require time period!</Text>
-      <Link to="/activityreport">
+      <Text my={1}>You can view all your post details</Text>
+      <Link to={`/${user.username}/postChart`}>
         <Button size={"sm"} colorScheme="red">
-          Activity Report
+          Post Details
         </Button>
       </Link>
     </>

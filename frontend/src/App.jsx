@@ -29,6 +29,7 @@ import UDProfilePage from './pages/udPages/UDProfilePage';
 import UDChatPage from './pages/udPages/UDChatPage';
 import UDSettingsPage from './pages/udPages/UDSettingsPage';
 import TermsAndConditions from './pages/TermsAndConditions';
+import PostChartPage from './pages/PostChartPage';
 
 import CDSideBar from "./components/udComponents/CDSideBar";
 import ConsultantPage from './pages/ConsultantPage';
@@ -42,7 +43,7 @@ import CDBuyersAnalysePage from './pages/cdPages/CDBuyersAnalysePage';
 import CDProfilePage from './pages/cdPages/CDProfilePage';
 import CDChatPage from './pages/cdPages/CDChatPage';
 import CDSettingsPage from './pages/cdPages/CDSettingPage';
-import GenerateActivityReport from './pages/GenerateActivityReport';
+
 
 
 import OrganizationHompage from "./pages/organizationPages/OrganizationHompage";
@@ -79,7 +80,7 @@ function App() {
           <Route path='/update' element={user ? <UpdateProfilePage /> : <Navigate to='/auth' />} />
           <Route path="/organization-job" element={user ? <OrganizationPage /> : <Navigate to="/auth" />}/>
             <Route path="/:Job-application-form/:id" element={user ? <JobApplicationForm /> : <Navigate to="/auth" />} />
-
+            <Route path="/settings" element={<SettingsPage />} />
           <Route
             path='/:username'
             element={user ? (
@@ -98,9 +99,10 @@ function App() {
           <Route path='/chat' element={user ? <ChatPage /> : <Navigate to="/auth" />} />
           <Route path='/settings' element={user ? <SettingsPage isBusiness={user.isBusiness} isConsultant={user.isConsultant} isOrganization={user.isOrganization}/> : <Navigate to="/auth" />} />
           <Route path='/terms' element={<TermsAndConditions />} />
+          <Route path='/:username/postChart' element={<PostChartPage />} />
+            
 
-
-          <Route path='/activityreport' element={<GenerateActivityReport />} />
+          
           <Route path="/organization-Home" element={<OrganizationHompage />}/>
             <Route path="/Create-a-post" element={<CreateAposts />} />
             <Route path="/Candidate-Shortlisting" element={<CandidatesShortlisting />} />
