@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../css/style.css';
+import '../css/style.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -12,7 +12,7 @@ import {
   faComments,
   faCog
 } from '@fortawesome/free-solid-svg-icons';
-import userAtom from "./../../atoms/userAtom";
+import userAtom from "./../atoms/userAtom";
 import { useRecoilValue } from "recoil";
 
 const UDSideBar = () => {
@@ -58,7 +58,7 @@ const UDSideBar = () => {
 
         {/* Sales Analysis */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udslaesanalysis`}>
+          <Link to={`/userDashboard/${user.username}/udsalesanalysis`}>
             <FontAwesomeIcon icon={faChartLine} />
             <span> Sales Analysis</span>
           </Link>
@@ -89,11 +89,6 @@ const UDSideBar = () => {
             <span> Chats</span>
           </Link>
         </div>
-        <li className='sidebar-list-item'>
-                <a href="/organization-Home">
-                    <BsFillBuildingFill className='icon'/> Organization
-                </a>
-            </li>
 
         {/* Settings */}
         <div className="nav-button">

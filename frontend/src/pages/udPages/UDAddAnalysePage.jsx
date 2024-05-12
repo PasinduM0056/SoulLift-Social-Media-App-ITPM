@@ -1,8 +1,9 @@
 import React from 'react'
+import UDSideBar from "../../components/udComponents/UDSideBar";
 
 const UDAddAnalysePage = () => {
   return (
-    <div>UDAddAnaluyePage</div>
+    <div><UDSideBar /></div>
   )
 }
 

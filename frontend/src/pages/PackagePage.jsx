@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Divider, Flex, Image, Spinner, Text } from "@chakra-ui/react";
 import PackageActions from "../components/PackageActions";
-import BuyAction from "../components/BuyAction";
+// import BuyAction from "../components/BuyAction";
 import { useEffect } from "react";
 import PackageComment from "../components/PackageComment";
 import useGetUserProfile from "../hooks/useGetUserProfile";
@@ -148,14 +148,14 @@ const PackagePage = () => {
                         )}
                     </Text>
                     {renderStarRating()}
-                    <BuyAction package={currentPackage} />
+                    {/* <BuyAction package={currentPackage} /> */}
                     
                     
                 </Box>
             </Flex>
 
             <Flex gap={3} my={3}>
-                <ProductActions package={currentPacakge} />
+                <PackageActions selectedPackage={currentPackage} />
             </Flex>
 
             <Divider my={4} />

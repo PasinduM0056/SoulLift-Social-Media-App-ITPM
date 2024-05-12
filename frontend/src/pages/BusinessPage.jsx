@@ -6,6 +6,7 @@ import { useRecoilState } from "recoil";
 import productsAtom from "../atoms/productAtom";
 import SuggestedUsers from "../components/SuggestedUsers";
 
+
 const BusinessPage = () => {
 	const [products, setProducts] = useRecoilState(productsAtom);
 	const [loading, setLoading] = useState(true);

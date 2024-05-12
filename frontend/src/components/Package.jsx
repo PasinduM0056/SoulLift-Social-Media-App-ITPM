@@ -15,7 +15,7 @@ const Package = ({ selectedPackage, postedBy }) => {
     const [user, setUser] = useState(null);
     const showToast = useShowToast();
     const currentUser = useRecoilValue(userAtom);
-    const [packages, setPackages] = useRecoilState(packagesAtom);
+    const [packages, setPackages] = useRecoilState(packageAtom);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -84,7 +84,7 @@ const Package = ({ selectedPackage, postedBy }) => {
     };
 
     return (
-        <Link to={`/${user.username}/package/${product._id}`}>
+        <Link to={`/${user.username}/package/${selectedPackage._id}`}>
             <Flex gap={3} mb={4} py={5}>
                 <Flex flexDirection={"column"} alignItems={"center"}>
                     <Avatar
@@ -173,7 +173,7 @@ const Package = ({ selectedPackage, postedBy }) => {
                         </Text>
                         {selectedPackage.packageImg && (
                             <Box mb={4}>
-                                <Image src={selectedPackage.packageImg} alt={packageName} />
+                                <Image src={selectedPackage.packageImg} alt={selectedPackage.packageName} />
                             </Box>
                         )}
                         <Text fontSize={"sm"} mb={2}>
@@ -194,7 +194,7 @@ const Package = ({ selectedPackage, postedBy }) => {
                     </Box>
 
                     <Flex gap={3} my={1}>
-                        <PackageActions package={selectedPackage} />
+                        <PackageActions selectedPackage={selectedPackage} />
                     </Flex>
                 </Flex>
             </Flex>

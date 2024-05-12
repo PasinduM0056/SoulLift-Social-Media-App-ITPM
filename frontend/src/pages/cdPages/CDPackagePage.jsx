@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useShowToast from "../../hooks/useShowToast";
 import { Flex, Spinner, Box, Table, Thead, Tbody, Tr, Th, Td,TableCaption } from "@chakra-ui/react"; // Assuming Button is imported from Chakra UI
-import CDPackage from "../../components/UDPackage";
+import CDPackage from "../../components/CDPackage";
 import useGetUserProfile from "../../hooks/useGetUserProfile";
 import { useRecoilState } from "recoil";
 import packageAtom from "../../atoms/packagesAtom";
@@ -54,7 +54,7 @@ const CDPackagePage = () => {
 
     return (
         <Box paddingLeft="405px" paddingTop="100px">
-        <CreateProduct paddingLeft="350px" paddingTop="150px" />
+        <CreatePackage paddingLeft="350px" paddingTop="150px" />
         <CDSideBar />
   
         <Table variant="striped" colorScheme="brand" size="sm">
@@ -109,8 +109,8 @@ const CDPackagePage = () => {
               </Tr>
             )}
             {!fetchingPackages &&
-              packages.map((selectedPackage) => (
-                <CDPackage key={selectedPackage._id} package={selectedPackage} postedBy={selectedPackage.postedBy} />
+              packages.map((packageItem) => (
+                <CDPackage key={packageItem._id} packageItem={packageItem} postedBy={packageItem.postedBy} />
               ))}
           </Tbody>
         </Table>

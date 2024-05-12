@@ -4,19 +4,19 @@ import { formatDistanceToNow } from "date-fns";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useRecoilState, useRecoilValue } from "recoil";
 import userAtom from "../atoms/userAtom";
-import postsAtom from "../atoms/postsAtom";
+import caddsAtom from "../atoms/caddAtoms";
 import useShowToast from "../hooks/useShowToast";
 
-const UDPost = ({ post, postedBy }) => {
+const CDAdd = ({ cadd, postedBy }) => {
   const showToast = useShowToast();
   const currentUser = useRecoilValue(userAtom);
-  const [posts, setPosts] = useRecoilState(postsAtom);
+  const [cadds, setCAdds] = useRecoilState(caddsAtom);
 
-  const handleDeletePost = async () => {
+  const handleDeleteCAdd = async () => {
     try {
       if (!window.confirm("Are you sure you want to delete this post?")) return;
 
-      const res = await fetch(`/api/posts/${post._id}`, {
+      const res = await fetch(`/api/cadds/${cadd._id}`, {
         method: "DELETE",
       });
       const data = await res.json();
@@ -24,7 +24,7 @@ const UDPost = ({ post, postedBy }) => {
         showToast("Error", data.error, "error");
         return;
       }
-      setPosts(posts.filter((p) => p._id !== post._id));
+      setCAdds(cadds.filter((a) => a._id !== cadd._id));
       showToast("Success", "Post deleted", "success");
     } catch (error) {
       showToast("Error", error.message, "error");
@@ -34,29 +34,29 @@ const UDPost = ({ post, postedBy }) => {
   return (
     
     <Tr>
-      <Td>{post.text}</Td> {/* Adjusted cell */}
+      <Td>{cadd && cadd.text}</Td>
       <Td>
-        {post.img && (
-          <Box borderRadius={6} overflow={"hidden"} border={"1px solid"} borderColor={"gray.light"}>
-            <Image src={post.img} w={"100px"} />
-          </Box>
-        )}
-      </Td>
-      <Td>{post.likes.length}</Td> {/* Adjusted cell */}
-      <Td>{post.replies.length}</Td> {/* Adjusted cell */}
-      <Td>{formatDistanceToNow(new Date(post.createdAt))} ago</Td> {/* Adjusted cell */}
-      <Td>
+        {cadd && cadd.img && (
+         <Box borderRadius={6} overflow={"hidden"} border={"1px solid"} borderColor={"gray.light"}>
+            <Image src={cadd.img} w={"100px"} />
+        </Box>
+         )}
+        </Td>
+        <Td>{cadd.likes && cadd.likes.length}</Td>
+        <Td>{cadd.replies && cadd.replies.length}</Td>
+        <Td>{formatDistanceToNow(new Date(cadd.createdAt))} ago</Td>
+        <Td>
         {currentUser?._id === postedBy && (
           <IconButton
             icon={<DeleteIcon />}
             size="sm"
             aria-label="Delete Post"
-            onClick={handleDeletePost}
+            onClick={handleDeleteCAdd}
           />
         )}
-      </Td>
+        </Td>
     </Tr>
   );
 };
 
-export default UDPost;
+export default CDAdd;

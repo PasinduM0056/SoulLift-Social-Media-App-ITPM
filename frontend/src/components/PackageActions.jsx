@@ -158,11 +158,11 @@ const PackageActions = ({ selectedPackage }) => {
 
       <Flex gap={2} alignItems="center">
         <Text color="gray.light" fontSize="sm">
-          {product.reviews.length} reviews
+          {selectedPackage.reviews.length} reviews
         </Text>
         <Box w={0.5} h={0.5} borderRadius="full" bg="gray.light"></Box>
         <Text color="gray.light" fontSize="sm">
-          {product.likes.length} likes
+          {selectedPackage.likes.length} likes
         </Text>
       </Flex>
 

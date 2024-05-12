@@ -30,7 +30,7 @@ const CDSideBar = () => {
       <div id="nav-content">
         {/* Dashboard */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/cdhome`}>
+          <Link to={`/consultantDashboard/${user.username}/cdhome`}>
             <FontAwesomeIcon icon={faPalette} />
             <span> Dashboard</span>
           </Link>
@@ -40,7 +40,7 @@ const CDSideBar = () => {
 
         {/* Product */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/cdpackage`}>
+          <Link to={`/consultantDashboard/${user.username}/cdpackage`}>
             <FontAwesomeIcon icon={faCartPlus} />
             <span> Package</span>
           </Link>
@@ -48,7 +48,7 @@ const CDSideBar = () => {
 
         {/* Advertisement */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/cdadvertisement`}>
+          <Link to={`/consultantDashboard/${user.username}/cdadvertisement`}>
             <FontAwesomeIcon icon={faBullhorn} />
             <span> Advertisement</span>
           </Link>
@@ -58,7 +58,7 @@ const CDSideBar = () => {
 
         {/* Sales Analysis */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/cdbuyersanalysis`}>
+          <Link to={`/consultantDashboard/${user.username}/cdbuyersanalysis`}>
             <FontAwesomeIcon icon={faChartLine} />
             <span> Buyers Analysis</span>
           </Link>
@@ -66,7 +66,7 @@ const CDSideBar = () => {
 
         {/* Advertisement Analysis */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/cdadvertanalysis`}>
+          <Link to={`/consultantDashboard/${user.username}/cdadvertanalysis`}>
             <FontAwesomeIcon icon={faChartLine} />
             <span> Advertisement Analysis</span>
           </Link>
@@ -76,7 +76,7 @@ const CDSideBar = () => {
 
         {/* Profile */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/cdprofile`}>
+          <Link to={`/consultantDashboard/${user.username}/cdprofile`}>
             <FontAwesomeIcon icon={faUser} />
             <span> Profile</span>
           </Link>
@@ -84,7 +84,7 @@ const CDSideBar = () => {
 
         {/* Chats */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/cdchats`}>
+          <Link to={`/consultantDashboard/${user.username}/cdchats`}>
             <FontAwesomeIcon icon={faComments} />
             <span> Chats</span>
           </Link>
@@ -92,7 +92,7 @@ const CDSideBar = () => {
 
         {/* Settings */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/cdsettings`}>
+          <Link to={`/consultantDashboard/${user.username}/cdsettings`}>
             <FontAwesomeIcon icon={faCog} />
             <span> Settings</span>
           </Link>

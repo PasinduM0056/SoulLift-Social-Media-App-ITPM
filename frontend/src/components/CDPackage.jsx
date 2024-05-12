@@ -10,7 +10,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import userAtom from "../atoms/userAtom";
 import packagesAtom from "../atoms/packagesAtom";
 
-const UDPackage = ({ selectedPackage, postedBy }) => {
+const CDPackage = ({ packageItem, postedBy }) => {
     const [user, setUser] = useState(null);
     const showToast = useShowToast();
     const currentUser = useRecoilValue(userAtom);
@@ -40,7 +40,7 @@ const UDPackage = ({ selectedPackage, postedBy }) => {
             e.preventDefault();
             if (!window.confirm("Are you sure you want to delete this post?")) return;
 
-            const res = await fetch(`/api/packages/${selectedPackage._id}`, {
+            const res = await fetch(`/api/packages/${packageItem._id}`, {
                 method: "DELETE",
             });
             const data = await res.json();
@@ -49,7 +49,7 @@ const UDPackage = ({ selectedPackage, postedBy }) => {
                 return;
             }
             showToast("Success", "Package deleted", "success");
-            setProducts(packages.filter((p) => p._id !== selectedPackage._id));
+            setPackages(packages.filter((p) => p._id !== packageItem._id));
         } catch (error) {
             showToast("Error", error.message, "error");
         }
@@ -63,22 +63,22 @@ const UDPackage = ({ selectedPackage, postedBy }) => {
 
     return (
         <Tr>
-        <Td><Link to={`/userDashBoard/${user.username}/udPackage/${selectedPackage._id}`}>{selectedPackage.packageName} </Link></Td>
-        <Td>{selectedPackage.packageDescription}</Td>
-        <Td>{selectedPackage.packagePrice}</Td>
-        <Td>{selectedPackage.packageOfferPrice}</Td>
+        <Td><Link to={`/userDashBoard/${user.username}/udPackage/${packageItem._id}`}>{packageItem.packageName} </Link></Td>
+        <Td>{packageItem.packageDescription}</Td>
+        <Td>{packageItem.packagePrice}</Td>
+        <Td>{packageItem.packageOfferPrice}</Td>
         <Td>
-          {selectedPackage.packageImg && (
+          {packageItem.packageImg && (
             <Box borderRadius={6} overflow={"hidden"} border={"1px solid"} borderColor={"gray.light"}>
-              <Image src={selectedPackage.packageImg} w={"100px"} />
+              <Image src={packageItem.packageImg} w={"100px"} />
             </Box>
           )}
         </Td>
-        <Td>{selectedPackage.likes?.length}</Td>
-        <Td>{selectedPackage.reviews?.length}</Td>
-        <Td>{selectedPackage.buyers?.length}</Td>
+        <Td>{packageItem.likes?.length}</Td>
+        <Td>{packageItem.reviews?.length}</Td>
+        <Td>{packageItem.buyers?.length}</Td>
 
-        <Td>{formatDistanceToNow(new Date(selectedPackage.createdAt))} ago</Td>
+        <Td>{formatDistanceToNow(new Date(packageItem.createdAt))} ago</Td>
         <Td>
           {currentUser?._id === postedBy && (
             <IconButton
@@ -93,4 +93,4 @@ const UDPackage = ({ selectedPackage, postedBy }) => {
     );
 };
 
-export default UDPackage;
+export default CDPackage;

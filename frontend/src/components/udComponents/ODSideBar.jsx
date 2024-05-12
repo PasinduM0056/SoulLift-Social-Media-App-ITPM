@@ -30,7 +30,7 @@ const UDSideBar = () => {
       <div id="nav-content">
         {/* Dashboard */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udhome`}>
+          <Link to={`/Update-Organization`}>
             <FontAwesomeIcon icon={faPalette} />
             <span> Dashboard</span>
           </Link>
@@ -40,7 +40,7 @@ const UDSideBar = () => {
 
         {/* Product */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udproduct`}>
+          <Link to={`/Post-a-job`}>
             <FontAwesomeIcon icon={faCartPlus} />
             <span> Product</span>
           </Link>
@@ -48,7 +48,7 @@ const UDSideBar = () => {
 
         {/* Advertisement */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udadvertisement`}>
+          <Link to={`/Candidate-Shortlisting`}>
             <FontAwesomeIcon icon={faBullhorn} />
             <span> Advertisement</span>
           </Link>
@@ -58,7 +58,7 @@ const UDSideBar = () => {
 
         {/* Sales Analysis */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udslaesanalysis`}>
+          <Link to={`/Shortlisted-Candidates`}>
             <FontAwesomeIcon icon={faChartLine} />
             <span> Sales Analysis</span>
           </Link>
@@ -66,7 +66,7 @@ const UDSideBar = () => {
 
         {/* Advertisement Analysis */}
         <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udadvertanalysis`}>
+          <Link to={`/Posted-Jobs`}>
             <FontAwesomeIcon icon={faChartLine} />
             <span> Advertisement Analysis</span>
           </Link>
@@ -74,34 +74,7 @@ const UDSideBar = () => {
         
         <hr/>
 
-        {/* Profile */}
-        <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udprofile`}>
-            <FontAwesomeIcon icon={faUser} />
-            <span> Profile</span>
-          </Link>
-        </div>
-
-        {/* Chats */}
-        <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udchats`}>
-            <FontAwesomeIcon icon={faComments} />
-            <span> Chats</span>
-          </Link>
-        </div>
-        <li className='sidebar-list-item'>
-                <a href="/organization-Home">
-                    <BsFillBuildingFill className='icon'/> Organization
-                </a>
-            </li>
-
-        {/* Settings */}
-        <div className="nav-button">
-          <Link to={`/userDashboard/${user.username}/udsettings`}>
-            <FontAwesomeIcon icon={faCog} />
-            <span> Settings</span>
-          </Link>
-        </div>
+        
         <div id="nav-content-highlight"></div>
       </div>
       <input id="nav-footer-toggle" type="checkbox"/>
