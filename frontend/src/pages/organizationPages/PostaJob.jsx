@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import ODSideBar from "../../components/udComponents/ODSideBar";
 import {
   Button,
   FormControl,
@@ -56,6 +57,7 @@ function PostaJob() {
 
   return (
     <Grid container xs={12}>
+            <ODSideBar />
       <Grid item xs={0}>
         <div
           className="job-post-up-container"
