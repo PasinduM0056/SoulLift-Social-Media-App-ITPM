@@ -14,11 +14,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import userAtom from "./../../atoms/userAtom";
 import { useRecoilValue } from "recoil";
-
+import './ODSidebar.css';
 const UDSideBar = () => {
   const user = useRecoilValue(userAtom);
   return (
-    <div id="nav-bar">
+    <div id="nav-bar" className='odsidebar' style={{minHeight:'101vh', position:'fixed'}}>
       <input id="nav-toggle" type="checkbox"/>
       <div id="nav-header">
         <a id="nav-title" href="https://codepen.io" target="_blank">
@@ -27,32 +27,48 @@ const UDSideBar = () => {
         <label htmlFor="nav-toggle"><span id="nav-toggle-burger"></span></label>
         <hr/>
       </div>
+
+      <br/>
       <div id="nav-content">
         {/* Dashboard */}
         <div className="nav-button">
-          <Link to={`/Update-Organization`}>
+          <Link to={`/organization-Home`}>
             <FontAwesomeIcon icon={faPalette} />
             <span> Dashboard</span>
           </Link>
         </div>
 
-        
+        <br/>
 
         {/* Product */}
         <div className="nav-button">
           <Link to={`/Post-a-job`}>
             <FontAwesomeIcon icon={faCartPlus} />
-            <span> Product</span>
+            <span> Post a job</span>
           </Link>
         </div>
+
+        <br/>
+
+         {/* Advertisement */}
+         <div className="nav-button">
+          <Link to={`/Create-a-post`}>
+            <FontAwesomeIcon icon={faBullhorn} />
+            <span> Create Dedicated page</span>
+          </Link>
+        </div>
+
+        <br/>
 
         {/* Advertisement */}
         <div className="nav-button">
           <Link to={`/Candidate-Shortlisting`}>
             <FontAwesomeIcon icon={faBullhorn} />
-            <span> Advertisement</span>
+            <span> Candidate shortlisting</span>
           </Link>
         </div>
+
+        <br/>
         
         <hr/>
 
@@ -60,17 +76,27 @@ const UDSideBar = () => {
         <div className="nav-button">
           <Link to={`/Shortlisted-Candidates`}>
             <FontAwesomeIcon icon={faChartLine} />
-            <span> Sales Analysis</span>
+            <span> Sortlisted Candidates</span>
           </Link>
         </div>
+
+        <br/>
 
         {/* Advertisement Analysis */}
         <div className="nav-button">
           <Link to={`/Posted-Jobs`}>
             <FontAwesomeIcon icon={faChartLine} />
-            <span> Advertisement Analysis</span>
+            <span> Posted Jobs</span>
           </Link>
         </div>
+<br/>
+        <div className="nav-button">
+          <Link to={`/Update-Organization`}>
+            <FontAwesomeIcon icon={faChartLine} />
+            <span> Update your company details</span>
+          </Link>
+        </div>
+        
         
         <hr/>
 

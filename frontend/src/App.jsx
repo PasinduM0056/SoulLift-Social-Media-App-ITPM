@@ -7,7 +7,6 @@ import userAtom from "./atoms/userAtom";
 import Header from "./components/Header";
 import HeaderB from './components/HeaderB';
 import UDSideBar from "./components/udComponents/UDSideBar";
-import ODSideBar from "./components/udComponents/ODSideBar";
 import HomePage from "./pages/HomePage";
 import BusinessPage from './pages/BusinessPage';
 import AuthPage from "./pages/AuthPage";
@@ -67,10 +66,10 @@ function App() {
   return (
     <Box position="relative" w='full'>
 
-      <Container maxW={"850px"}>
+      <Container maxW={"1050px"}>
         {(pathname === "/:Job-application-form/:id" ||pathname === "/organization-job" ||pathname === '/' || pathname === '/business' || pathname === '/consultant' || pathname === '/auth' || pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname === '/:username/post/:pid' || pathname === '/:username/product/:pid' || pathname === '/:username') && <Header />}
         {(pathname === "/:Job-application-form/:id" ||pathname === "/organization-job" ||pathname === '/' || pathname === '/business' || pathname === '/consultant' || pathname === '/update' || pathname === '/chat' || pathname === '/settings' || pathname === '/:username/post/:pid' || pathname === '/:username/product/:pid' || pathname === '/:username') && <HeaderB />}
-        {(pathname === "/organization-Home" ||pathname === "/Create-a-post" ||pathname === '/Candidate-Shortlisting' || pathname === '/Update-Organization' || pathname === '/Post-a-job' || pathname === '/Shortlisted-Candidates' || pathname === '/Posted-Jobs' ) && <ODSideBar />}
+        {/* {(pathname === "/organization-Home" ||pathname === "/Create-a-post" ||pathname === '/Candidate-Shortlisting' || pathname === '/Update-Organization' || pathname === '/Post-a-job' || pathname === '/Shortlisted-Candidates' || pathname === '/Posted-Jobs' ) && <ODSideBar />} */}
          {/* <MainSideBar /> */}
         <Routes>
           <Route path='/' element={user ? <HomePage /> : <Navigate to='/auth' />} />
